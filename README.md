@@ -19,3 +19,5 @@ Playstation 3: [RPCS3](https://github.com/RPCS3/rpcs3) <br />
 [Parts and Emulator List](https://docs.google.com/spreadsheets/d/1ALpfdckvdpH38KOAA2tQCqkrMmXP1Gw3A8R0yB0zqGg/edit?usp=sharing) <br />
 [Project Proposal](https://docs.google.com/document/d/1yBoYMPRjcl2UAiMpMrb5UvjlYsrBzHMLdqXjJbXgbxs/edit?usp=sharing) <br />
 [Raspberry Pi OS Flashing Procedure](https://docs.google.com/document/d/1_6FRPV2-8xxY_qosx5HeV4UK3wdhwpzHxR0WtXd2Lhs/edit?usp=sharing) <br />
+[Steps to SSH into Raspberry Pi](https://docs.google.com/document/d/11Dc_4-_AeuRvbQ93VxL-Q0HaXzGft7osD1K2YTPXZ6w/edit?usp=sharing) <br />
+
