@@ -1,13 +1,87 @@
 .emulators {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #001A27;
-    color: white;
-    
-  }
-  
-  img {
-    width: 10vw;
-    height: auto; 
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+  color: white;
+
+}
+
+img {
+  width: 10vw;
+  height: auto;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+}
+
+.title {
+  font-size: 50px;
+  font-weight: 300;
+  margin: 0;
+}
+
+.top {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.middle {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  flex-grow: 1;
+  /* middle take up remaining space*/
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom {
+  width: 100%;
+  padding: 20px;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.box-container {
+  display: flex;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: #669BBC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin: 0 10px;
+  font-size: 24px;
+  border-radius: 8px;
+}
+
+.active {
+  background-color: #bae4ff;
+  transform: scale(1.2);
+}
