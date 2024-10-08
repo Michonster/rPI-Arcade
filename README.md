@@ -21,4 +21,5 @@ Gamecube/Wii: [Dolphin](https://github.com/dolphin-emu/dolphin) <br />
 [Raspberry Pi OS Flashing Procedure](https://docs.google.com/document/d/1_6FRPV2-8xxY_qosx5HeV4UK3wdhwpzHxR0WtXd2Lhs/edit?usp=sharing) <br />
 [Steps to SSH into Raspberry Pi](https://docs.google.com/document/d/11Dc_4-_AeuRvbQ93VxL-Q0HaXzGft7osD1K2YTPXZ6w/edit?usp=sharing) <br />
 [Steps to install Retropie onto Raspberry Pi](https://docs.google.com/document/d/1LPk0pQld89WjpNxLfQ80QWkx3yFmBLrs-CT05ln_ng4/edit?usp=sharing) <br />
+[Wii/Dolphin Compatibility](https://docs.google.com/spreadsheets/d/14DkemKgZ2HnjfXpCB7fWLplWL8OP-Kb9/edit?gid=944488023#gid=944488023) <br />
 
