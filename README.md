@@ -4,6 +4,7 @@
 An Open-Source Arcade Cabinet for Playing Open-Source Emulators
 
 ## Open-Source Emulators Being Used
+Dreamcast: [redream](https://github.com/inolen/redream) <br />
 Playstation 1: [PCSX_ReARMed](https://github.com/libretro/pcsx_rearmed) <br />
 Nintendo 64: [mupen64plus](https://github.com/mupen64plus) <br />
 Nintendo Entertainment System: [Mesen](https://github.com/SourMesen/Mesen) <br />
