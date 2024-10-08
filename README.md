@@ -1,5 +1,5 @@
 # rPI-Arcade
-![rpi_arcade_logo](https://github.com/user-attachments/assets/1d0f80e8-ef74-4d98-b899-7829abfec777)
+![rPI-Arcade Logo](https://github.com/user-attachments/assets/9550915a-3531-4492-b64a-8d901ebc2588)
 
 An Open-Source Arcade Cabinet for Playing Open-Source Emulators
 
