@@ -5,9 +5,12 @@ An Open-Source Arcade Cabinet for Playing Open-Source Emulators
 
 ## Open-Source Emulators Being Used
 Dreamcast: [redream](https://github.com/inolen/redream) <br />
-Playstation 1: [PCSX_ReARMed](https://github.com/libretro/pcsx_rearmed) <br />
 Nintendo 64: [mupen64plus](https://github.com/mupen64plus) <br />
+Nintendo DS: [desmume](https://github.com/TASEmulators/desmume) <br />
 Nintendo Entertainment System: [Mesen](https://github.com/SourMesen/Mesen) <br />
+Playstation 1: [PCSX_ReARMed](https://github.com/libretro/pcsx_rearmed) <br />
+Playstation Portable (PSP): [ppsspp](https://github.com/hrydgard/ppsspp) <br />
+Sega Genesis: [Genesis-Plus-GX](https://github.com/ekeeke/Genesis-Plus-GX) <br />
 Super Nintendo Entertainment System: [snes9x](https://github.com/snes9xgit/snes9x) <br />
 
 
