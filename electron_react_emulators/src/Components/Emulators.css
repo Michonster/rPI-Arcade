@@ -4,68 +4,67 @@
   justify-content: space-between;
   align-items: center;
   height: 100vh;
-  background-color: black;
   color: white;
-
 }
 
-img {
-  width: 10vw;
-  height: auto;
+.backDrop {
+  position: absolute;
+  z-index: -6;
+}
+
+
+/* ============================================== */
+.top {
+  width: 100%;
+  height: 30%;
+  text-align: center;
+  padding: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pixelPanelTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  z-index: -1;
 }
 
 .logo {
   width: 150px;
   height: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.title {
-  font-size: 50px;
-  font-weight: 300;
-  margin: 0;
-}
-
-.top {
+.stringDecor {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  text-align: center;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 20%;
 }
 
+/* ============================================== */
 .middle {
   width: 100%;
   text-align: center;
-  padding: 20px;
   flex-grow: 1;
-  /* middle take up remaining space*/
-  background-color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-.bottom {
-  width: 100%;
-  padding: 20px;
-  height: 20vh;
-  display: flex;
-  justify-content: center;
-}
-
-
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-}
 
 .box-container {
   display: flex;
+  margin-bottom: 80px;
 }
 
 .box {
@@ -83,5 +82,105 @@ img {
 
 .active {
   background-color: #bae4ff;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
+
+button {
+  font-size: 24px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 0 20px;
+}
+
+.button-container {
+  position: absolute;
+  top: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.left-button {
+  background-color: transparent;
+  background-image: url('../assets/left arrow.png');
+  background-size: 100% 100%;
+  width: 120px;
+  height: 50px;
+  background-repeat: no-repeat;
+}
+
+.right-button {
+  background-color: transparent;
+  background-image: url('../assets/right arrow.png');
+  background-size: 100% 100%;
+  width: 120px;
+  height: 50px;
+  background-repeat: no-repeat;
+}
+
+/* ============================================== */
+.bottom {
+  color: white;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.pixelPanelBot {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  height: 20%;
+  transform: translateX(-50%) scaleY(-1);
+  z-index: -1;
+
+}
+
+.text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 0 5px 0;
+}
+
+.title {
+  font-size: 50px;
+  font-weight: 300;
+  margin: 0;
+}
+
+.buttonDesc {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.button1 {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #74ace0;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.button1:hover {
+  background-color: #0056b3;
+}
+
+
+.desc {}
