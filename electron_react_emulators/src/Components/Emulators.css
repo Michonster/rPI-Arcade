@@ -50,7 +50,7 @@
 }
 
 /* ============================================== */
- .middle {
+.middle {
   width: 100%;
   text-align: center;
   flex-grow: 1;
@@ -60,20 +60,20 @@
   justify-content: flex-end;
 }
 
- .box-container {
+.box-container {
   width: 100%;
   height: 60%;
   position: absolute;
   perspective: 1000px;
 
-  top: 40%;
+  top: 45%;
   left: 43%;
 }
 
 .box {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   background-color: #669BBC;
   display: flex;
   justify-content: center;
@@ -82,10 +82,16 @@
   font-size: 24px;
   border-radius: 8px;
   transition: all 0.3s ease-out;
+  border: 2px solid #ffffff;
 }
 
 .active {
   background-color: #bae4ff;
+}
+
+.box-snes {
+  width: 150px;
+  height: 150px;
 }
 
 
@@ -187,5 +193,12 @@ button {
   background-color: #0056b3;
 }
 
-
-.desc {}
+.stringDecorBot {
+  position: absolute;
+  transform: translateY(10px);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  overflow: visible;
+}

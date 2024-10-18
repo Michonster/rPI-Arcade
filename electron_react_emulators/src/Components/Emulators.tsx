@@ -7,22 +7,29 @@ import "./emulators.css";
 import logo from '../assets/Logo.png';
 import pixelPanel from '../assets/pixelPanel.png';
 import backdrop from '../assets/backdrop.png';
+import TextAlongPath from "../assets/waveTop.tsx";
+import TextAlongPathBot from "../assets/waveBottom.tsx";
 
 
-import TextAlongPath from "../assets/textAlongPath.tsx";
-
-
-const boxData = [1, 2, 3, 4, 5];
+const boxData = [
+  { image:  '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
+  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
+  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
+  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
+  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
+  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
+  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' }
+];
 
 const Emulators: React.FC = () => {
-  const [position, setPosition] = useState<number>(2);
+  const [position, setPosition] = useState<number>(0);
   const totalBoxes = boxData.length;
 
-  const handleLeftClick = () => {
+  const handleRightClick = () => {
     setPosition((prev) => (prev > 0 ? prev - 1 : totalBoxes - 1));
   };
 
-  const handleRightClick = () => {
+  const handleLeftClick = () => {
     setPosition((prev) => (prev < totalBoxes - 1 ? prev + 1 : 0));
   };
 
@@ -42,25 +49,33 @@ const Emulators: React.FC = () => {
         <div className="box-container">
           {boxData.map((box, index) => {
             const offset = (index - position + totalBoxes) % totalBoxes;
-            let xPosition = '0%';
-            let yPosition = '0%';
+
+            // Start angle from +90 degrees (Math.PI/2) so the active item is at bottom center
+            const angle = ((offset / totalBoxes) * 2 * Math.PI) + Math.PI / 2;
+
+            // Use different radii for x and y to create an elliptical path
+            const xRadius = 500; // Larger radius for horizontal spread
+            const yRadius = 50;  // Smaller radius for vertical spread
+
+            // Calculate positions using elliptical coordinates
+            const xPosition = xRadius * Math.cos(angle);
+            const yPosition = yRadius * Math.sin(angle);
             let scale = 1;
             let zIndex = 1;
+            const maxZIndex = totalBoxes; // Set maxZIndex to total number of boxes
 
             if (offset === 0) {
-              yPosition = '20%';
               scale = 1.2;
-              zIndex = 5;
+              zIndex = maxZIndex; // Highest zIndex for the active box
             } else if (offset === 1 || offset === totalBoxes - 1) {
-              xPosition = offset === 1 ? '80%' : '-80%';
-              yPosition = '-5%';
-              scale = 0.8;
-              zIndex = 3;
+              scale = 1;
+              zIndex = maxZIndex - 1; // Second highest zIndex
             } else {
-              xPosition = offset === 2 ? '150%' : '-150%';
-              yPosition = '-30%';
-              scale = 0.6;
-              zIndex = 1;
+              // For other boxes, calculate zIndex based on their offset
+              const relativePosition = Math.abs(offset - Math.floor(totalBoxes / 2));
+              zIndex = relativePosition - maxZIndex - 2;
+              // Calculate scale based on zIndex and clamp the value between 0.4 and 0.8
+              scale = Math.min(0.85, Math.max(0.5, 1 - zIndex * -0.02));
             }
 
             return (
@@ -68,22 +83,28 @@ const Emulators: React.FC = () => {
                 key={index}
                 className={`box ${offset === 0 ? 'active' : ''}`}
                 animate={{
+                  zIndex: zIndex,
                   x: xPosition,
                   y: yPosition,
                   scale: scale,
-                  zIndex: zIndex,
+
                 }}
                 transition={{
                   type: "spring",
                   stiffness: 600,
-                  damping: 60
+                  damping: 60,
                 }}
               >
-                Emu {box}
+                {/* Emu {box} */}
+
+                {/* Render image and text */}
+                <img src={box.image} alt={`Box ${index + 1}`} />
+                <p>{box.text}</p>
               </motion.div>
             );
           })}
         </div>
+
         <div className="button-container">
           <button className="left-button" onClick={handleLeftClick} />
           <button className="right-button" onClick={handleRightClick} />
@@ -94,6 +115,7 @@ const Emulators: React.FC = () => {
       {/* Bottom Section */}
       <div className="bottom">
         <img src={pixelPanel} alt="pixel panel" className="pixelPanelBot" />
+        <TextAlongPathBot className="stringDecorBot" />
 
         <div className="text">
           <div className="buttonDesc">
