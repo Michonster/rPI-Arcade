@@ -1,13 +1,14 @@
 import './App.css';
 import Emulators from './Emulators';
+import Startup from './Startup';
 
 
 function App() {
 
   return (
     <div className='App'>
-      
-      <Emulators />
+      <Startup />
+      {/* <Emulators /> */}
     </div>
   )
 }
