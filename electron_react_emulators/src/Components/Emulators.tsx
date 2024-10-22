@@ -10,15 +10,26 @@ import backdrop from '../assets/backdrop.png';
 import TextAlongPath from "../assets/waveTop.tsx";
 import TextAlongPathBot from "../assets/waveBottom.tsx";
 
+import boxSNES from '../assets/emu/SNES.png';
+import boxDesmume from '../assets/emu/Desmume.png';
+import boxGenesis from '../assets/emu/genesisPlusGX.png';
+import boxMesen from '../assets/emu/Mesen.png';
+import boxMupen64 from '../assets/emu/mupen64plus.png';
+import boxPCSX from '../assets/emu/PCSX.png';
+import boxPPSSPP from '../assets/emu/ppsspp.png';
+import boxRedream from '../assets/emu/redream.png';
+
+
 
 const boxData = [
-  { image:  '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
-  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
-  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
-  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
-  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
-  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' },
-  { image: '../assets/emu/SNES.png', text: 'SNES', className: 'box-snes' }
+  { image: boxSNES, text: 'SNES', className: 'box-snes' },
+  { image: boxDesmume, text: 'Desmume', className: 'box-desmume' },
+  { image: boxGenesis, text: 'genesisPlusGX', className: 'box-genesis' },
+  { image: boxMesen, text: 'mesen', className: 'box-snes' },
+  { image: boxMupen64, text: 'mupen', className: 'box-snes' },
+  { image: boxPCSX, text: 'SNES', className: 'box-snes' },
+  { image: boxPPSSPP, text: 'SNES', className: 'box-snes' },
+  { image: boxRedream, text: 'SNES', className: 'box-snes' }
 ];
 
 const Emulators: React.FC = () => {
@@ -99,7 +110,7 @@ const Emulators: React.FC = () => {
 
                 {/* Render image and text */}
                 <img src={box.image} alt={`Box ${index + 1}`} />
-                <p>{box.text}</p>
+                <p className="boxText">{box.text}</p>
               </motion.div>
             );
           })}
