@@ -4,13 +4,14 @@ import pyudev
 import time
 import subprocess
 
-
 context = pyudev.Context()
 
 monitor = pyudev.Monitor.from_netlink(context)
 monitor.filter_by(subsystem = 'block')
 
-game_systems = ['NES', 'N64', 'SNES', 'dreamcast', 'PS1']
+stop_script = False
+
+game_systems = ['NES', 'N64', 'SNES', 'Dreamcast', 'PS1']
 
 def copy_folder_from_usb(usb_base_path, destination_base_path):
     """
@@ -33,6 +34,7 @@ def copy_folder_from_usb(usb_base_path, destination_base_path):
             print(f"{system} not found on USB")
 
 def device_event(device):
+    global stop_script
     if device.action == 'add' and 'part' in device.device_type:
             print(f"USB device {device.device_node} inserted.")
             device_path = f'{device.device_node}'
@@ -55,21 +57,25 @@ def device_event(device):
                 print(f"An error has occured: {e}")
     elif device.action == 'remove' and 'part' in device.device_type:
         print(f"USB partition {device.device_node} removed")
+        stop_script = True
         observer.stop()
         print("USB removed, stopping script")
-observer = pyudev.MonitorObserver(monitor, callback=device_event)
-observer.start()
-print("Monitoring USB storage insertions...")
+        
+if __name__ == "__main__":
+    
+    observer = pyudev.MonitorObserver(monitor, callback=device_event)
+    observer.start()
+    print("Monitoring USB storage insertions...")
 
-# Example usage
-#usb_folder = '/mnt/usb/Retropie/NES'
-#destination_folder = '/home/rpiarcade/NES'
-#copy_folder_from_usb(usb_folder, destination_folder)
+    # Example usage
+    #usb_folder = '/mnt/usb/Retropie/NES'
+    #destination_folder = '/home/rpiarcade/NES'
+    #copy_folder_from_usb(usb_folder, destination_folder)
 
-try:
-    while True:
-        time.sleep(1)
-except KeyboardInterrupt:
-    print("Quitting on User request")
+    try:
+        while not stop_script:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Quitting on User request")
 
 
