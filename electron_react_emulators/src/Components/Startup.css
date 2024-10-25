@@ -1,8 +1,13 @@
 .startup {
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.titleScreen {
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
@@ -25,7 +30,20 @@
 
 .backDrop {
     position: absolute;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
     z-index: -6;
+    background: url(../assets/loopable_pixelBackground.png) repeat 0 0;
+    background-size: 200px 200px;
+    background-attachment: fixed; 
+    animation: animate-bg 1.92s infinite linear;
+}
+
+@keyframes animate-bg {
+    100% {
+        background-position: 200px -200px;
+    }
 }
 /* ============================================== */
 .top {
@@ -72,7 +90,32 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    position: relative;
+}
+.middle h1 {
+    margin: 0; /* Remove default margins to prevent misalignment */
+    padding: 5px 0; /* Add some padding for spacing */
+    scale: 1.5;
+    text-transform: uppercase;
+}
+.middle p {
+    margin: 0; /* Remove default margins to prevent misalignment */
+    padding: 5px 0; /* Add some padding for spacing */
+    scale: 1.5;
+}
+
+.push-start {
+    font-size: 24px;
+    color: white;
+    margin-top: 10px; /* Space between the middle text and the flashing text */
+    animation: flash 1s infinite; /* Flash every second */
+    text-transform: uppercase;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .bottom {
