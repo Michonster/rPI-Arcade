@@ -3,20 +3,14 @@ import os
 import pyudev
 import time
 import subprocess
-import atexit
+
 
 context = pyudev.Context()
 
 monitor = pyudev.Monitor.from_netlink(context)
 monitor.filter_by(subsystem = 'block')
 
-def cleanup():
-    observer.stop()
-    print("\nStopped monitoring")
-    
-atexit.register(cleanup)
-
-game_systems = ['NES', 'N64', 'SNES', 'Dreamcast', 'PS1']
+game_systems = ['NES', 'N64', 'SNES', 'dreamcast', 'PS1']
 
 def copy_folder_from_usb(usb_base_path, destination_base_path):
     """
