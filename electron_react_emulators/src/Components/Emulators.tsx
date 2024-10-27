@@ -10,6 +10,8 @@ import backdrop from '../assets/backdrop.png';
 import TextAlongPath from "../assets/waveTop.tsx";
 import TextAlongPathBot from "../assets/waveBottom.tsx";
 
+// import boxD from "../assets/emu/emu.json";
+
 import boxSNES from '../assets/emu/SNES.png';
 import boxDesmume from '../assets/emu/Desmume.png';
 import boxGenesis from '../assets/emu/genesisPlusGX.png';
@@ -111,6 +113,7 @@ const Emulators: React.FC = () => {
                 {/* Render image and text */}
                 <img src={box.image} alt={`Box ${index + 1}`} />
                 <p className="boxText">{box.text}</p>
+                
               </motion.div>
             );
           })}
