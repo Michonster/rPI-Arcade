@@ -4,35 +4,13 @@ import { motion } from 'framer-motion';
 
 import "./emulators.css";
 // import StringDecor from '../assets/StringDecorSVG.tsx';
-import logo from '../assets/Logo.png';
-import pixelPanel from '../assets/pixelPanel.png';
-import backdrop from '../assets/backdrop.png';
+import logo from '../../public/images/Logo.png';
+import pixelPanel from '../../public/images/pixelPanel.png';
+import backdrop from '../../public/images/backdrop.png';
 import TextAlongPath from "../assets/waveTop.tsx";
 import TextAlongPathBot from "../assets/waveBottom.tsx";
 
-// import boxD from "../assets/emu/emu.json";
-
-import boxSNES from '../assets/emu/SNES.png';
-import boxDesmume from '../assets/emu/Desmume.png';
-import boxGenesis from '../assets/emu/genesisPlusGX.png';
-import boxMesen from '../assets/emu/Mesen.png';
-import boxMupen64 from '../assets/emu/mupen64plus.png';
-import boxPCSX from '../assets/emu/PCSX.png';
-import boxPPSSPP from '../assets/emu/ppsspp.png';
-import boxRedream from '../assets/emu/redream.png';
-
-
-
-const boxData = [
-  { image: boxSNES, text: 'SNES', className: 'box-snes' },
-  { image: boxDesmume, text: 'Desmume', className: 'box-desmume' },
-  { image: boxGenesis, text: 'genesisPlusGX', className: 'box-genesis' },
-  { image: boxMesen, text: 'mesen', className: 'box-snes' },
-  { image: boxMupen64, text: 'mupen', className: 'box-snes' },
-  { image: boxPCSX, text: 'SNES', className: 'box-snes' },
-  { image: boxPPSSPP, text: 'SNES', className: 'box-snes' },
-  { image: boxRedream, text: 'SNES', className: 'box-snes' }
-];
+import boxData from "../../public/emu.json";
 
 const Emulators: React.FC = () => {
   const [position, setPosition] = useState<number>(0);
@@ -54,6 +32,12 @@ const Emulators: React.FC = () => {
       <div className="top">
         <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />
         <img src={logo} alt="logo" className="logo" />
+        <div className="uploadText">
+          upload games 
+          <br/>(flashdrive required)
+          <button className="button1"> button2 </button>
+        </div>
+
       </div>
       <TextAlongPath className="stringDecor" />
 
@@ -113,7 +97,7 @@ const Emulators: React.FC = () => {
                 {/* Render image and text */}
                 <img src={box.image} alt={`Box ${index + 1}`} />
                 <p className="boxText">{box.text}</p>
-                
+
               </motion.div>
             );
           })}
@@ -134,12 +118,16 @@ const Emulators: React.FC = () => {
         <div className="text">
           <div className="buttonDesc">
             <p className="desc"> Press </p>
-            <button className="button1"> Button 1</button>
+            <button className="button1"> button1 </button>
             <p> for </p>
           </div>
 
           <p className="title">Emulator Details</p>
+
+          
         </div>
+        
+        <p className="RCOS">RCOS Project</p>
 
       </div>
     </div>

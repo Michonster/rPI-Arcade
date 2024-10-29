@@ -19,7 +19,6 @@ const TopWave = (props: SVGProps<SVGSVGElement>) => (
         d="m1 1 338.849 160H963.23L1301 1"
       />
 
-      {/* Animate the text with Framer Motion */}
       <text fontSize="20" fill="white" textAnchor="middle">
         <motion.textPath
           href="#wavepath"

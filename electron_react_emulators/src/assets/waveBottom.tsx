@@ -19,7 +19,6 @@ const BottomWave = (props: SVGProps<SVGSVGElement>) => (
         d="m1 160 338.849 -160H963.23L1301 160"
       />
 
-      {/* Animate the text with Framer Motion */}
       <text fontSize="20" fill="white" textAnchor="middle">
         <motion.textPath
           href="#wavepath-bot"
