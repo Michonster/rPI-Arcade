@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import "./startup.css";
 import vid from '../assets/rpi_arcade4.mp4';
-import logo from '../assets/Logo.png';
-import pixelPanel from '../assets/pixelPanel.png';
-import pixelBackground from '../assets/pixelBackground.png';
-import backdrop from '../assets/backdrop.png';
-import TextAlongPath from "../assets/textAlongPath.tsx";
+import logo from '../../public/images/Logo.png';
+import pixelPanel from '../../public/images/pixelPanel.png';
+import demo from '../assets/Marvel Super Heroes (Capcom 1995)  Attract Mode 60fps.mp4';
+import TextAlongPath from "../assets/waveTop.tsx";
+import TextAlongPathBot from "../assets/waveBottom.tsx";
 
 //have a startup screen that plays vid before going to a title screen
 const Startup = () => {
@@ -42,13 +42,12 @@ const Startup = () => {
             ) : ( //if the intro already played, show title screen
                 <div className="titleScreen">
                     <div className='backDrop' />
-                    {/* <img src={pixelBackground} alt="backdrop" className='backDrop' /> */}
                     {/* Top Section */}
                     <div className="top">
                         <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />
                         <img src={logo} alt="logo" className="logo" />
                     </div>
-                    <TextAlongPath className="stringDecor" />
+                    {/* <TextAlongPath className="stringDecor" /> */}
 
                     {/* Title Section */}
                     <div className="middle">
@@ -63,6 +62,7 @@ const Startup = () => {
                     {/* Bottom Section */}
                     <div className="bottom">
                         <img src={pixelPanel} alt="pixel panel" className="pixelPanelBot" />
+                        {/* <TextAlongPathBot className="stringDecorBot" /> */}
                     </div>
                 </div>
             )}
