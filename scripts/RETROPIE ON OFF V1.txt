@@ -1,0 +1,113 @@
+
+
+VERSION 1.1 
+apt-get with the following command :
+       
+	   
+   1.  sudo apt-get install update
+	
+   2.  sudo apt-get install python-dev
+   
+   3.  sudo apt-get install python3-dev 
+   
+   4.  sudo apt-get install gcc 
+   
+   5.  sudo apt-get install python-pip
+
+
+
+
+Next you need to get RPi.GPIO:
+
+   6.  wget https://pypi.python.org/packages/source/R/RPi.GPIO/RPi.GPIO-0.5.11.tar.gz
+
+
+Uncompress the packages:
+
+   7.  sudo tar -zxvf RPi.GPIO-0.5.11.tar.gz
+
+
+
+move into the newly created directory:
+
+   8.  cd RPi.GPIO-0.5.11
+
+
+install the module by doing:
+
+   9.  sudo python setup.py install
+
+   10.  sudo python3 setup.py install
+
+
+creating a directory to hold your scripts:
+
+   11.  mkdir /home/pi/scripts
+
+call our script shutdown.py (it is written in python). Create and edit the script by doing:
+
+   
+   12.  sudo nano /home/pi/scripts/shutdown.py
+
+
+The content of the script: Paste it in the blank area
+
+#!/usr/bin/python
+import RPi.GPIO as GPIO
+import time
+import subprocess
+
+# we will use the pin numbering to match the pins on the Pi, instead of the 
+# GPIO pin outs (makes it easier to keep track of things)
+
+GPIO.setmode(GPIO.BOARD)  
+
+# use the same pin that is used for the reset button (one button to rule them all!)
+GPIO.setup(5, GPIO.IN, pull_up_down = GPIO.PUD_UP)  
+
+oldButtonState1 = True
+
+while True:
+    #grab the current button state
+    buttonState1 = GPIO.input(5)
+
+    # check to see if button has been pushed
+    if buttonState1 != oldButtonState1 and buttonState1 == False:
+      subprocess.call("shutdown -h now", shell=True, 
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      oldButtonState1 = buttonState1
+
+    time.sleep(.1)
+
+
+Press CRTL X  Then Y      
+	
+	
+
+Restart the pi
+	
+	13.  sudo reboot
+	
+	
+	
+configure our script to run at startup,
+
+   14.  sudo nano /etc/rc.local
+   
+
+Add the following to the file 
+   
+   sudo python /home/pi/scripts/shutdown.py &
+
+Press CRTL X  Then Y  
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
