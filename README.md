@@ -35,8 +35,8 @@ Gamecube/Wii: [Dolphin](https://github.com/dolphin-emu/dolphin) <br />
   ```
   sudo nano /etc/rc.local<br />
   ```
-* Add script to be run at bootup:<br />
+* Add script to be run at bootup in the rc.local file:<br />
   ```
   sudo python /home/pi/sample.py &<br />
   ```
-  - & must be added at the end of the script is intended to be run infinitely/long time<br />
+  - '&' must be added at the end of the script if is intended to be run infinitely/long time<br />
