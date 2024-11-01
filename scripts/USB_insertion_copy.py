@@ -6,11 +6,12 @@ import subprocess
 import zipfile
 from tqdm import tqdm
 
+#Setup for USB monitoring 
 context = pyudev.Context()
-
 monitor = pyudev.Monitor.from_netlink(context)
 monitor.filter_by(subsystem = 'block')
 
+#variable to check whether to stop script
 stop_script = False
 
 game_systems = ['nes', 'n64', 'snes', 'dreamcast', 'psp', 'psx', 'nds', 'megadrive']
