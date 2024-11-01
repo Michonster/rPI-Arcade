@@ -1,4 +1,4 @@
-
+**THINK THIS IS OUTDATED, NOT FOR RPI5**
 
 VERSION 1.1 
 apt-get with the following command :
