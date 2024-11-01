@@ -26,7 +26,7 @@ const TopWave = (props: SVGProps<SVGSVGElement>) => (
           animate={{ startOffset: "119.7%" }}
           transition={{
             repeat: Infinity,
-            duration: 50,
+            duration: 30,
             ease: "linear",
           }}
         >
