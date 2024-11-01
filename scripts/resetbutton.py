@@ -6,28 +6,23 @@ import time
 import subprocess
 import os
 from signal import pause
-
+print("waiting for reset to be pressed")
 # Setup button on pin 5 (BCM numbering)
-button = Button(3)
+button = Button(17)
 
 def handle_button_press():
     press_time = time.time()
-    while button.is_pressed:
-        time.sleep(0.1)
-    press_duration = time.time() - press_time
-    
-    if press_duration>=3:
-        print("Now shutting down RPi")
-        time.sleep(5)
-        os.system("sudo shutdown now")
-    elif press_duration>=0.5:
+    if button.is_pressed:
         print("Now rebooting RPi")
         time.sleep(5)
         os.system("sudo reboot")
-    
-button.when_pressed = handle_button_press
 
-pause()
+try:
+    while True:
+        button.when_pressed = handle_button_press
+        pause()
+except KeyboardInterrupt:
+    print("User Ended")
 
 """import RPi.GPIO as GPIO
 import time
