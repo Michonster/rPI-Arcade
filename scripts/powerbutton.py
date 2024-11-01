@@ -1,4 +1,35 @@
-import RPi.GPIO as GPIO
+"""Code successfully rebooted and turned off the pi but was unable to
+turn the pi on from a shutdown state"""
+
+from gpiozero import Button
+import time
+import subprocess
+import os
+from signal import pause
+
+# Setup button on pin 5 (BCM numbering)
+button = Button(3)
+
+def handle_button_press():
+    press_time = time.time()
+    while button.is_pressed:
+        time.sleep(0.1)
+    press_duration = time.time() - press_time
+    
+    if press_duration>=3:
+        print("Now shutting down RPi")
+        time.sleep(5)
+        os.system("sudo shutdown now")
+    elif press_duration>=0.5:
+        print("Now rebooting RPi")
+        time.sleep(5)
+        os.system("sudo reboot")
+    
+button.when_pressed = handle_button_press
+
+pause()
+
+"""import RPi.GPIO as GPIO
 import time
 import subprocess
 
@@ -22,4 +53,4 @@ while True:
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       oldButtonState1 = buttonState1
 
-    time.sleep(.1)
+    time.sleep(.1)"""
