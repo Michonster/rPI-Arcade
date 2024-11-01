@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
 
+import DetailsMain from './Details/DetailsMain.js';
 
 import "./emulators.css";
 // import StringDecor from '../assets/StringDecorSVG.tsx';
@@ -144,7 +145,8 @@ const Emulators: React.FC = () => {
 
       ) : (
         // Render the EmuDetails component with selected data
-        <EmuDetails data={selectedEmu} />
+        // <EmuDetails data={selectedEmu} />
+        <DetailsMain emulatorName={boxData[selectedEmu].text}/>
       )}
     </div>
 

@@ -1,0 +1,142 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@font-face {
+  font-family: 'YourFontName';
+  /*a name to be used later*/
+  src: url('https://fonts.google.com/specimen/Oswald?preview.text=hello');
+  /*URL to font*/
+}
+
+.Main_Div {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.canvas-container {
+  position: absolute;
+  z-index: 1;
+  left: 3%;
+
+}
+
+.emulator_summary {
+  position: absolute;
+  right: 11%;
+  top: 15%;
+  width: 25%;
+  color: white;
+  text-align: center;
+  /* font-size: 2vw; */
+  font-size: clamp(20px, 2vw, 40px);
+  z-index: 1;
+  font-family: 'YourFontName';
+  width: 30%;
+  text-align: center;
+
+}
+
+.game_recommendations {
+  padding: 2px;
+  margin: 10px;
+  border: 2px solid white;
+  /* border-radius: 20px; */
+  position: absolute;
+  color: white;
+  font-family: 'YourFontName';
+  right: 10%;
+  bottom: 15%;
+  z-index: 1;
+  text-align: center;
+  width: 30%;
+  height: 30%;
+}
+
+.creator_header {
+  font-size: clamp(20px, 2vw, 35px);
+
+}
+
+.actual_games {
+  font-family: 'YourFontName';
+  font-size: clamp(15px, 1.8vw, 35px);
+  padding-right: 30px;
+}
+
+.elevated-word {
+  color: white;
+  position: relative;
+  font-size: 15px;
+  /* Set a base font size */
+  text-align: center;
+  /* Center the text */
+}
+
+.elevated-word::before,
+.elevated-word::after {
+  content: attr(data-text);
+  /* Use the same text */
+  position: absolute;
+  left: 0;
+  right: 0;
+  transform: translateY(0);
+  /* Default position */
+}
+
+/* Define the progressive elevation */
+.elevated-word::before {
+  top: 5px;
+  /* First pseudo-element with slight offset */
+}
+
+.elevated-word::after {
+  top: 10px;
+  /* Second pseudo-element with more offset */
+}

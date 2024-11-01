@@ -1,0 +1,119 @@
+[
+  {
+      "image": "/emu/SNES.png",
+      "text": "SNES",
+      "className": "box-snes",
+      "description": "SNES emulators allow you to play Super Nintendo Entertainment System games on modern devices. Popular SNES emulators include bsnes, Snes9x, and ZSNES, offering high compatibility and features like save states, cheat codes, and graphical enhancements1",
+      "games": [
+      "Super Mario World",
+      "The Legend of Zelda: A Link to the Past",
+      "Chrono Trigger",
+      "Super Metroid",
+      "Donkey Kong Country"
+      ]
+  },
+  {
+      "image": "/emu/Desmume.png",
+      "text": "Desmume",
+      "className": "box-desmume",
+      "description": "DeSmuME is a Nintendo DS emulator that enables playing DS games on computers. It supports features like save states, cheat codes, and screen layout customization. DeSmuME is known for its high compatibility with the DS game library.",
+      "games": [
+      "Mario Kart DS",
+      "Pokémon HeartGold/SoulSilver",
+      "Castlevania: Dawn of Sorrow",
+      "The World Ends with You",
+      "Phoenix Wright: Ace Attorney"
+      ]
+  },
+  {
+      "image": "/emu/genesisPlusGX.png",
+      "text": "genesisPlusGX",
+      "className": "box-genesis",
+      "description": "Genesis Plus GX is a multi-system emulator that primarily focuses on Sega systems. It supports the Sega Genesis/Mega Drive, Sega CD, Master System, Game Gear, and SG-1000. The emulator offers high accuracy and various enhancement options.",
+      "games": [
+      "Sonic the Hedgehog 2",
+      "Streets of Rage 2",
+      "Phantasy Star IV",
+      "Gunstar Heroes",
+      "Shining Force II"
+      ]
+  },
+  {
+      "image": "/emu/Mesen.png",
+      "text": "Mesen",
+      "className": "box-Mesen",
+      "description": "Mesen is a high-accuracy NES and Famicom emulator. It also supports other 8-bit Nintendo systems like the Game Boy and Game Boy Color. Mesen is known for its cycle-accurate emulation and extensive debugging features.",
+      "games": [
+      "Super Mario Bros. 3",
+      "The Legend of Zelda",
+      "Mega Man 2",
+      "Castlevania III: Dracula's Curse",
+      "Ninja Gaiden"
+      ]
+  },
+  {
+      "image": "/emu/mupen64plus.png",
+      "text": "Mupen",
+      "className": "box-Mupen",
+      "description": "Mupen64Plus is an open-source Nintendo 64 emulator. It provides good compatibility with the N64 game library and supports features like high-resolution textures, save states, and various audio and video plugins.",
+      "games": [
+      "Super Mario 64",
+      "The Legend of Zelda: Ocarina of Time",
+      "GoldenEye 007",
+      "Mario Kart 64",
+      "Banjo-Kazooie"
+      ]
+  },
+  {
+      "image": "/emu/PCSX.png",
+      "text": "PCSX",
+      "className": "box-PCSX",
+      "description": "PCSX-ReARMed is a PlayStation 1 emulator optimized for ARM devices. It offers good compatibility and performance, making it popular for emulating PS1 games on mobile devices and single-board computers.",
+      "games": [
+      "Final Fantasy VII",
+      "Metal Gear Solid",
+      "Castlevania: Symphony of the Night",
+      "Crash Bandicoot: Warped",
+      "Spyro the Dragon"
+      ]
+  },
+  {
+      "image": "/emu/ppsspp.png",
+      "text": "PPSSPP",
+      "className": "box-PPSSPP",
+      "description": "PPSSPP (PlayStation Portable Simulator Suitable for Playing Portably) is a PSP emulator that runs on various platforms. It offers enhanced graphics, save states, and network play features, allowing users to enjoy PSP games with improved visuals.",
+      "games": [
+      "God of War: Chains of Olympus",
+      "Crisis Core: Final Fantasy VII",
+      "Monster Hunter Freedom Unite",
+      "Persona 3 Portable",
+      "Grand Theft Auto: Vice City Stories"
+      ]
+  },
+  {
+      "image": "/emu/redream.png",
+      "text": "Redream",
+      "className": "box-Redream",
+      "description": "Redream is a Sega Dreamcast emulator known for its ease of use and good performance. It supports high-resolution rendering, save states, and controller remapping, providing an accessible way to play Dreamcast games on modern systems.",
+      "games": [
+      "Sonic Adventure 2",
+      "Jet Set Radio",
+      "Shenmue",
+      "Crazy Taxi",
+      "Soulcalibur"
+      ]
+  },
+  {
+      "image": "/emu/PCSX.png",
+      "text": "PCSX2",
+      "className": "box-PCSX",
+      "description": "PCSX2 is a PlayStation 2 emulator that allows users to play PS2 games on PC. It offers features like improved graphics, save states, and cheat codes. PCSX2 has high compatibility with the PS2 game library and continues to be actively developed.",
+      "games": [
+      "Shadow of the Colossus",
+      "Final Fantasy X",
+      "Metal Gear Solid 3: Snake Eater",
+      "Kingdom Hearts II",
+      "Gran Turismo 4"
+      ]
+  }
+  ]

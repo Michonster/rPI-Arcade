@@ -10,10 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.17",
+    "@react-three/drei": "^9.115.0",
+    "@types/three": "^0.169.0",
     "framer-motion": "^11.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "vite-tsconfig-paths": "^5.0.1"
+    "react-three-fiber": "^6.0.13",
+    "three": "^0.169.0",
+    "vite-tsconfig-paths": "^5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",
