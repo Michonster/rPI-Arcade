@@ -29,3 +29,10 @@ Gamecube/Wii: [Dolphin](https://github.com/dolphin-emu/dolphin) <br />
 [Self Testing Dolphin](https://docs.google.com/document/d/1O_d6_mQBFsOLEivDqs4IXXClCTrZQ4p_IFovj7I0358/edit?tab=t.0)<br />
 [Turning Off Text to Speech on RPi](https://docs.google.com/document/d/1xQ4QbP-JYJV6gKZVdu4-s-ujuNylnBXVqJO79wuMz0Y/edit?tab=t.0)<br />
 
+## Raspberry Pi 5 Documentation
+**Making Script Start at Bootup:**
+*Edit rc.local file:
+  >sudo nano /etc/rc.local
+*Add script to be run at bootup:
+  >sudo python /home/pi/sample.py &
+  -& must be added at the end of the script is intended to be run infinitely/long time
