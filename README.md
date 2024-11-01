@@ -32,7 +32,11 @@ Gamecube/Wii: [Dolphin](https://github.com/dolphin-emu/dolphin) <br />
 ## Raspberry Pi 5 Documentation <br />
 **Making Script Start at Bootup:** <br />
 * Edit rc.local file:<br />
-  > sudo nano /etc/rc.local<br />
+  ```
+  sudo nano /etc/rc.local<br />
+  ```
 * Add script to be run at bootup:<br />
-  > sudo python /home/pi/sample.py &<br />
+  ```
+  sudo python /home/pi/sample.py &<br />
+  ```
   - & must be added at the end of the script is intended to be run infinitely/long time<br />
