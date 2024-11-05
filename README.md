@@ -25,8 +25,6 @@ Gamecube/Wii: [Dolphin](https://github.com/dolphin-emu/dolphin) <br />
 [Raspberry Pi OS Flashing Procedure](https://docs.google.com/document/d/1_6FRPV2-8xxY_qosx5HeV4UK3wdhwpzHxR0WtXd2Lhs/edit?usp=sharing) <br />
 [Steps to SSH into Raspberry Pi](https://docs.google.com/document/d/11Dc_4-_AeuRvbQ93VxL-Q0HaXzGft7osD1K2YTPXZ6w/edit?usp=sharing) <br />
 [Steps to install Retropie onto Raspberry Pi](https://docs.google.com/document/d/1LPk0pQld89WjpNxLfQ80QWkx3yFmBLrs-CT05ln_ng4/edit?usp=sharing) <br />
-[Wii/Dolphin Compatibility](https://docs.google.com/spreadsheets/d/14DkemKgZ2HnjfXpCB7fWLplWL8OP-Kb9/edit?gid=944488023#gid=944488023) <br />
-[Self Testing Dolphin](https://docs.google.com/document/d/1O_d6_mQBFsOLEivDqs4IXXClCTrZQ4p_IFovj7I0358/edit?tab=t.0)<br />
 [Turning Off Text to Speech on RPi](https://docs.google.com/document/d/1xQ4QbP-JYJV6gKZVdu4-s-ujuNylnBXVqJO79wuMz0Y/edit?tab=t.0)<br />
 
 ## Raspberry Pi 5 Documentation <br />
@@ -40,3 +38,13 @@ Gamecube/Wii: [Dolphin](https://github.com/dolphin-emu/dolphin) <br />
   sudo python /home/pi/sample.py &
   ```
   - '&' must be added at the end of the script if is intended to be run infinitely/long time<br />
+**Steps to flash the Raspberry Pi 5 with Raspberry Pi OS::** <br />
+* Download the Raspberry Pi imager to SD card<br />
+  - Download for respective OS from Raspberry Pi Site and install imager<br />
+  - Plug SD card into computer to load OS <br />
+* Upon installing imager select the correct device, operating system version, and storage device<br/>
+  - For our use, we select Raspberry Pi 5 for device, 64-bit Pi OS, and the 64GB SD card that is plugged into the computer for storage<br />
+  - NOTE: The SD card contents will be completely erased<br />
+* Wait for download to finish until the imager says the storage device is safe to eject<br />
+* Eject the device, and load the SD card onto the Raspberry Pi<br />
+* Plug in the USB-C power to the Raspberry Pi and the HDMI to a monitor. Plug in a keyboard and mouse to the USB ports. The device should be operable from here.<br />
