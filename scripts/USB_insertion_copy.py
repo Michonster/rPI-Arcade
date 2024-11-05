@@ -1,3 +1,8 @@
+"""Script to copy roms via USB from any user when USB is inserted into 
+the Raspberry Pi. Upon insertion, each game system file will be scanned
+and the rooms within will be copied onto the RPI. In the case of duplicates,
+the roms won't be installed. """
+
 import shutil
 import os
 import pyudev
