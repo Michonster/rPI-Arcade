@@ -40,4 +40,3 @@ Gamecube/Wii: [Dolphin](https://github.com/dolphin-emu/dolphin) <br />
   sudo python /home/pi/sample.py &
   ```
   - '&' must be added at the end of the script if is intended to be run infinitely/long time<br />
-![Raspberry Pi Imager](https://github.com/user-attachments/assets/3fe93e41-ee08-4a33-85ef-bf2877790e9d)
