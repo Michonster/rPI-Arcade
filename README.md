@@ -26,6 +26,9 @@ Gamecube/Wii: [Dolphin](https://github.com/dolphin-emu/dolphin) <br />
 [Steps to SSH into Raspberry Pi](https://docs.google.com/document/d/11Dc_4-_AeuRvbQ93VxL-Q0HaXzGft7osD1K2YTPXZ6w/edit?usp=sharing) <br />
 [Steps to install Retropie onto Raspberry Pi](https://docs.google.com/document/d/1LPk0pQld89WjpNxLfQ80QWkx3yFmBLrs-CT05ln_ng4/edit?usp=sharing) <br />
 [Turning Off Text to Speech on RPi](https://docs.google.com/document/d/1xQ4QbP-JYJV6gKZVdu4-s-ujuNylnBXVqJO79wuMz0Y/edit?tab=t.0)<br />
+[Emulator Button Layouts](https://docs.google.com/document/d/1GxGvYKuLoDFS4MFntKzo8EsJnWAAjVfHI-O4IBVgxGg/edit?tab=t.0)<br />
+
+
 
 ## Raspberry Pi 5 Documentation <br />
 **Making Script Start at Bootup:** <br />
