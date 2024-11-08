@@ -7,7 +7,8 @@ import "./emulators.css";
 import logo from '/images/Logo.png';
 import backdrop from '/images/backdrop.png';
 import pixelPanel from '/images/pixelPanel.png';
-import TopStringDecor from "../assets/TopStringDecor.tsx";
+// import TopStringDecor from "../assets/TopStringDecor.tsx";
+import StringDecorBackup from "../assets/stringDecorBackup.js"
 
 import boxData from "../emu.json";
 
@@ -42,12 +43,17 @@ const Emulators: React.FC = () => {
 
           <div className="top">
             <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />
-            <TopStringDecor className="topPanel" />
+            {/* <TopStringDecor className="stringDecor" /> */}
+            <StringDecorBackup className="stringDecorBackup" />
             
-            {/* <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" /> */}
             <img src={logo} alt="logo" className="logo" />
+
+            <div className="uploadText">
+              upload games
+              <br />(flashdrive required)
+              <button className="button2"> button2 </button>
+            </div>
           </div>
-          {/* <TextAlongPath className="stringDecor" /> */}
 
 
           {/* Middle Section =====================================================*/}
@@ -122,6 +128,7 @@ const Emulators: React.FC = () => {
           <div className="bottom">
             <img src={pixelPanel} alt="pixel panel" className="pixelPanelBot" />
             {/* <TextAlongPathBot className="stringDecorBot" /> */}
+            <StringDecorBackup className="stringDecorBackupBot" />
 
             <div className="text">
               <div className="buttonDesc">

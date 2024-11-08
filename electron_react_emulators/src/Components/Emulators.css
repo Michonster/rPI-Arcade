@@ -17,17 +17,19 @@
   z-index: -10;
 }
 
+
+
 /* ============================================== */
 .top {
   width: 100%;
-  height: 10%;
+  height: 20%;
   margin: 0;
   padding: 0;
 }
 
-.topPanel {
+.stringDecor {
   position: absolute;
-  top: -50px;
+  top: 0px;
   left: 0px; 
   width: 100%;
   height: auto;
@@ -35,6 +37,26 @@
   min-height: 40%;
   overflow: visible;
 }
+.stringDecorBackup{
+  position: absolute;
+  top: 0px;
+  left: -300px; 
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  z-index: 10;
+  margin-top: 5px;
+}
+/* .rect-clip {
+  border-width: 2;
+  border-color: white;
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 100;
+} */
 
 .pixelPanelTop {
   position: absolute;
@@ -48,7 +70,7 @@
 
 .logo {
   min-width: 80px;
-  width: 10%;
+  width: 13%;
   height: auto;
   padding-top: 3%;
   position: absolute;
@@ -62,7 +84,7 @@
   align-items: center;
   width: 100%;
   height: 20%;
-  padding: 10px 0 0 270px;
+  padding: 3% 0 0 19%;
   margin: 0;
   font-size: 20px;
   line-height: 20px;
@@ -200,7 +222,7 @@ button {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0 0 5px 0;
+  padding: 0 0 2% 0;
 }
 
 .title {
@@ -244,10 +266,20 @@ button {
   height: 20%;
   overflow: visible;
 }
+.stringDecorBackupBot{
+  position: absolute;
+  bottom: 0px;
+  left: -300px; 
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  z-index: 10;
+  margin-bottom: 10px;
+}
 
 .RCOS {
   width: 75%;
-  margin: 0;
+  margin: 0 0 2% 0;
   font-size: 20px;
   display: flex;
   justify-content: flex-end;
