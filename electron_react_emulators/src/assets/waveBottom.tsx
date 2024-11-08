@@ -1,11 +1,14 @@
-// BottomWave.tsx
 import * as React from "react";
 import { motion } from "framer-motion";
-import { SVGProps } from "react";
+import { SVGProps, memo } from "react";
 
-const BottomWave = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-      className="svgwave-bottom"
+const BottomWave = (props: SVGProps<SVGSVGElement>) => {
+  // Dynamically generate repeating text
+  const repeatedText = "RPI ARCADE=======".repeat(20); // Create a smaller repeated string
+
+  return (
+    <svg
+      className="svgwave-bot"
       xmlns="http://www.w3.org/2000/svg"
       width={1303}
       height={160}
@@ -16,26 +19,26 @@ const BottomWave = (props: SVGProps<SVGSVGElement>) => (
       <path
         id="wavepath-bot"
         stroke="#780000"
-        d="m1 160 338.849 -160H963.23L1301 160"
+        d="M1 160L340 0H963.23L1301 160"
       />
 
       <text fontSize="20" fill="white" textAnchor="middle">
         <motion.textPath
           href="#wavepath-bot"
           initial={{ startOffset: "0%" }}
-          animate={{ startOffset: "119.7%" }}
+          animate={{ startOffset: "100%" }}
           transition={{
             repeat: Infinity,
-            duration: 30,
+            duration: 10,
             ease: "linear",
           }}
         >
-          {/* RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE====RPI ARCADE==== */}
-          RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======RPI ARCADE=======
-
+          {repeatedText}
         </motion.textPath>
       </text>
     </svg>
-);
+  );
+};
 
-export default BottomWave;
+// Memoize the component to prevent unnecessary re-renders
+export default memo(BottomWave);

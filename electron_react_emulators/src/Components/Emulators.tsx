@@ -4,12 +4,10 @@ import { motion } from 'framer-motion';
 import DetailsMain from './Details/DetailsMain.js';
 
 import "./emulators.css";
-// import StringDecor from '../assets/StringDecorSVG.tsx';
 import logo from '/images/Logo.png';
-import pixelPanel from '/images/pixelPanel.png';
 import backdrop from '/images/backdrop.png';
-import TextAlongPath from "../assets/waveTop.tsx";
-import TextAlongPathBot from "../assets/waveBottom.tsx";
+import pixelPanel from '/images/pixelPanel.png';
+import TopStringDecor from "../assets/TopStringDecor.tsx";
 
 import boxData from "../emu.json";
 
@@ -44,15 +42,13 @@ const Emulators: React.FC = () => {
 
           <div className="top">
             <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />
+            <TopStringDecor className="topPanel" />
+            
+            {/* <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" /> */}
             <img src={logo} alt="logo" className="logo" />
-            <div className="uploadText">
-              upload games
-              <br />(flashdrive required)
-              <button className="button2"> button2 </button>
-            </div>
-
           </div>
-          <TextAlongPath className="stringDecor" />
+          {/* <TextAlongPath className="stringDecor" /> */}
+
 
           {/* Middle Section =====================================================*/}
           <div className="middle">
@@ -76,10 +72,10 @@ const Emulators: React.FC = () => {
 
                 if (offset === 0) {
                   scale = 1.2;
-                  zIndex = maxZIndex; 
+                  zIndex = maxZIndex;
                 } else if (offset === 1 || offset === totalBoxes - 1) {
                   scale = 1;
-                  zIndex = maxZIndex - 1; 
+                  zIndex = maxZIndex - 1;
                 } else {
                   // For other boxes, calculate zIndex based on their offset
                   const relativePosition = Math.abs(offset - Math.floor(totalBoxes / 2));
@@ -125,7 +121,7 @@ const Emulators: React.FC = () => {
           {/* Bottom Section =====================================================*/}
           <div className="bottom">
             <img src={pixelPanel} alt="pixel panel" className="pixelPanelBot" />
-            <TextAlongPathBot className="stringDecorBot" />
+            {/* <TextAlongPathBot className="stringDecorBot" /> */}
 
             <div className="text">
               <div className="buttonDesc">
@@ -146,7 +142,7 @@ const Emulators: React.FC = () => {
       ) : (
         // Render the EmuDetails component with selected data
         // <EmuDetails data={selectedEmu} />
-        <DetailsMain emulatorName={boxData[selectedEmu].text}/>
+        <DetailsMain emulatorName={boxData[selectedEmu].text} />
       )}
     </div>
 
