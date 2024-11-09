@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./startup.css";
 import vid from '../assets/rpi_arcade4.mp4';
 import logo from '../../public/images/Logo.png';
@@ -10,34 +8,71 @@ import demo from '../assets/Marvel Super Heroes (Capcom 1995)  Attract Mode 60fp
 import TextAlongPath from "../assets/waveTop.tsx";
 import TextAlongPathBot from "../assets/waveBottom.tsx";
 
-//have a startup screen that plays vid before going to a title screen
 const Startup = () => {
     const [showTitle, setShowTitle] = useState(false);
-    const navigate = useNavigate(); 
+    const [inAttractMode, setInAttractMode] = useState(false);
+    const navigate = useNavigate();
+    const inactivityTimerRef = useRef(null);
 
+    // Clear any existing timer and start a new one
+    const startInactivityTimer = () => {
+        if (inactivityTimerRef.current) {
+            clearTimeout(inactivityTimerRef.current);
+        }
+        inactivityTimerRef.current = setTimeout(() => {
+            console.log("Entering attract mode");
+            setInAttractMode(true);
+        }, 30000); // 30 seconds of inactivity triggers attract mode
+    };
+
+    // Reset inactivity timer and exit attract mode
+    const resetInactivityTimer = () => {
+        console.log("Resetting inactivity timer");
+        if (inactivityTimerRef.current) {
+            clearTimeout(inactivityTimerRef.current);
+        }
+        startInactivityTimer();
+        setInAttractMode(false);
+    };
+
+    // Initial intro video handler
     const handleVideoEnd = () => {
         console.log("Video ended, showing title screen");
         setShowTitle(true);
+        startInactivityTimer(); // Start inactivity timer immediately after video ends
     };
 
-    // Detect the Enter key press
+    // Track user interactions to reset the timer
     useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "Enter") {
+        const handleKeyDown = (event) => {
+            if (event.key === "Enter" && !inAttractMode) { // Set up event listeners only after the title screen is shown
                 navigate("/emulator"); // Navigate to Emulator page
             }
+            resetInactivityTimer();
         };
 
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [navigate]);
-    
+        if (showTitle) {
+            // Set up event listeners only after the title screen is shown
+            window.addEventListener("keydown", handleKeyDown);
+            startInactivityTimer(); // Ensure the timer is running when title shows
+        }
+            return () => {
+                if (inactivityTimerRef.current) {
+                    clearTimeout(inactivityTimerRef.current);
+                }
+                window.removeEventListener("keydown", handleKeyDown);
+            };
+        }, [showTitle, inAttractMode, navigate]);
 
     return (
         <div className="startup">
             {!showTitle ? ( //play the video first
                 <video autoPlay onEnded={handleVideoEnd}>
                     <source src={vid} type="video/mp4" />
+                </video>
+            ) : inAttractMode ? (
+                <video autoPlay loop>
+                    <source src={demo} type="video/mp4" />
                 </video>
             ) : ( //if the intro already played, show title screen
                 <div className="titleScreen">
