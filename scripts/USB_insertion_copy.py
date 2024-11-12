@@ -3,6 +3,8 @@ import os
 import pyudev
 import time
 import subprocess
+import zipfile
+from tqdm import tqdm
 
 context = pyudev.Context()
 
@@ -10,28 +12,101 @@ monitor = pyudev.Monitor.from_netlink(context)
 monitor.filter_by(subsystem = 'block')
 
 stop_script = False
+success = 0
+succ_list = []
+duplicate = 0
+dup_list = []
+failed = 0
+fail_list = []
 
-game_systems = ['NES', 'N64', 'SNES', 'Dreamcast', 'PS1']
+game_systems = ['nes', 'n64', 'snes', 'dreamcast', 'psp', 'psx', 'nds', 'megadrive']
+
+def extract_file(file_path, extract_to):
+    if file_path.endswith('.zip'):
+        try:
+            # Use '-o' to overwrite existing files, '-n' to skip extracting existing files
+            subprocess.run(['unzip', '-n', file_path, '-d', extract_to], check=True)
+            print(f"Successfully extracted {file_path} to {extract_to}")
+        except subprocess.CalledProcessError as e:
+            print(f"Error extracting {file_path}: {e}")
+    elif file_path.endswith('.7z'):
+        try:
+            subprocess.run(['7z', 'x', file_path, f'-o{extract_to}', '-aos'], check = True)
+            print(f"Successfully extracted {file_path} to {extract_to}")
+        except Exception as e:
+            print(f"Error extracting {file_path}: {e}")
+
 
 def copy_folder_from_usb(usb_base_path, destination_base_path):
-    """
-    for i in range(10):
-        print(i)
-        time.sleep(1)
-    """
+    global success, succ_list, duplicate, dup_list, failed, fail_list
+    complete_games=0 
+    total_games = 0
+
     for system in game_systems:
         usb_path = os.path.join(usb_base_path, system)
-        destination_path = os.path.join(destination_base_path, system)
+        if os.path.exists(usb_path):
+            total_games += len(os.listdir(usb_path))
+    print(f"Total number of games to be attempted for copy: {total_games}")
+
+    for system in game_systems:
+        usb_path = os.path.join(usb_base_path, system)
+        final_destination_path = os.path.join(destination_base_path, system)
         # Ensure the USB path exists
         if os.path.exists(usb_path):
             try:
                 # Copy the directory from USB to the destination
-                shutil.copytree(usb_path, destination_path, dirs_exist_ok = True)
-                print(f"Successfully copied {system} games from {usb_path} to {destination_path}.")
+                for item in os.listdir(usb_path):
+                    source_item = os.path.join(usb_path, item)
+                    dest_item = os.path.join(final_destination_path, item)
+                    disk_usage = shutil.disk_usage(destination_base_path)
+                    free_space = disk_usage.free
+                    required_space = os.path.getsize(source_item) if os.path.isfile(source_item) else 100 * 1024 * 1024  # Approximate 100MB for directories
+
+                    if free_space < required_space:
+                        print(f"Error: Not enough storage space to copy {item}. Required: {required_space / (1024**2):.2f} MB, Available: {free_space / (1024**2):.2f} MB")
+                        failed += 1
+                        fail_list.append(item)
+                        complete_games+=1
+                        print(f"{complete_games} / {total_games} Games Looked At")
+                        continue
+                    if os.path.exists(dest_item):
+                        print(f"{item} already exists in {final_destination_path}")
+                        duplicate += 1
+                        dup_list.append(item)
+                        complete_games+=1
+                        print(f"{complete_games} / {total_games} Games Looked At")
+                        continue
+                    try:
+                        if os.path.isdir(source_item):
+                            shutil.copytree(source_item, dest_item, dirs_exist_ok=True)
+                        else:
+                            shutil.copy2(source_item, final_destination_path)
+                            #copy_file_with_progress(source_item, dest_item)
+
+                            if system in ['psx', 'dreamcast', 'psp']:
+                                if item.endswith('.zip') or item.endswith('.7z'):
+                                    extract_file(dest_item, final_destination_path)
+                        print(f"Successfully moved {system} game {item} to {final_destination_path}")
+                        success += 1
+                        succ_list.append(item)
+                    except Exception as e:
+                        print(f"Error moving {item} for {system}: {e}")
+                        failed += 1
+                        fail_list.append(item)
+                    complete_games+=1
+                    print(f"{complete_games} / {total_games} Games Looked At")
+
+                chown_command = ['sudo', 'chown', '-R', 'rpiarcade:rpiarcade',final_destination_path] 
+                subprocess.run(chown_command, check = True)
+
+                # Clean up the temporary destination_path after moving items
+                #print(f"Successfully moved {system} games to {final_destination_path}")
             except Exception as e:
                 print(f"Error while copying {system}: {e}")
         else:
             print(f"{system} not found on USB")
+
+
 
 def device_event(device):
     global stop_script
@@ -44,12 +119,20 @@ def device_event(device):
             try:
                 subprocess.run(mount_command, check=True)
                 print("Mount Success")
-                copy_folder_from_usb(os.path.join(mount_point,'Retropie'),'/home/rpiarcade/roms' )
-                
-                chown_command = ['sudo', 'chown', '-R', 'rpiarcade:rpiarcade','/home/rpiarcade/roms'] 
-                subprocess.run(chown_command, check = True)
-                print("successfully changed ownership")
-                
+                copy_folder_from_usb(os.path.join(mount_point,'RetroPie'),'/home/rpiarcade/RetroPie/roms' )
+
+                if success!=0:
+                    print("\nSuccessfully Transfered Games:")
+                    for game in succ_list:
+                        print(game)
+                if duplicate!=0:
+                    print("\nDid not Copy these Duplicates:")
+                    for game in dup_list:
+                        print(game)
+                if failed!=0:
+                    print("\nFailed to transfer these games:")
+                    for game in fail_list:
+                        print(game)
                 subprocess.run(unmount_command, check=True)
                 print("Unmount Successful, safe to remove USB")
                 
@@ -66,11 +149,6 @@ if __name__ == "__main__":
     observer = pyudev.MonitorObserver(monitor, callback=device_event)
     observer.start()
     print("Monitoring USB storage insertions...")
-
-    # Example usage
-    #usb_folder = '/mnt/usb/Retropie/NES'
-    #destination_folder = '/home/rpiarcade/NES'
-    #copy_folder_from_usb(usb_folder, destination_folder)
 
     try:
         while not stop_script:
