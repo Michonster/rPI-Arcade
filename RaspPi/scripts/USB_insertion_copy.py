@@ -7,8 +7,6 @@ import os
 import pyudev
 import time
 import subprocess
-import zipfile
-from tqdm import tqdm
 
 #Setup for USB monitoring 
 context = pyudev.Context()
@@ -25,6 +23,8 @@ duplicate = 0
 dup_list = []
 failed = 0
 fail_list = []
+
+MIN_SPACE = 1 * 1024 * 1024 * 1024
 
 game_systems = ['nes', 'n64', 'snes', 'dreamcast', 'psp', 'psx', 'nds', 'megadrive']
 
@@ -75,7 +75,7 @@ def copy_folder_from_usb(usb_base_path, destination_base_path):
                     required_space = os.path.getsize(source_item) if os.path.isfile(source_item) else 100 * 1024 * 1024  # Approximate 100MB for directories
 
                     #If no space for game, continue to next game
-                    if free_space < required_space:
+                    if free_space - required_space < MIN_SPACE:
                         print(f"Error: Not enough storage space to copy {item}. Required: {required_space / (1024**2):.2f} MB, Available: {free_space / (1024**2):.2f} MB")
                         failed += 1
                         fail_list.append(item)
@@ -144,15 +144,18 @@ def device_event(device):
                 if success!=0:
                     print("\nSuccessfully Transfered Games:")
                     for game in succ_list:
-                        print(game)
+                        base_game_name = game.split('(')[0].rsplit('.', 1)[0]
+                        print(base_game_name)
                 if duplicate!=0:
                     print("\nDid not Copy these Duplicates:")
                     for game in dup_list:
-                        print(game)
+                        base_game_name = game.split('(')[0].rsplit('.', 1)[0]
+                        print(base_game_name)
                 if failed!=0:
                     print("\nFailed to transfer these games:")
                     for game in fail_list:
-                        print(game)
+                        base_game_name = game.split('(')[0].rsplit('.', 1)[0]
+                        print(base_game_name)
                 
                 #Unmount the USB
                 subprocess.run(unmount_command, check=True)
