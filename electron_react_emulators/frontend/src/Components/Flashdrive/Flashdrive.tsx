@@ -22,6 +22,7 @@ const Flashdrive: React.FC = () => {
       setIsMonitoring(true);
     } catch (error) {
       console.error("Error starting USB monitoring:", error);
+      setIsMonitoring(false);
     }
   };
 
@@ -32,13 +33,14 @@ const Flashdrive: React.FC = () => {
         try {
           const response = await fetch("http://127.0.0.1:5000/get_log_messages");
           const messages: string[] = await response.json();
-          setLogMessages((prevMessages) => [...prevMessages, ...messages]); // Append new messages
+          setLogMessages(messages);
+          console.log(messages.length)
         } catch (error) {
           console.error("Error fetching log messages:", error);
         }
       }, 1000);
 
-      return () => clearInterval(intervalId); // Cleanup on unmount
+      return () => clearInterval(intervalId); 
     }
   }, [isMonitoring]);
 
@@ -50,28 +52,31 @@ const Flashdrive: React.FC = () => {
         <StringDecorBackup className="stringDecorBackup" />
 
         <div className="cancel">
-          cancel & 
+          cancel &
           <br />
           return to main screen
           <button className="button" onClick={handleCancel}> button2 </button>
         </div>
       </div>
-      
+
       {/* MIDDLE */}
-      <div className="-middle">
+      <div className="middle">
         <p>INSERT YOUR FLASHDRIVE</p>
         <button className="button" onClick={startMonitoring} disabled={isMonitoring}>
           {isMonitoring ? "Monitoring..." : "Start Monitoring"}
         </button>
+
+        <div ref={outputRef} className="log-output">
+          {logMessages.map((message, index) => (
+            <p key={index}>{message}</p> 
+          ))}
+        </div>
+
       </div>
 
       {/* BOTTOM */}
       <div className="bottom">
-        <div id="output" ref={outputRef} className="log-output">
-          {logMessages.map((message, index) => (
-            <p key={index}>{message}</p> // Display each log message
-          ))}
-        </div>
+
       </div>
     </div>
   );

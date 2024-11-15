@@ -10,10 +10,13 @@ import time
 import subprocess
 import zipfile
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 # Flask app setup
 app = Flask(__name__)
 log_messages = []  # A list to store log messages
+
+CORS(app)
 
 #Setup for USB monitoring 
 context = pyudev.Context()
