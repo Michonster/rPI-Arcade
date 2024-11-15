@@ -34,8 +34,8 @@
     height: 100vh;
     width: 100vw;
     z-index: -6;
-    background: url(../assets/loopable_pixelBackground.png) repeat 0 0;
-    background-size: 200px 200px;
+    background: url(../assets/EB.gif) repeat 0 0;
+    background-size: 250px 250px;
     background-attachment: fixed; 
     animation: animate-bg 1.92s infinite linear;
 }
@@ -108,9 +108,14 @@
 .push-start {
     font-size: 24px;
     color: white;
-    margin-top: 10px; /* Space between the middle text and the flashing text */
+    /*margin-top: 10px;  Space between the middle text and the flashing text */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the text */
+    position: absolute;
     animation: flash 1s infinite; /* Flash every second */
     text-transform: uppercase;
+    z-index: 10;
 }
 
 @keyframes flash {
@@ -147,3 +152,6 @@
     padding: 0 0 5px 0;
 }
   
+.attractMode {
+
+}

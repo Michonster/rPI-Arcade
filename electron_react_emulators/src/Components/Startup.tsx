@@ -22,7 +22,7 @@ const Startup = () => {
         inactivityTimerRef.current = setTimeout(() => {
             console.log("Entering attract mode");
             setInAttractMode(true);
-        }, 30000); // 30 seconds of inactivity triggers attract mode
+        }, 5000); // 30 seconds of inactivity triggers attract mode
     };
 
     // Reset inactivity timer and exit attract mode
@@ -71,10 +71,14 @@ const Startup = () => {
                     <source src={vid} type="video/mp4" />
                 </video>
             ) : inAttractMode ? (
-                <video autoPlay loop>
-                    <source src={demo} type="video/mp4" />
-                </video>
-            ) : ( //if the intro already played, show title screen
+                <div className="attractMode">
+                    {/* Flashing Text */}
+                    <p className="push-start">Push Start Button</p>
+                    <video autoPlay loop>
+                        <source src={demo} type="video/mp4" />
+                    </video>
+                </div>
+                ) : ( //if the intro already played, show title screen
                 <div className="titleScreen">
                     <div className='backDrop' />
                     {/* Top Section */}
