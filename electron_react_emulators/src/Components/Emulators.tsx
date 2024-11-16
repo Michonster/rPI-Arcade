@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
+import { useNavigate } from "react-router-dom";
 
 
 import "./emulators.css";
@@ -15,6 +16,7 @@ import boxData from "../../public/emu.json";
 const Emulators: React.FC = () => {
   const [position, setPosition] = useState<number>(0);
   const totalBoxes = boxData.length;
+  const navigate = useNavigate(); 
 
   const handleRightClick = () => {
     setPosition((prev) => (prev > 0 ? prev - 1 : totalBoxes - 1));
@@ -22,6 +24,10 @@ const Emulators: React.FC = () => {
 
   const handleLeftClick = () => {
     setPosition((prev) => (prev < totalBoxes - 1 ? prev + 1 : 0));
+  };
+
+  const handleBackToTitle = () => {
+    navigate("/"); // Navigate back to title screen
   };
 
   return (
@@ -37,6 +43,9 @@ const Emulators: React.FC = () => {
           <br/>(flashdrive required)
           <button className="button1"> button2 </button>
         </div>
+        <button className="button1" onClick={handleBackToTitle}>
+            Back to Title
+        </button>
 
       </div>
       <TextAlongPath className="stringDecor" />

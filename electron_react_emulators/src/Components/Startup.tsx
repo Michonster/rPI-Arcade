@@ -11,6 +11,7 @@ import TextAlongPathBot from "../assets/waveBottom.tsx";
 const Startup = () => {
     const [showTitle, setShowTitle] = useState(false);
     const [inAttractMode, setInAttractMode] = useState(false);
+    const videoPlayed = useRef(false);
     const navigate = useNavigate();
     const inactivityTimerRef = useRef(null);
 
@@ -22,7 +23,7 @@ const Startup = () => {
         inactivityTimerRef.current = setTimeout(() => {
             console.log("Entering attract mode");
             setInAttractMode(true);
-        }, 5000); // 30 seconds of inactivity triggers attract mode
+        }, 50000); // 30 seconds of inactivity triggers attract mode
     };
 
     // Reset inactivity timer and exit attract mode
@@ -39,6 +40,7 @@ const Startup = () => {
     const handleVideoEnd = () => {
         console.log("Video ended, showing title screen");
         setShowTitle(true);
+        videoPlayed.current = true; // Mark video as played
         startInactivityTimer(); // Start inactivity timer immediately after video ends
     };
 
@@ -59,6 +61,7 @@ const Startup = () => {
             return () => {
                 if (inactivityTimerRef.current) {
                     clearTimeout(inactivityTimerRef.current);
+                    console.log(videoPlayed)
                 }
                 window.removeEventListener("keydown", handleKeyDown);
             };
@@ -66,7 +69,7 @@ const Startup = () => {
 
     return (
         <div className="startup">
-            {!showTitle ? ( //play the video first
+            {!videoPlayed.current && !showTitle ? ( // Play the video first (only if first startup)
                 <video autoPlay onEnded={handleVideoEnd}>
                     <source src={vid} type="video/mp4" />
                 </video>
@@ -78,7 +81,7 @@ const Startup = () => {
                         <source src={demo} type="video/mp4" />
                     </video>
                 </div>
-                ) : ( //if the intro already played, show title screen
+                ) : ( // If the intro already played, show title screen
                 <div className="titleScreen">
                     <div className='backDrop' />
                     {/* Top Section */}
