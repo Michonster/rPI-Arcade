@@ -4,7 +4,7 @@ and the rooms within will be copied onto the RPI. In the case of duplicates,
 the roms won't be installed. """
 import shutil
 import os
-import pyudev
+import pyudev # type: ignore
 import time
 import subprocess
 

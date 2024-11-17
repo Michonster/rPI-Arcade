@@ -1,4 +1,4 @@
-import pygame
+import pygame # type: ignore
 
 DEAD_ZONE = 0.2  # Define a dead zone for joystick axes
 

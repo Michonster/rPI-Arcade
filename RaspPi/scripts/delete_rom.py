@@ -8,12 +8,34 @@ while True:
     print("\n0 :  Exit deletion")
     for i in range(len(game_systems)):
         print(i+1, ": ", game_systems[i])
+
+    print(len(game_systems)+2, ": Delete All Games")
     emu = int(input("Select which emulator you wish to delete games from: "))
     if emu == 0:
         break
-    elif emu>len(game_systems) or emu<0:
+    elif emu>len(game_systems)+1 or emu<0:
         continue
-    
+    elif emu==len(game_systems)+1:
+        check = input("Are you sure you want to delete all games")
+        if check == 'y':
+            check = input("Are you really sure? ")
+            if check == 'y':
+                check = input("Theres no going back after this")
+                if check == 'y':
+                    print("Ok, you asked for it. Nuking all games now")
+                    for system in game_systems:
+                        path = os.path.join("/home/rpiarcade/RetroPie/roms/", system)
+                        for game in games:
+                            game_path = os.path.join(path, game)
+                            os.remove(game_path)
+                    print("All games deleted.")
+
+                else:
+                    continue
+            else:
+                continue
+        else:
+            continue
     system = game_systems[emu-1]
     path = os.path.join("/home/rpiarcade/RetroPie/roms/", system)
     inemu = True
