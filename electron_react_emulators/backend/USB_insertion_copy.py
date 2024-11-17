@@ -139,6 +139,16 @@ def start_usb_monitoring():
     print("Monitoring USB storage insertions...")
     return jsonify({"message": "USB monitoring started"}), 200
 
+# Endpoint to stop USB monitoring
+@app.route('/stop_usb_monitoring', methods=['GET'])
+def stop_usb_monitoring():
+    global observer
+    if observer is not None:
+        observer.stop()
+        observer = None
+        print("Stopped USB monitoring.")
+    return jsonify({"message": "USB monitoring stopped"}), 200
+
 # Flask route to get log messages
 @app.route('/get_log_messages', methods=['GET'])
 def get_log_messages():

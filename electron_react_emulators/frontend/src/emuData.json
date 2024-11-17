@@ -78,6 +78,19 @@
       ]
   },
   {
+      "image": "/emu/PCSX.png",
+      "text": "PCSX2",
+      "className": "box-PCSX",
+      "description": "PCSX2 is a PlayStation 2 emulator that allows users to play PS2 games on PC. It offers features like improved graphics, save states, and cheat codes. PCSX2 has high compatibility with the PS2 game library and continues to be actively developed.",
+      "games": [
+      "Shadow of the Colossus",
+      "Final Fantasy X",
+      "Metal Gear Solid 3: Snake Eater",
+      "Kingdom Hearts II",
+      "Gran Turismo 4"
+      ]
+  },
+  {
       "image": "/emu/ppsspp.png",
       "text": "PPSSPP",
       "className": "box-PPSSPP",
@@ -101,19 +114,6 @@
       "Shenmue",
       "Crazy Taxi",
       "Soulcalibur"
-      ]
-  },
-  {
-      "image": "/emu/PCSX.png",
-      "text": "PCSX2",
-      "className": "box-PCSX",
-      "description": "PCSX2 is a PlayStation 2 emulator that allows users to play PS2 games on PC. It offers features like improved graphics, save states, and cheat codes. PCSX2 has high compatibility with the PS2 game library and continues to be actively developed.",
-      "games": [
-      "Shadow of the Colossus",
-      "Final Fantasy X",
-      "Metal Gear Solid 3: Snake Eater",
-      "Kingdom Hearts II",
-      "Gran Turismo 4"
       ]
   }
   ]

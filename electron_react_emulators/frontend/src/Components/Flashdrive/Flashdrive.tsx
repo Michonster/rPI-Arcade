@@ -18,11 +18,17 @@ const Flashdrive: React.FC = () => {
   // Function to start monitoring
   const startMonitoring = async () => {
     try {
-      await fetch("http://127.0.0.1:5000/start_usb_monitoring");
-      setIsMonitoring(true);
+      if (!isMonitoring) {
+        await fetch("http://127.0.0.1:5000/start_usb_monitoring");
+        setIsMonitoring(true);
+      }
+      else {
+        await fetch("http://127.0.0.1:5000/stop_usb_monitoring");
+        setIsMonitoring(false);
+      }
+
     } catch (error) {
-      console.error("Error starting USB monitoring:", error);
-      setIsMonitoring(false);
+      console.error("Error toggling USB monitoring:", error);
     }
   };
 
@@ -34,13 +40,13 @@ const Flashdrive: React.FC = () => {
           const response = await fetch("http://127.0.0.1:5000/get_log_messages");
           const messages: string[] = await response.json();
           setLogMessages(messages);
-          console.log(messages.length)
+          // console.log(messages.length)
         } catch (error) {
           console.error("Error fetching log messages:", error);
         }
       }, 1000);
 
-      return () => clearInterval(intervalId); 
+      return () => clearInterval(intervalId);
     }
   }, [isMonitoring]);
 
@@ -55,20 +61,20 @@ const Flashdrive: React.FC = () => {
           cancel &
           <br />
           return to main screen
-          <button className="button" onClick={handleCancel}> button2 </button>
+          <button className="buttonCircle" onClick={handleCancel}> button2 </button>
         </div>
       </div>
 
       {/* MIDDLE */}
       <div className="middle">
         <p>INSERT YOUR FLASHDRIVE</p>
-        <button className="button" onClick={startMonitoring} disabled={isMonitoring}>
+        <button className="button" onClick={startMonitoring} >
           {isMonitoring ? "Monitoring..." : "Start Monitoring"}
         </button>
 
         <div ref={outputRef} className="log-output">
           {logMessages.map((message, index) => (
-            <p key={index}>{message}</p> 
+            <p key={index}>{message}</p>
           ))}
         </div>
 

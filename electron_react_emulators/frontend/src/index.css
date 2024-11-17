@@ -33,7 +33,7 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.buttonCircle {
   font-family: "Teko", sans-serif;
   width: 60px;
   height: 60px;

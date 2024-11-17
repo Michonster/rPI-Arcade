@@ -1,36 +1,43 @@
-import React, { useState } from "react";
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-import "./emulators.css";
+import "./Emulators.css";
 import logo from '/images/Logo.png';
 import backdrop from '/images/backdrop.png';
 import pixelPanel from '/images/pixelPanel.png';
 // import TopStringDecor from "../assets/TopStringDecor.tsx";
 import StringDecorBackup from "../assets/stringDecorBackup.js"
 
-import boxData from "../emu.json";
+import emuData from "../emuData.json";
 
 interface EmulatorsProps {
   onEmuClick: (position: number) => void;
+  position: number;
+  setPosition: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick }) => {
-  const [position, setPosition] = useState<number>(0);
-  const totalBoxes = boxData.length;
+const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition }) => {
   const navigate = useNavigate();
 
+  const addGamesBox = {
+    image: "",
+    text: "Add Games"
+  };
+  const allEmuData = [...emuData, addGamesBox]; //concat addGamesBox
+  const totalBoxes = allEmuData.length;
+
+
   const handleRightClick = () => {
-    setPosition((prev) => (prev > 0 ? prev - 1 : totalBoxes - 1));
+    setPosition((prev) => (prev < totalBoxes - 1 ? prev + 1 : 0));
   };
 
   const handleLeftClick = () => {
-    setPosition((prev) => (prev < totalBoxes - 1 ? prev + 1 : 0));
+    setPosition((prev) => (prev > 0 ? prev - 1 : totalBoxes - 1));
   };
 
   const handleEmulatorSelection = () => {
     onEmuClick(position);
-    navigate('/details');  
+    navigate('/details');
   };
 
   const handleFlashdriveSelection = () => {
@@ -54,7 +61,7 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick }) => {
         <div className="uploadText">
           upload games
           <br />(flashdrive required)
-          <button className="button2" onClick={handleFlashdriveSelection}> button2 </button>
+          <button className="buttonCircle" onClick={handleFlashdriveSelection}> button2 </button>
         </div>
       </div>
 
@@ -62,15 +69,15 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick }) => {
       {/* Middle Section =====================================================*/}
       <div className="middle">
         <div className="box-container">
-          {boxData.map((box, index) => {
-            const offset = (index - position + totalBoxes) % totalBoxes;
+          {allEmuData.map((box, index) => {
+            const offset = (position - index + totalBoxes) % totalBoxes;
 
             // Start angle from +90 degrees (Math.PI/2) so the active item is at bottom center
             const angle = ((offset / totalBoxes) * 2 * Math.PI) + Math.PI / 2;
 
-            // Use different radii for x and y to create an elliptical path
-            const xRadius = 500; // Larger radius for horizontal spread
-            const yRadius = 50;  // Smaller radius for vertical spread
+            // Radii x and y for the elliptical path
+            const xRadius = 500; // horizontal
+            const yRadius = 50;  // vertical
 
             // Calculate positions using elliptical coordinates
             const xPosition = xRadius * Math.cos(angle);
@@ -110,10 +117,18 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick }) => {
                   damping: 60,
                 }}
               >
+                {/* only Add Game box gets different styling */}
+                {index === totalBoxes - 1 ? (
+                  <p className="addGamesBox">★ {box.text} ★
+                  <br/> Flashdrive with games in correct format required. Select to see format. 
+                  </p>
+                ) : (
+                  <>
+                    <img src={box.image} alt={`Box ${index + 1}`} />
+                    <p className="boxText">{box.text}</p>
+                  </>
+                )}
 
-                {/* Render image and text */}
-                <img src={box.image} alt={`Box ${index + 1}`} />
-                <p className="boxText">{box.text}</p>
 
               </motion.div>
             );
@@ -136,7 +151,7 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick }) => {
         <div className="text">
           <div className="buttonDesc">
             <p className="desc"> Press </p>
-            <button className="button1" onClick={handleEmulatorSelection}> button1
+            <button className="buttonCircle" onClick={handleEmulatorSelection}> button1
             </button>
 
             <p> for </p>

@@ -142,7 +142,10 @@
 
 .boxText {
   margin: 0;
-  align-self: flex-end;
+}
+
+.addGamesBox {
+  letter-spacing: 1px;
 }
 
 button {

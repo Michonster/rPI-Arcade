@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import Cube from './Cube';
+
 import './DetailsMain.css';
+import Mario64 from '/images/Mario64.gif';
+import Link64 from '/images/Link64.gif'
+
+import emuData from '../../emuData.json';
 
 // Define the shape of each emulator object
 interface Emulator {
@@ -17,15 +23,14 @@ interface DetailsMainProps {
 }
 
 const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
-  const [emulators, setEmulators] = useState<Emulator[]>([]);
-  const [selectedEmulator, setSelectedEmulator] = useState<Emulator | null>(null);
+  const navigate = useNavigate(); 
 
-  useEffect(() => {
-    fetch("./emulator_info.json")
-      .then((response) => response.json())
-      .then((data: Emulator[]) => setEmulators(data))
-      .catch((error) => console.error("Error loading JSON:", error));
-  }, []);
+  const goBack = () => {
+    navigate('/');
+  };
+
+  const [emulators] = useState<Emulator[]>(emuData);
+  const [selectedEmulator, setSelectedEmulator] = useState<Emulator | null>(null);
 
   useEffect(() => {
     if (emulatorName) {
@@ -38,9 +43,14 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
 
   return (
     <div className="Main_Div">
+      <button className ="buttonCircle" onClick={goBack} >Back</button>
+      <img className ="Mario" src={Mario64} alt="Mario 64" />
+      <img className ="Link" src={Link64} alt="Link64" />
+
+
       {/* Canvas for 3D content */}
       <Canvas className="canvas-container">
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={2} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -10, -10]} color="red" intensity={1} />
         <Cube src={selectedEmulator?.image ?? '/path/to/fallback-image.webp'} /> {/* in case no img found */}
@@ -55,16 +65,18 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
           </div>
           <div className="game_recommendations">
             <h1 className="creator_header">Creator Recommendations</h1>
-            <ul style={{ listStyleType: 'none' }}>
+            <ul className = "actual_games" style={{ listStyleType: 'none' }}>
               {selectedEmulator.games.map((game, index) => (
                 <li key={index}>{game}</li>
               ))}
             </ul>
           </div>
+
         </>
       ) : (
         <p>No emulator selected or emulator not found.</p>
       )}
+
     </div>
   );
 };
