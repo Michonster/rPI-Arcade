@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import pixelPanel from '/images/pixelPanel.png';
 import StringDecorBackup from "../../assets/stringDecorBackup.js";
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./Flashdrive.css";
 
@@ -29,6 +31,9 @@ const Flashdrive: React.FC = () => {
 
     } catch (error) {
       console.error("Error toggling USB monitoring:", error);
+      toast.error("Error: Games cannot be uploaded at this time. Please contact the RPI ARCADE team.", {
+        onClose: () => navigate('/'),
+      });
     }
   };
 
@@ -44,7 +49,7 @@ const Flashdrive: React.FC = () => {
         } catch (error) {
           console.error("Error fetching log messages:", error);
         }
-      }, 1000);
+      }, 5000);
 
       return () => clearInterval(intervalId);
     }
@@ -52,6 +57,7 @@ const Flashdrive: React.FC = () => {
 
   return (
     <div className="flashdrive">
+      <ToastContainer autoClose={5000} />
       {/* TOP */}
       <div className="top">
         <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />
@@ -61,14 +67,14 @@ const Flashdrive: React.FC = () => {
           cancel &
           <br />
           return to main screen
-          <button className="buttonCircle" onClick={handleCancel}> button2 </button>
+          <button className="buttonCircle" onClick={handleCancel}> button </button>
         </div>
       </div>
 
       {/* MIDDLE */}
       <div className="middle">
         <p>INSERT YOUR FLASHDRIVE</p>
-        <button className="button" onClick={startMonitoring} >
+        <button className="buttonCircle" onClick={startMonitoring} >
           {isMonitoring ? "Monitoring..." : "Start Monitoring"}
         </button>
 

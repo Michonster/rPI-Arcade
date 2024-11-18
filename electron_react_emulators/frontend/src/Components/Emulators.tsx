@@ -1,12 +1,10 @@
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import "./Emulators.css";
-import logo from '/images/Logo.png';
-import backdrop from '/images/backdrop.png';
-import pixelPanel from '/images/pixelPanel.png';
-// import TopStringDecor from "../assets/TopStringDecor.tsx";
-import StringDecorBackup from "../assets/stringDecorBackup.js"
+import backdrop from "/images/backdrop.png";
+import pixelPanel from "/images/pixelPanel.png";
+import StringDecorBackup from "../assets/stringDecorBackup.js";
 
 import emuData from "../emuData.json";
 
@@ -16,16 +14,19 @@ interface EmulatorsProps {
   setPosition: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition }) => {
+const Emulators: React.FC<EmulatorsProps> = ({
+  onEmuClick,
+  position,
+  setPosition,
+}) => {
   const navigate = useNavigate();
 
   const addGamesBox = {
     image: "",
-    text: "Add Games"
+    text: "ADD GAMES",
   };
   const allEmuData = [...emuData, addGamesBox]; //concat addGamesBox
   const totalBoxes = allEmuData.length;
-
 
   const handleRightClick = () => {
     setPosition((prev) => (prev < totalBoxes - 1 ? prev + 1 : 0));
@@ -37,35 +38,17 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition
 
   const handleEmulatorSelection = () => {
     onEmuClick(position);
-    navigate('/details');
+    navigate("/details");
   };
 
   const handleFlashdriveSelection = () => {
-    navigate('/flashdrive');
+    navigate("/flashdrive");
   };
-
 
   return (
     <div className="emulators">
-      <img src={backdrop} alt="backdrop" className='backDrop' />
-      {/* Top Section =====================================================*/}
-
-
-      <div className="top">
-        <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />
-        {/* <TopStringDecor className="stringDecor" /> */}
-        <StringDecorBackup className="stringDecorBackup" />
-
-        <img src={logo} alt="logo" className="logo" />
-
-        <div className="uploadText">
-          upload games
-          <br />(flashdrive required)
-          <button className="buttonCircle" onClick={handleFlashdriveSelection}> button2 </button>
-        </div>
-      </div>
-
-
+      <img src={backdrop} alt="backdrop" className="backDrop" />
+      
       {/* Middle Section =====================================================*/}
       <div className="middle">
         <div className="box-container">
@@ -73,11 +56,11 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition
             const offset = (position - index + totalBoxes) % totalBoxes;
 
             // Start angle from +90 degrees (Math.PI/2) so the active item is at bottom center
-            const angle = ((offset / totalBoxes) * 2 * Math.PI) + Math.PI / 2;
+            const angle = (offset / totalBoxes) * 2 * Math.PI + Math.PI / 2;
 
             // Radii x and y for the elliptical path
             const xRadius = 500; // horizontal
-            const yRadius = 50;  // vertical
+            const yRadius = 50; // vertical
 
             // Calculate positions using elliptical coordinates
             const xPosition = xRadius * Math.cos(angle);
@@ -94,7 +77,9 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition
               zIndex = maxZIndex - 1;
             } else {
               // For other boxes, calculate zIndex based on their offset
-              const relativePosition = Math.abs(offset - Math.floor(totalBoxes / 2));
+              const relativePosition = Math.abs(
+                offset - Math.floor(totalBoxes / 2)
+              );
               zIndex = relativePosition - maxZIndex - 2;
               // Calculate scale based on zIndex and clamp the value between 0.4 and 0.8
               scale = Math.min(0.85, Math.max(0.5, 1 - zIndex * -0.02));
@@ -103,13 +88,12 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition
             return (
               <motion.div
                 key={index}
-                className={`box ${offset === 0 ? 'active' : ''}`}
+                className={`box ${offset === 0 ? "active" : ""}`}
                 animate={{
                   zIndex: zIndex,
                   x: xPosition,
                   y: yPosition,
                   scale: scale,
-
                 }}
                 transition={{
                   type: "spring",
@@ -119,8 +103,12 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition
               >
                 {/* only Add Game box gets different styling */}
                 {index === totalBoxes - 1 ? (
-                  <p className="addGamesBox">★ {box.text} ★
-                  <br/> Flashdrive with games in correct format required. Select to see format. 
+                  <p className="addGamesBox">
+                    ★ {box.text} ★
+                    <p style={{ textAlign: "left" }}>
+                      REQUIRED: &nbsp;&nbsp;&nbsp;flashdrive +
+                      &nbsp;&nbsp;&nbsp;proper format Select to see format.
+                    </p>
                   </p>
                 ) : (
                   <>
@@ -128,8 +116,6 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition
                     <p className="boxText">{box.text}</p>
                   </>
                 )}
-
-
               </motion.div>
             );
           })}
@@ -139,7 +125,6 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition
           <button className="left-button" onClick={handleLeftClick} />
           <button className="right-button" onClick={handleRightClick} />
         </div>
-
       </div>
 
       {/* Bottom Section =====================================================*/}
@@ -149,20 +134,40 @@ const Emulators: React.FC<EmulatorsProps> = ({ onEmuClick, position, setPosition
         <StringDecorBackup className="stringDecorBackupBot" />
 
         <div className="text">
-          <div className="buttonDesc">
-            <p className="desc"> Press </p>
-            <button className="buttonCircle" onClick={handleEmulatorSelection}> button1
-            </button>
-
-            <p> for </p>
-          </div>
-          <p className="title">Emulator Details</p>
-
+          {position === totalBoxes - 1 ? (
+            <>
+              <div className="buttonDesc">
+                <p> Press </p>
+                <button
+                  className="buttonCircle"
+                  onClick={handleFlashdriveSelection}
+                >
+                  button
+                </button>
+                <p> to access </p>
+              </div>
+              <p className="title">Flashdrive Details & Upload Games</p>
+            </>
+          ) : (
+            <>
+              <div className="buttonDesc">
+                <p> Press </p>
+                <button
+                  className="buttonCircle"
+                  onClick={handleEmulatorSelection}
+                >
+                  button
+                </button>
+                <p> for </p>
+              </div>
+              <p className="title">Emulator Details</p>
+            </>
+          )}
         </div>
         <p className="RCOS">RCOS Project</p>
       </div>
     </div>
   );
-}
+};
 
 export default Emulators;

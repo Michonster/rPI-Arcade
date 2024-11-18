@@ -50,3 +50,7 @@ button:hover {
   background-color: #0056b3;
 }
 
+.Toastify__toast {
+  font-family: 'Teko', sans-serif !important;
+}
+

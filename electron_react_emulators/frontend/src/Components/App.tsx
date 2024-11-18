@@ -5,6 +5,10 @@ import Emulators from './Emulators';
 import DetailsMain from './Details/DetailsMain.js';
 import Flashdrive from './Flashdrive/Flashdrive.tsx';
 
+import pixelPanel from "/images/pixelPanel.png";
+import StringDecorBackup from "../assets/stringDecorBackup.js";
+import logo from "/images/Logo.png";
+
 import boxData from "../emuData.json";
 
 function App() {
@@ -12,40 +16,46 @@ function App() {
   const [position, setPosition] = useState<number>(0); // in order to preserve position after returning to selection screen
 
   const handleEmuClick = (position: number) => {
-    if (boxData.length > position){ // if box does not exist in the emulator data
+    if (boxData.length > position) { // if box does not exist in the emulator data
       setSelectedEmu(position);
     }
-    
+
   };
 
   return (
-    <Router>
-      <Routes>
-        {/* Main Emulator selection screen */}
-        <Route
-          path="/"
-          element={<Emulators onEmuClick={handleEmuClick} position={position} setPosition={setPosition} />}
-        />
+    <>
+      <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />
+      <StringDecorBackup className="stringDecorBackup" />
+      <img src={logo} alt="logo" className="logo" />
 
-        {/* Details page for selected emulator */}
-        <Route
-          path="/details"
-          element={
-            selectedEmu !== null ? (
-              <DetailsMain emulatorName={boxData[selectedEmu].text} />
-            ) : (
-              <Navigate to="/" replace /> // Redirects to main if no emulator selected
-            )
-          }
-        />
+      <Router>
+        <Routes>
+          {/* Main Emulator selection screen */}
+          <Route
+            path="/"
+            element={<Emulators onEmuClick={handleEmuClick} position={position} setPosition={setPosition} />}
+          />
 
-        {/* Flashdrive page */}
-        <Route
-          path="/flashdrive"
-          element={<Flashdrive />}
-        />
-      </Routes>
-    </Router>
+          {/* Details page for selected emulator */}
+          <Route
+            path="/details"
+            element={
+              selectedEmu !== null ? (
+                <DetailsMain emulatorName={boxData[selectedEmu].text} />
+              ) : (
+                <Navigate to="/" replace /> // Redirects to main if no emulator selected
+              )
+            }
+          />
+
+          {/* Flashdrive page */}
+          <Route
+            path="/flashdrive"
+            element={<Flashdrive />}
+          />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

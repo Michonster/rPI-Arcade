@@ -17,8 +17,6 @@
   z-index: -10;
 }
 
-
-
 /* ============================================== */
 .top {
   width: 100%;
@@ -30,17 +28,17 @@
 .stringDecor {
   position: absolute;
   top: 0px;
-  left: 0px; 
+  left: 0px;
   width: 100%;
   height: auto;
   max-height: 47%;
   min-height: 40%;
   overflow: visible;
 }
-.stringDecorBackup{
+.stringDecorBackup {
   position: absolute;
   top: 0px;
-  left: -300px; 
+  left: -300px;
   width: 100%;
   height: auto;
   overflow: visible;
@@ -124,7 +122,7 @@
   justify-content: space-between;
   width: 150px;
   height: 150px;
-  background-color: #669BBC;
+  background-color: #669bbc;
   color: white;
   font-size: 24px;
   transition: all 0.3s ease-out;
@@ -145,7 +143,11 @@
 }
 
 .addGamesBox {
-  letter-spacing: 1px;
+  display: flex;
+  margin: 0 5% 0 5%;
+  letter-spacing: 0.2px;
+  line-height: 90%;
+  flex-direction: column;
 }
 
 button {
@@ -154,7 +156,6 @@ button {
   border: none;
   cursor: pointer;
   margin: 0 20px;
-
 }
 
 .button-container {
@@ -169,7 +170,7 @@ button {
 
 .left-button {
   background-color: transparent;
-  background-image: url('..//images/left arrow.png');
+  background-image: url("..//images/left arrow.png");
   background-size: 100% 100%;
   width: 120px;
   height: 50px;
@@ -178,7 +179,7 @@ button {
 
 .right-button {
   background-color: transparent;
-  background-image: url('../images/right arrow.png');
+  background-image: url("../images/right arrow.png");
   background-size: 100% 100%;
   width: 120px;
   height: 50px;
@@ -209,16 +210,14 @@ button {
 }
 
 .text {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0 0 2% 0;
+  height: 100%;
+  z-index: 10;
 }
 
 .title {
   font-size: 50px;
   font-weight: 300;
-  margin: 0 0 15% 0;
+  margin: 0;
 }
 
 .buttonDesc {
@@ -227,24 +226,6 @@ button {
   font-size: 30px;
   align-items: center;
   justify-content: center;
-
-}
-
-.button1 {
-  font-family: "Teko", sans-serif;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #597cd2;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-}
-
-.button1:hover {
-  background-color: #0056b3;
 }
 
 .stringDecorBot {
@@ -256,10 +237,10 @@ button {
   height: 20%;
   overflow: visible;
 }
-.stringDecorBackupBot{
+.stringDecorBackupBot {
   position: absolute;
   bottom: 0px;
-  left: -300px; 
+  left: -300px;
   width: 100%;
   height: auto;
   overflow: visible;

@@ -10,10 +10,12 @@ import time
 import subprocess
 import zipfile
 from flask import Flask, jsonify
+# from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
 # Flask app setup
 app = Flask(__name__)
+# socketio = SocketIO(app)
 log_messages = []  # A list to store log messages
 
 CORS(app)
@@ -27,6 +29,36 @@ monitor.filter_by(subsystem = 'block')
 stop_script = False
 
 game_systems = ['nes', 'n64', 'snes', 'dreamcast', 'psp', 'psx', 'nds', 'megadrive']
+
+# ------------------------------------------------------------
+# Endpoint to start USB monitoring
+@app.route('/start_usb_monitoring', methods=['GET'])
+def start_usb_monitoring():
+    global observer
+    observer = pyudev.MonitorObserver(monitor, callback=device_event)
+    observer.start()
+    print("Monitoring USB storage insertions...")
+    return jsonify({"message": "USB monitoring started"}), 200
+
+# Endpoint to stop USB monitoring
+@app.route('/stop_usb_monitoring', methods=['GET'])
+def stop_usb_monitoring():
+    global observer
+    if observer is not None:
+        observer.stop()
+        observer = None
+        print("Stopped USB monitoring.")
+    return jsonify({"message": "USB monitoring stopped"}), 200
+
+# Flask route to get log messages
+@app.route('/get_log_messages', methods=['GET'])
+def get_log_messages():
+    global log_messages
+    log_messages.append("Hello testing")
+    messages = log_messages.copy()  # Make a copy to send
+    log_messages = []  # Clear the log after sending
+    return jsonify(messages), 200
+# ------------------------------------------------------------
 
 #Extracts PSP, PS1, and Dreamcast games from zips/7z files
 def extract_file(file_path, extract_to):
@@ -129,46 +161,7 @@ def device_event(device):
         observer.stop()
         print("USB removed, stopping script")
         
-
-# Endpoint to start USB monitoring
-@app.route('/start_usb_monitoring', methods=['GET'])
-def start_usb_monitoring():
-    global observer
-    observer = pyudev.MonitorObserver(monitor, callback=device_event)
-    observer.start()
-    print("Monitoring USB storage insertions...")
-    return jsonify({"message": "USB monitoring started"}), 200
-
-# Endpoint to stop USB monitoring
-@app.route('/stop_usb_monitoring', methods=['GET'])
-def stop_usb_monitoring():
-    global observer
-    if observer is not None:
-        observer.stop()
-        observer = None
-        print("Stopped USB monitoring.")
-    return jsonify({"message": "USB monitoring stopped"}), 200
-
-# Flask route to get log messages
-@app.route('/get_log_messages', methods=['GET'])
-def get_log_messages():
-    global log_messages
-    messages = log_messages.copy()  # Make a copy to send
-    log_messages = []  # Clear the log after sending
-    return jsonify(messages), 200
-
 if __name__ == "__main__":
-    # >>> moved this to /start_usb_monitoring endpoint
-    # observer = pyudev.MonitorObserver(monitor, callback=device_event)
-    # observer.start()
-    # print("Monitoring USB storage insertions...")
-
-    # try:
-    #     while not stop_script:
-    #         time.sleep(1)
-    # except KeyboardInterrupt:
-    #     print("Quitting on User request")
-
     # Starts the flask server, waiting for frontend to call the script
     app.run(debug=True, host="127.0.0.1", port=5000)
 
