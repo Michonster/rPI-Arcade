@@ -64,35 +64,36 @@
   position: absolute;
   z-index: 1;
   left: 3%;
+  bottom:5%;
 
 }
 
 .emulator_summary {
   position: absolute;
   right: 11%;
-  top: 15%;
-  width: 25%;
+  top: 10%;
+  width: 27%;
   color: white;
-  text-align: center;
+  text-align:left;
   /* font-size: 2vw; */
   font-size: clamp(20px, 2vw, 40px);
   z-index: 1;
   font-family: 'YourFontName';
-  width: 30%;
-  text-align: center;
+  /* width: 30%; */
+  /* text-align: center; */
 
 }
 
 .game_recommendations {
-  padding: 2px;
+  padding: 4px;
   margin: 10px;
   border: 2px solid white;
   /* border-radius: 20px; */
   position: absolute;
   color: white;
   font-family: 'YourFontName';
-  right: 10%;
-  bottom: 15%;
+  right: 8%;
+  bottom: 10%;
   z-index: 1;
   text-align: center;
   width: 30%;
@@ -107,6 +108,7 @@
 .actual_games {
   font-family: 'YourFontName';
   font-size: clamp(15px, 1.8vw, 35px);
+  /* font-size:20px; */
   padding-right: 30px;
 }
 
@@ -139,4 +141,21 @@
 .elevated-word::after {
   top: 10px;
   /* Second pseudo-element with more offset */
+}
+
+.Mario{
+  width:90px;
+  z-index: 1;
+  position:absolute;
+  bottom: 20px; /* Adjust to your desired spacing from the bottom */
+  right: 20px;  /* Adjust to your desired spacing from the right */
+
+}
+.Link{
+  width:250px;
+  z-index: 2;
+  position:absolute;
+  left:10px;
+  bottom:10px;
+
 }
