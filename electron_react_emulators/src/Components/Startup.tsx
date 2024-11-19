@@ -11,9 +11,16 @@ import TextAlongPathBot from "../assets/waveBottom.tsx";
 const Startup = () => {
     const [showTitle, setShowTitle] = useState(false);
     const [inAttractMode, setInAttractMode] = useState(false);
-    const videoPlayed = useRef(false);
     const navigate = useNavigate();
     const inactivityTimerRef = useRef(null);
+
+    const [videoPlayed, setVideoPlayed] = useState(() => { // Use sessionStorage to store state
+        return sessionStorage.getItem("videoPlayed") === "true"; // Defaults to false if not found
+    });
+    
+    useEffect(() => {
+        sessionStorage.setItem("videoPlayed", videoPlayed.toString());
+    }, [videoPlayed]);
 
     // Clear any existing timer and start a new one
     const startInactivityTimer = () => {
@@ -40,7 +47,7 @@ const Startup = () => {
     const handleVideoEnd = () => {
         console.log("Video ended, showing title screen");
         setShowTitle(true);
-        videoPlayed.current = true; // Mark video as played
+        setVideoPlayed(true); // Mark video as played
         startInactivityTimer(); // Start inactivity timer immediately after video ends
     };
 
@@ -61,7 +68,7 @@ const Startup = () => {
             return () => {
                 if (inactivityTimerRef.current) {
                     clearTimeout(inactivityTimerRef.current);
-                    console.log(videoPlayed)
+                    console.log("return", videoPlayed)
                 }
                 window.removeEventListener("keydown", handleKeyDown);
             };
@@ -69,7 +76,8 @@ const Startup = () => {
 
     return (
         <div className="startup">
-            {!videoPlayed.current && !showTitle ? ( // Play the video first (only if first startup)
+            {!videoPlayed && !showTitle ? ( // Play the video first (only if first startup)
+                console.log("vid", videoPlayed),
                 <video autoPlay onEnded={handleVideoEnd}>
                     <source src={vid} type="video/mp4" />
                 </video>
