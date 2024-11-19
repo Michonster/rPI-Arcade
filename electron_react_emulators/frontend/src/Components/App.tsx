@@ -4,10 +4,9 @@ import './App.css';
 import Emulators from './Emulators';
 import DetailsMain from './Details/DetailsMain.js';
 import Flashdrive from './Flashdrive/Flashdrive.tsx';
-
-import pixelPanel from "/images/pixelPanel.png";
-import StringDecorBackup from "../assets/stringDecorBackup.js";
-import logo from "/images/Logo.png";
+import backdrop from "/images/backdrop.png";
+// import TopBanner from './Banners/TopBanner.tsx';
+// import BotBanner from './Banners/BotBanner.tsx'
 
 import boxData from "../emuData.json";
 
@@ -24,9 +23,9 @@ function App() {
 
   return (
     <>
-      <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />
-      <StringDecorBackup className="stringDecorBackup" />
-      <img src={logo} alt="logo" className="logo" />
+      <img src={backdrop} alt="backdrop" className="backDrop" />
+      {/* <TopBanner /> */}
+      {/* <BotBanner/> */}
 
       <Router>
         <Routes>

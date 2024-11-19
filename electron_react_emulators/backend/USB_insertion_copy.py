@@ -143,6 +143,7 @@ def device_event(device):
                 #Mount the USB and run copy function
                 subprocess.run(mount_command, check=True)
                 print("Mount Success")
+                log_messages.append("Mount Success")
                 copy_folder_from_usb(os.path.join(mount_point,'RetroPie'),'/home/rpiarcade/RetroPie/roms' )
                 
                 #Unmount the USB

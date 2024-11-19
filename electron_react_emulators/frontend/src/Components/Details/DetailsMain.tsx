@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import Cube from './Cube';
 
+import TopBanner from '../Banners/TopBanner.tsx';
 import './DetailsMain.css';
 import Mario64 from '/images/Mario64.gif';
 import Link64 from '/images/Link64.gif'
@@ -43,6 +44,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
 
   return (
     <div className="Main_Div">
+      <TopBanner />
       <button className ="buttonCircle" onClick={goBack} >Back</button>
       <img className ="Mario" src={Mario64} alt="Mario 64" />
       <img className ="Link" src={Link64} alt="Link64" />

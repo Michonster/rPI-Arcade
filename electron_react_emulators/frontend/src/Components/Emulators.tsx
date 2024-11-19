@@ -2,9 +2,8 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 import "./Emulators.css";
-import backdrop from "/images/backdrop.png";
-import pixelPanel from "/images/pixelPanel.png";
-import StringDecorBackup from "../assets/stringDecorBackup.js";
+import TopBanner from './Banners/TopBanner.tsx';
+import BotBanner from './Banners/BotBanner.tsx';
 
 import emuData from "../emuData.json";
 
@@ -47,8 +46,8 @@ const Emulators: React.FC<EmulatorsProps> = ({
 
   return (
     <div className="emulators">
-      <img src={backdrop} alt="backdrop" className="backDrop" />
-      
+      <TopBanner />
+      <BotBanner />
       {/* Middle Section =====================================================*/}
       <div className="middle">
         <div className="box-container">
@@ -103,13 +102,13 @@ const Emulators: React.FC<EmulatorsProps> = ({
               >
                 {/* only Add Game box gets different styling */}
                 {index === totalBoxes - 1 ? (
-                  <p className="addGamesBox">
-                    ★ {box.text} ★
+                  <div className="addGamesBox">
+                    <p style={{margin: "0"}}> ★ {box.text} ★ </p>
                     <p style={{ textAlign: "left" }}>
                       REQUIRED: &nbsp;&nbsp;&nbsp;flashdrive +
                       &nbsp;&nbsp;&nbsp;proper format Select to see format.
                     </p>
-                  </p>
+                  </div>
                 ) : (
                   <>
                     <img src={box.image} alt={`Box ${index + 1}`} />
@@ -129,9 +128,6 @@ const Emulators: React.FC<EmulatorsProps> = ({
 
       {/* Bottom Section =====================================================*/}
       <div className="bottom">
-        <img src={pixelPanel} alt="pixel panel" className="pixelPanelBot" />
-        {/* <TextAlongPathBot className="stringDecorBot" /> */}
-        <StringDecorBackup className="stringDecorBackupBot" />
 
         <div className="text">
           {position === totalBoxes - 1 ? (
@@ -164,7 +160,6 @@ const Emulators: React.FC<EmulatorsProps> = ({
             </>
           )}
         </div>
-        <p className="RCOS">RCOS Project</p>
       </div>
     </div>
   );

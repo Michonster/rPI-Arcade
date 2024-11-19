@@ -7,91 +7,13 @@
   color: white;
 }
 
-.backDrop {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -10;
-}
-
 /* ============================================== */
-.top {
+/* .top {
   width: 100%;
   height: 20%;
   margin: 0;
   padding: 0;
-}
-
-.stringDecor {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: auto;
-  max-height: 47%;
-  min-height: 40%;
-  overflow: visible;
-}
-.stringDecorBackup {
-  position: absolute;
-  top: 0px;
-  left: -300px;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  z-index: 10;
-  margin-top: 5px;
-}
-/* .rect-clip {
-  border-width: 2;
-  border-color: white;
-  position: absolute;
-  top: -30px;
-  left: 0;
-  width: 100%;
-  height: auto;
-  z-index: 100;
 } */
-
-.pixelPanelTop {
-  position: absolute;
-  top: -50px;
-  left: 0;
-  width: 100%;
-  max-height: 30%;
-  min-height: 25%;
-  z-index: -5;
-}
-
-.logo {
-  min-width: 80px;
-  width: 13%;
-  height: auto;
-  padding-top: 3%;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.uploadText {
-  color: white;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 8%;
-  right: 70%;
-  font-size: 20px;
-  line-height: 20px;
-  z-index: 5;
-}
-
-.button2 {
-  font-weight: 200;
-}
 
 /* ============================================== */
 .middle {
@@ -166,6 +88,7 @@ button {
   align-items: center;
   width: 80%;
   justify-content: space-between;
+  z-index: 99;
 }
 
 .left-button {
@@ -190,27 +113,16 @@ button {
 .bottom {
   color: white;
   width: 100%;
-  height: 20%;
+  height: 28%;
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-direction: column;
   line-height: 1;
-}
-
-.pixelPanelBot {
-  position: absolute;
-  bottom: -50px;
-  left: 50%;
-  width: 100%;
-  transform: translateX(-50%) scaleY(-1);
-  max-height: 30%;
-  min-height: 25%;
-  z-index: -5;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .text {
-  height: 100%;
+  height: 50%;
   z-index: 10;
 }
 
@@ -226,33 +138,4 @@ button {
   font-size: 30px;
   align-items: center;
   justify-content: center;
-}
-
-.stringDecorBot {
-  position: absolute;
-  transform: translateY(10px);
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 20%;
-  overflow: visible;
-}
-.stringDecorBackupBot {
-  position: absolute;
-  bottom: 0px;
-  left: -300px;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  z-index: 10;
-  margin-bottom: 10px;
-}
-
-.RCOS {
-  width: 75%;
-  margin: 0 0 2% 0;
-  font-size: 20px;
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: row;
 }

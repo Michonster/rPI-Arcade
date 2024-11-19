@@ -1,41 +1,20 @@
 .flashdrive {
-  background-color: #CFCFCF;
+  /* background-color: #CFCFCF; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   height: 100vh;
-  color: black;
   font-size: 30px;
 }
 
-.flashdrive .top {
+.flashdrive .body {
   width: 100%;
-  height: 30%;
-  margin: 0;
-  padding: 0;
-}
-
-.flashdrive .stringDecorBackup {
-  position: absolute;
-  top: 0px;
-  left: -300px; 
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  z-index: 10;
-  margin-top: 5px;
-  z-index: 10;
-}
-
-.flashdrive .pixelPanelTop {
-  position: absolute;
-  top: -50px;
-  left: 0;
-  width: 100%;
-  max-height: 30%;
-  min-height: 25%;
-  z-index: 0;
+  height: 100%;
+  margin: 5% 0 5% 0;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .cancel {
@@ -43,29 +22,98 @@
   display: flex;
   align-items: center;
   position: absolute;
-  top: 8%;
-  right: 70%;
+  text-align: left;
+  top: 2%;
+  left: 12%;
   font-size: 20px;
   line-height: 20px;
-  z-index: 5;
+  z-index: 99;
 }
 
 .cancel .button {
   font-weight: 100;
 }
 
-/* ======================================== */
-
-.flashdrive .middle {
-  width: 100%;
-  text-align: center;
+.logOutput {
+  position: absolute;
+  width: 73%;
+  height: 73%;
+  top: 20%;
+  left: 17%;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  line-height: 160%;
+  border: 2px solid white; 
+  padding: 1%;
 }
 
-.flashdrive .bottom {
+/* ===================================== */
+
+.buttonsSteps {
+  width: 20%;
+  height: 100%;
+  position: absolute;
+  top: 8%; 
+  left: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
 
 }
 
+.buttonStep {
+  z-index: 99;
+  font-family: "Teko", sans-serif;
+  width: 60px;
+  height: 60px;
+  background-color: #E72623;
+  transition: background-color 0.3s ease;
+  font-size: 40px;
+  border-radius: 20%;
+  border: 2px solid white;
+  color: white;
+  text-shadow: /* text border */
+  2px 2px 0px black, 
+  -2px -2px 0px black, 
+  2px -2px 0px black, 
+  -2px 2px 0px black; 
+}
+
+.activeStep {
+  background-color: #e7ef88;
+  position: relative;
+}
+
+.completedStep {
+  background-color: #51e723;
+}
+
+.activeStep::after {
+  /* horizontal line extending from step */
+  content: '';
+  position: absolute;
+  top: 50%; 
+  left: 100%; 
+  transform: translateY(-50%);
+  width: calc(10vw - 100%); 
+  height: 2px;
+  background-color: white;
+  z-index: 1;
+}
+
+.activeStep::before {
+  /* arrowhead */
+  content: '';
+  position: absolute;
+  top: 50%; 
+  left: calc(10vw + 2px);
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 0 7px 11px;
+  border-color: transparent transparent transparent white; 
+  z-index: 1;
+}
