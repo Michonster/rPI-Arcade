@@ -54,7 +54,12 @@ def stop_usb_monitoring():
 @app.route('/get_log_messages', methods=['GET'])
 def get_log_messages():
     global log_messages
+    # TESTING ====================================================================
     log_messages.append("Hello testing")
+    # log_messages.append("USB device inserted.")
+    # log_messages.append("blah blah blah")
+    # log_messages.append("Please remove USB.")
+    # log_messages.append("USB successfully removed.")
     messages = log_messages.copy()  # Make a copy to send
     log_messages = []  # Clear the log after sending
     return jsonify(messages), 200

@@ -5,9 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import "./Flashdrive.css";
-// import LeftBanner from "../Banners/LeftBanner"
-// import TopBanner from '../Banners/TopBanner';
-import LeftBanner2 from '../Banners/LeftBanner2'
+import LeftBanner from '../Banners/LeftBanner'
 
 const Flashdrive: React.FC = () => {
   // handle getting messages ======================================
@@ -47,8 +45,7 @@ const Flashdrive: React.FC = () => {
         try {
           const response = await fetch("http://127.0.0.1:5000/get_log_messages");
           const messages: string[] = await response.json();
-          // append to LogMessages
-          setLogMessages((prevLogMessages) => [...prevLogMessages, ...messages]);
+          handleLogMessages(messages);
         } catch (error) {
           console.error("Error fetching log messages:", error);
         }
@@ -58,44 +55,46 @@ const Flashdrive: React.FC = () => {
     }
   }, [isMonitoring]);
 
-  // const handleLogMessages = (messages: string[]) => {
-  //   setLogMessages((prevLogMessages) => {
-  //     const updatedLogMessages = [...prevLogMessages, ...messages];
+  const handleLogMessages = (messages: string[]) => {
+    setLogMessages((prevLogMessages) => {
+      const updatedLogMessages = [...prevLogMessages, ...messages];
 
-  //     // Check for keywords to transition steps
-  //     if (activeStep === 1 && messages.some(msg => msg.includes("USB device"))) {
-  //       markStepComplete(1);
-  //       setActiveStep(2);
-  //     } else if (activeStep === 2 && messages.some(msg => msg.includes("Please remove USB"))) {
-  //       markStepComplete(2);
-  //       setActiveStep(3);
-  //     }
+      // Check for keywords to transition steps
+      if (activeStep === 1 && messages.some(msg => msg.includes("USB device"))) {
+        markStepComplete(1);
+        setActiveStep(2);
+      } else if (activeStep === 2 && messages.some(msg => msg.includes("Please remove USB"))) {
+        markStepComplete(2);
+        setActiveStep(3);
+      } else if (activeStep == 3 && messages.some(msg => msg.includes("USB successfully removed."))) {
+        markStepComplete(3)
+      }
 
-  //     return updatedLogMessages;
-  //   });
-  // };
+      return updatedLogMessages;
+    });
+  };
 
-  // const markStepComplete = (step: number) => {
-  //   const updatedCompletedSteps = [...completedSteps];
-  //   updatedCompletedSteps[step - 1] = true;
-  //   setCompletedSteps(updatedCompletedSteps);
-  // };
+  const markStepComplete = (step: number) => {
+    const updatedCompletedSteps = [...completedSteps];
+    updatedCompletedSteps[step - 1] = true;
+    setCompletedSteps(updatedCompletedSteps);
+  };
 
   // handle displaying steps ======================================
   const [activeStep, setActiveStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
 
-  const handleStepClick = (step: number) => {
-    if (step === activeStep) {
-      // If already active, mark as complete
-      const updatedCompletedSteps = [...completedSteps];
-      updatedCompletedSteps[step - 1] = true;
-      setCompletedSteps(updatedCompletedSteps);
-    } else {
-      // If clicking a non-active step, set as active
-      setActiveStep(step);
-    }
-  };
+  // const handleStepClick = (step: number) => {
+  //   if (step === activeStep) {
+  //     // If already active, mark as complete
+  //     const updatedCompletedSteps = [...completedSteps];
+  //     updatedCompletedSteps[step - 1] = true;
+  //     setCompletedSteps(updatedCompletedSteps);
+  //   } else {
+  //     // If clicking a non-active step, set as active
+  //     setActiveStep(step);
+  //   }
+  // };
 
   const stepTitle = [
     "Step 1: Insert your flashdrive",
@@ -112,9 +111,7 @@ const Flashdrive: React.FC = () => {
 
   return (
     <div className="flashdrive">
-      {/* <TopBanner /> */}
-      {/* <LeftBanner /> */}
-      <LeftBanner2 />
+      <LeftBanner />
       <ToastContainer autoClose={5000} />
 
       {/* ============================ */}
@@ -129,7 +126,7 @@ const Flashdrive: React.FC = () => {
           <button
             key={step}
             className={`buttonStep ${activeStep === step ? 'activeStep' : ''} ${completedSteps[step - 1] ? 'completedStep' : ''}`}
-            onClick={() => handleStepClick(step)}
+            // onClick={() => handleStepClick(step)}
           >
             {step}
           </button>

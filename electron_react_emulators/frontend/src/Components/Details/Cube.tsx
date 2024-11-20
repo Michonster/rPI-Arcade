@@ -23,7 +23,7 @@ const Cube: React.FC<CubeProps> = ({ src }) => {
   });
 
   return (
-    <Plane ref={planeRef} args={[3, 3]} position={[-3, 0, 0]}>
+    <Plane ref={planeRef} args={[2.5, 2.5]} position={[-3.5, 1, 0]}>
       <meshStandardMaterial
         attach="material"
         map={texture}

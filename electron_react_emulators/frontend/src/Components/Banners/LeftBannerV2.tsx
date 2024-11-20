@@ -6,27 +6,28 @@ import StringDecorBackup from "../../assets/stringDecorBackup.js";
 
 import './Banners.css';
 
-const LeftBanner2 = () => {
+const LeftBannerV2 = () => {
   return (
     <motion.div
       className="bannerWrapper"
-      initial={{ translateX: "-70%" }}
-      animate={{ translateX: "-50%" }}
+      initial={{ rotate: 0, translateY: 0, translateX: 0 }} // Initial position
+      animate={{ rotate: -90, translateY: "50vh", translateX: "-50%" }} // Center the component on the left side
       transition={{
-        duration: 0.5,
-        ease: "backOut",
+        duration: 0.5, 
+        ease: "easeOut",
       }}
       style={{
-        rotate: "-90deg",
+        transformOrigin: "center",
+        position: "fixed",
         height: "auto",
-        translateY: "50vh",
-        position: "absolute"
+        translateX: "-50%",
       }}
     >
       <img src={pixelPanel} alt="pixel panel" className="pixelPanelLeft" />
       <StringDecorBackup className="stringDecorBackup" />
+      {/* <img src={logo} alt="logo" className="logo" /> */}
     </motion.div>
   );
 };
 
-export default LeftBanner2;
+export default LeftBannerV2;

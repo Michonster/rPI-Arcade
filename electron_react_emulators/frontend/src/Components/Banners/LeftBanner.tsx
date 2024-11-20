@@ -10,22 +10,21 @@ const LeftBanner = () => {
   return (
     <motion.div
       className="bannerWrapper"
-      initial={{ rotate: 0, translateY: 0, translateX: 0 }} // Initial position
-      animate={{ rotate: -90, translateY: "50vh", translateX: "-50%" }} // Center the component on the left side
+      initial={{ translateX: "-70%" }}
+      animate={{ translateX: "-50%" }}
       transition={{
-        duration: 0.5, 
-        ease: "easeOut",
+        duration: 0.5,
+        ease: "backOut",
       }}
       style={{
-        transformOrigin: "center",
-        position: "fixed",
+        rotate: "-90deg",
         height: "auto",
-        translateX: "-50%",
+        translateY: "50vh",
+        position: "absolute"
       }}
     >
       <img src={pixelPanel} alt="pixel panel" className="pixelPanelLeft" />
       <StringDecorBackup className="stringDecorBackup" />
-      {/* <img src={logo} alt="logo" className="logo" /> */}
     </motion.div>
   );
 };
