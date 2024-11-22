@@ -10,12 +10,10 @@ import subprocess
 import zipfile
 
 #Setup for USB monitoring 
-#Setup for USB monitoring 
 context = pyudev.Context()
 monitor = pyudev.Monitor.from_netlink(context)
 monitor.filter_by(subsystem = 'block')
 
-#variable to check whether to stop script
 #variable to check whether to stop script
 stop_script = False
 
@@ -124,17 +122,13 @@ def copy_folder_from_usb(usb_base_path, destination_base_path):
             except Exception as e:
                 print(f"Error while copying {system}: {e}")
         #Print that USB path doesnt exist if no path is found
-        #Print that USB path doesnt exist if no path is found
         else:
             print(f"{system} not found on USB")
 
 
 #Monitor USB insertion/removal
-
-#Monitor USB insertion/removal
 def device_event(device):
     global stop_script
-    #Perform when USB is inserted
     #Perform when USB is inserted
     if device.action == 'add' and 'part' in device.device_type:
             print(f"USB device {device.device_node} inserted.")
@@ -143,7 +137,6 @@ def device_event(device):
             mount_command = ['sudo', 'mount', device_path, mount_point]
             unmount_command = ['sudo', 'umount', mount_point]
             try:
-                #Mount the USB and run copy function
                 #Mount the USB and run copy function
                 subprocess.run(mount_command, check=True)
                 print("Mount Success")
