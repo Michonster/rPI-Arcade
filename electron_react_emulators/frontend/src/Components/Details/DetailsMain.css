@@ -63,8 +63,8 @@
 .canvas-container {
   position: absolute;
   z-index: 1;
-  left: 3%;
-  bottom:5%;
+  left: 10%;
+  top:30%;
   margin-left:2%;
 
 }
@@ -195,10 +195,10 @@
 }
 .Side1 {
   position: absolute;
-  top: 48%;
-  left: -29.0%;
+  top: 45%;
+  left: -28.0%;
   width: 62%;
-  height: 5%;
+  height: 10%;
   max-height: 30%;
   /* min-height: 25%; */
   z-index: -5;
@@ -209,7 +209,7 @@
   position:relative;
   /* right:90%; */
   top: 45%;
-  left: 47%;
+  left: 66%;
   width: 62%;
   height: 10%;
   max-height: 30%;

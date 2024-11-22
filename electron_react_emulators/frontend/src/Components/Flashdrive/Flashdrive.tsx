@@ -149,6 +149,13 @@ const Flashdrive: React.FC = () => {
         </div>
 
         {/* ============================ */}
+        {/* <<<<<<< THE BOTTOM IS CUTTING OFF */}
+        {/* MAKE BUTTONS WORKKKKKKKKK */}
+        {/* PUT OPTION TO ENTER EMULATOR */}
+        {/* ADD KALVIN'S STUFF MAIN SCREEN */}
+        {/* POPULATE SUMMARY */}
+        {/* CHANGE FONT OF LOG MESSAGES AND MAKE LINES CLOSER BUT SEPARATE LINES MORE FAR AWAY */}
+        {/* step3/4 LOG MESSAGES CUTTING OFF THE END */}
         <div ref={outputRef} className="logOutput">
           {
             activeStep === 1 && <Step1Instruction />
@@ -157,9 +164,11 @@ const Flashdrive: React.FC = () => {
             activeStep === 2 && (
               <>
                 <h3 style={{ margin: 0 }}>Log Messages: </h3>
-                {logMessages.map((message, index) => (
-                  <p style={{ margin: "0" }} key={index}>{`> ${message}`}</p>
-                ))}
+                <div style={{ fontSize: "20px", fontFamily: '"DM Sans", sans-serif', lineHeight:"140%" }}>
+                  {logMessages.map((message, index) => (
+                    <p style={{ margin: "0" }} key={index}>{`> ${message}`}</p>
+                  ))}
+                </div>
               </>
             )
           }
@@ -169,7 +178,7 @@ const Flashdrive: React.FC = () => {
               <div style={{ display: "flex" }}>
                 <div style={{ width: "50%" }}>
                   <h3 style={{ margin: 0 }}>Log Message: </h3>
-                  <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+                  <div style={{ maxHeight: '100%', overflowY: 'auto', fontSize: "18px", fontFamily: '"DM Sans", sans-serif' }}>
                     {logMessages.map((message, index) => (
                       <p style={{ margin: "0", lineHeight: "100%" }} key={index}>{`> ${message}`}</p>
                     ))}

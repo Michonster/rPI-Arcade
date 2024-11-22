@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
-import Cube from "./Cube";
+import Rotate from "./Rotating_Image";
 import "./DetailsMain.css";
 import pixelPanel from "/images/pixelPanel.png";
 import Mario64 from "/images/Mario64.gif";
-import Link64 from "/images/Link64.gif";
 import Sonic_Run_Right from "/images/DreamCast_Moving_Right.gif";
 import Sonic_Run_Left from "/images/DreamCast_Moving_Left.gif";
 import { useNavigate } from "react-router-dom";
-// import LeftBanner from "../Banners/LeftBanner2";
+import LeftBanner from "../Banners/LeftBanner";
+import RightBanner from "../Banners/RightBanner";
 
 import emuData from '../../emuData.json';
 
@@ -32,11 +31,12 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
     navigate('/');
   };
 
+  
   const [emulators] = useState<Emulator[]>(emuData);
   const [selectedEmulator, setSelectedEmulator] = useState<Emulator | null>(null);
 
   const [sonicPosition, setSonicPosition] = useState(0); // Sonic's horizontal position
-  const [direction, setDirection] = useState<"right" | "left">("right"); // Movement direction
+  const [direction] = useState<"right" | "left">("right"); // Movement direction
   const [sonicImage, setSonicImage] = useState(Sonic_Run_Right); // Current Sonic image
 
   useEffect(() => {
@@ -78,9 +78,10 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
 
   return (
     <div className="Main_Div">
-      {/* <LeftBanner/>  */}
-      <img className="Side1" src={pixelPanel} alt="S1" />
-      <img className="Side2" src={pixelPanel} alt="S2" />
+      <LeftBanner/> 
+      <RightBanner/>
+      {/* <img className="Side1" src={pixelPanel} alt="S1" /> */}
+      {/* <img className="Side2" src={pixelPanel} alt="S2" /> */}
       <button className="back_button" onClick={goBack}>
         Back
       </button>
@@ -95,15 +96,18 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
       />
 
       {/* Canvas for 3D content */}
-      <Canvas className="canvas-container">
+      
+      {/* <Canvas className="canvas-container">
         <ambientLight intensity={2} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -10, -10]} color="red" intensity={1} />
         <Cube
           src={selectedEmulator?.image ?? "/path/to/fallback-image.webp"} // in case no img found
         />
-      </Canvas>
-
+      </Canvas> */}
+      <div className="canvas-container">
+      <Rotate  src={selectedEmulator?.image ?? "/path/to/fallback-image.webp"}  />
+      </div>
       {/* Display emulator information if found */}
       {selectedEmulator ? (
         <>
