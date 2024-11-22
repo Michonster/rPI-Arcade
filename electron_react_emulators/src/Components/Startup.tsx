@@ -14,11 +14,11 @@ const Startup = () => {
     const navigate = useNavigate();
     const inactivityTimerRef = useRef(null);
 
-    const [videoPlayed, setVideoPlayed] = useState(() => { // Use sessionStorage to store state
+    const [videoPlayed, setVideoPlayed] = useState(() => { // Use sessionStorage to store state PER SESSION (changes on refresh)
         return sessionStorage.getItem("videoPlayed") === "true"; // Defaults to false if not found
     });
     
-    useEffect(() => {
+    useEffect(() => { // Save videoPlayed state to sessionStorage
         sessionStorage.setItem("videoPlayed", videoPlayed.toString());
     }, [videoPlayed]);
 
@@ -59,20 +59,19 @@ const Startup = () => {
             }
             resetInactivityTimer();
         };
+        window.addEventListener("keydown", handleKeyDown); 
 
         if (showTitle) {
-            // Set up event listeners only after the title screen is shown
-            window.addEventListener("keydown", handleKeyDown);
             startInactivityTimer(); // Ensure the timer is running when title shows
         }
-            return () => {
-                if (inactivityTimerRef.current) {
-                    clearTimeout(inactivityTimerRef.current);
-                    console.log("return", videoPlayed)
-                }
-                window.removeEventListener("keydown", handleKeyDown);
-            };
-        }, [showTitle, inAttractMode, navigate]);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            if (inactivityTimerRef.current) {
+                clearTimeout(inactivityTimerRef.current);
+                console.log("return", videoPlayed)
+            }
+        };
+    }, [showTitle, inAttractMode, navigate]);
 
     return (
         <div className="startup">
