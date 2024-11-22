@@ -1,0 +1,42 @@
+.instructions {
+  display: flex;
+}
+
+.instructionsLeft {
+  margin: 0;
+  width: 50%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.smallText {
+  line-height: 130%;
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  margin: 0;  
+}
+
+.instructionsRight {
+  margin: 0 0 0 10%;
+  width: 50%;
+  height: auto;
+}
+
+.fileText {
+  line-height: 140%;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  margin: 0;  
+  font-weight: 200;
+}
+
+.folder {
+  font-size: 24px;
+  font-weight: 300;
+  margin-left: 5%;
+}
+
+.filename {
+  margin: 0 0 0 10%;
+}
