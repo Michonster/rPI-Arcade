@@ -8,11 +8,25 @@ import demo from '../assets/Marvel Super Heroes (Capcom 1995)  Attract Mode 60fp
 import TextAlongPath from "../assets/waveTop.tsx";
 import TextAlongPathBot from "../assets/waveBottom.tsx";
 
+const gifs = [
+    '/images/EB1.gif',
+    '/images/EB2.gif',
+    // '../assets/EB3.gif',
+    // '../assets/EB4.gif',
+  ];
+
 const Startup = () => {
     const [showTitle, setShowTitle] = useState(false);
     const [inAttractMode, setInAttractMode] = useState(false);
     const navigate = useNavigate();
     const inactivityTimerRef = useRef(null);
+    const [randomGif, setRandomGif] = useState("");
+    
+    useEffect(() => {
+        // Select a random GIF when the component mounts
+        const randomIndex = Math.floor(Math.random() * gifs.length);
+        setRandomGif(gifs[randomIndex]);
+      }, []);
 
     const [videoPlayed, setVideoPlayed] = useState(() => { // Use sessionStorage to store state PER SESSION (changes on refresh)
         return sessionStorage.getItem("videoPlayed") === "true"; // Defaults to false if not found
@@ -90,7 +104,11 @@ const Startup = () => {
                 </div>
                 ) : ( // If the intro already played, show title screen
                 <div className="titleScreen">
-                    <div className='backDrop' />
+                    <div className='backDrop'
+                    style={{
+                        background: `url(${randomGif}) repeat 0 0`,
+                        }} 
+                    />
                     {/* Top Section */}
                     <div className="top">
                         <img src={pixelPanel} alt="pixel panel" className="pixelPanelTop" />

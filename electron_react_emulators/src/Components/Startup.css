@@ -34,7 +34,7 @@
     height: 100vh;
     width: 100vw;
     z-index: -6;
-    background: url(../assets/EB.gif) repeat 0 0;
+    /* background: url(../assets/EB.gif) repeat 0 0; */
     background-size: 250px 250px;
     background-attachment: fixed; 
     animation: animate-bg 1.92s infinite linear;
