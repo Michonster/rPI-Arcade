@@ -4,7 +4,7 @@
 
 .instructionsLeft {
   margin: 0;
-  width: 50%;
+  width: 55%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@
 
 .instructionsRight {
   margin: 0 0 0 10%;
-  width: 50%;
+  width: 30%;
   height: auto;
 }
 
@@ -29,6 +29,8 @@
   font-size: 16px;
   margin: 0;  
   font-weight: 200;
+  border: 2px solid white;
+  padding: 2%;
 }
 
 .folder {
@@ -39,4 +41,5 @@
 
 .filename {
   margin: 0 0 0 10%;
+  color: #8b90e4;
 }

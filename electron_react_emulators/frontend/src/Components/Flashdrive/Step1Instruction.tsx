@@ -6,14 +6,19 @@ const Step1Instruction: React.FC = () => {
   return (
     <div className='instructions'>
       <div className='instructionsLeft'>
+        <p className='smallText' style={{ margin: "0 0 3% 0", fontSize: "18px" }}>*We suggest checking if the games you want to install are already available first</p>
+
         <h3 style={{ fontSize: "30px", margin: 0 }}>File Structure Requirements for ROM Transfers</h3>
         <p className='smallText' style={{ marginBottom: "1%" }}>
-          To ensure successful ROM transfers using the script, the USB file structure must follow this specific format.
+          To ensure successful ROM transfers, the USB file structure must follow this specific format.
         </p>
         <ul className='smallText'>
           <li style={{ marginTop: "1%", marginBottom: "1%" }}>
-            <b style={{ fontFamily: "Teko", fontSize: "24px" }}>Folders:</b> Specific directories must be used for each console (e.g., <i>psx</i> for PS1,
-            <i> megadrive</i> for Sega Mega Drive/Genesis).
+            <b style={{ fontFamily: "Teko", fontSize: "24px" }}>Folders:</b> Games must be put under specific directories named after the emulator for that particular console (e.g., <b>psx</b> for PS1,
+            <b> megadrive</b> for Sega Mega Drive/Genesis).
+            <br />
+            <div style={{ marginLeft: "3%" }}>-Case sensitive.</div>
+            <div style={{ marginLeft: "3%" }}>-All supported emulators are shown on the right.</div>
           </li>
           <li style={{ marginTop: "1%" }}>
             <b style={{ fontFamily: "Teko", fontSize: "24px" }}>File Format:</b> Keep games in their original compressed formats (<i>.zip</i>, <i>.7z</i>).
@@ -21,6 +26,7 @@ const Step1Instruction: React.FC = () => {
         </ul>
       </div>
       <div className='instructionsRight'>
+        <p style={{ margin: "0 0 3% 30%" }}> Format Example: </p>
         <pre className='fileText'>
           <b className='folder' style={{ margin: 0 }}>/RetroPie/</b>
           <br />
