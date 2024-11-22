@@ -24,6 +24,8 @@ duplicate = 0
 dup_list = []
 failed = 0
 fail_list = []
+total_games = 0 
+complete_games = 0
 
 MIN_SPACE = 1 * 1024 * 1024 * 1024
 
@@ -50,8 +52,7 @@ def extract_file(file_path, extract_to):
 #Copys games from USB folders onto raspberry pi
 def copy_folder_from_usb(usb_base_path, destination_base_path):
     global success, succ_list, duplicate, dup_list, failed, fail_list
-    complete_games=0 
-    total_games = 0
+    global total_games, complete_games
 
     #Check how many games attempting to install
     for system in game_systems:
@@ -172,6 +173,8 @@ def device_event(device):
         stop_script = True
         observer.stop()
         print("USB removed, stopping script")
+        if (total_games!=complete_games):
+            print("USB removes early, all games were not looked at.")
         
 if __name__ == "__main__":
     

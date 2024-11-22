@@ -1,5 +1,6 @@
 import subprocess
 import os
+import shutil
 
 deleting = True
 game_systems = ['nes', 'n64', 'snes', 'dreamcast', 'psp', 'psx', 'nds', 'megadrive']
@@ -9,26 +10,30 @@ while True:
     for i in range(len(game_systems)):
         print(i+1, ": ", game_systems[i])
 
-    print(len(game_systems)+2, ": Delete All Games")
+    print(len(game_systems)+1, ":  Delete All Games")
     emu = int(input("Select which emulator you wish to delete games from: "))
     if emu == 0:
         break
     elif emu>len(game_systems)+1 or emu<0:
         continue
     elif emu==len(game_systems)+1:
-        check = input("Are you sure you want to delete all games")
+        check = input("Are you sure you want to delete all games (y/n): ")
         if check == 'y':
-            check = input("Are you really sure? ")
+            check = input("Are you really sure? (y/n): ")
             if check == 'y':
-                check = input("Theres no going back after this")
+                check = input("Theres no going back after this (y/n): ")
                 if check == 'y':
                     print("Ok, you asked for it. Nuking all games now")
                     for system in game_systems:
                         path = os.path.join("/home/rpiarcade/RetroPie/roms/", system)
-                        for game in games:
+                        for game in os.listdir(path):
                             game_path = os.path.join(path, game)
-                            os.remove(game_path)
+                            if os.path.isdir(game_path): 
+                                shutil.rmtree(game_path)
+                            else:  
+                                os.remove(game_path)
                     print("All games deleted.")
+                    break
 
                 else:
                     continue
