@@ -6,6 +6,7 @@
   align-items: center;
   height: 100vh;
   font-size: 30px;
+  color: white;
 }
 
 .flashdrive .body {
@@ -117,3 +118,4 @@
   border-color: transparent transparent transparent white; 
   z-index: 1;
 }
+

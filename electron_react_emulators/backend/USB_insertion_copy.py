@@ -55,7 +55,7 @@ def stop_usb_monitoring():
 def get_log_messages():
     global log_messages
     # TESTING ====================================================================
-    log_messages.append("Hello testing")
+    # log_messages.append("Hello testing")
     # log_messages.append("USB device inserted.")
     # log_messages.append("blah blah blah")
     # log_messages.append("Please remove USB.")
