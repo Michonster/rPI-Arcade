@@ -1,0 +1,58 @@
+:root {
+  font-family: "Teko", sans-serif;
+  font-weight: 300;
+
+  color-scheme: light dark;
+  background-color: #001A27;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+.buttonCircle {
+  font-family: "Teko", sans-serif;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #597cd2;
+  transition: background-color 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 99;
+}
+
+buttonCircle:hover {
+  background-color: #0056b3;
+}
+
+.Toastify__toast {
+  font-family: 'Teko', sans-serif !important;
+}
+
