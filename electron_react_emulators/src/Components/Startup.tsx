@@ -44,7 +44,7 @@ const Startup = () => {
         inactivityTimerRef.current = setTimeout(() => {
             console.log("Entering attract mode");
             setInAttractMode(true);
-        }, 50000); // 30 seconds of inactivity triggers attract mode
+        }, 30000); // 30 seconds of inactivity triggers attract mode
     };
 
     // Reset inactivity timer and exit attract mode

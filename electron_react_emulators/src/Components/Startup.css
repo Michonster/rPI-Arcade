@@ -108,10 +108,7 @@
 .push-start {
     font-size: 24px;
     color: white;
-    /*margin-top: 10px;  Space between the middle text and the flashing text */
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the text */
     position: absolute;
     animation: flash 1s infinite; /* Flash every second */
     text-transform: uppercase;
@@ -153,5 +150,12 @@
 }
   
 .attractMode {
-
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.attractMode p {
+    margin: 0; /* Remove default margins to prevent misalignment */
+    padding: 250px 0; /* Add some padding for spacing */
+    scale: 1.5;
 }
