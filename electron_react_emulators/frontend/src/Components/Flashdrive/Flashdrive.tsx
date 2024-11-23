@@ -156,6 +156,9 @@ const Flashdrive: React.FC = () => {
         {/* POPULATE SUMMARY */}
         {/* CHANGE FONT OF LOG MESSAGES AND MAKE LINES CLOSER BUT SEPARATE LINES MORE FAR AWAY */}
         {/* step3/4 LOG MESSAGES CUTTING OFF THE END */}
+        {/* MOVE WHERE LOG MESSAGE: is */}
+        {/* MOVE THE SECOND LINE OF THE LOG MESSAGES INDENTED */}
+        {/* COLOR THE DIFFERENT SPECIAL BOXES GREEN OR SMTH */}
         <div ref={outputRef} className="logOutput">
           {
             activeStep === 1 && <Step1Instruction />

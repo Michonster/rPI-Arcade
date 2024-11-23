@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Rotate from "./Rotating_Image";
 import "./DetailsMain.css";
-import pixelPanel from "/images/pixelPanel.png";
+// import pixelPanel from "/images/pixelPanel.png";
 import Mario64 from "/images/Mario64.gif";
 import Sonic_Run_Right from "/images/DreamCast_Moving_Right.gif";
 import Sonic_Run_Left from "/images/DreamCast_Moving_Left.gif";

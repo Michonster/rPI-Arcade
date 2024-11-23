@@ -24,7 +24,13 @@ const Emulators: React.FC<EmulatorsProps> = ({
     image: "",
     text: "ADD GAMES",
   };
-  const allEmuData = [...emuData, addGamesBox]; //concat addGamesBox
+
+  const playGamesBox = {
+    image: "",
+    text: "LAUNCH GAME MENU"
+  };
+
+  const allEmuData = [playGamesBox, ...emuData, addGamesBox]; //concat addGamesBox
   const totalBoxes = allEmuData.length;
 
   const handleRightClick = () => {
@@ -101,7 +107,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
                 }}
               >
                 {/* only Add Game box gets different styling */}
-                {index === totalBoxes - 1 ? (
+                {(index === totalBoxes - 1 || index === 0) ? (
                   <div className="addGamesBox">
                     <p style={{margin: "0"}}> ★ {box.text} ★ </p>
                     <p style={{ textAlign: "left" }}>
