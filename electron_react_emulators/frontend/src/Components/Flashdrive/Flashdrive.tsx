@@ -3,95 +3,135 @@ import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import io from 'socket.io-client';
 
 import "./Flashdrive.css";
 import LeftBanner from '../Banners/LeftBanner'
 import Step1Instruction from './Step1Instruction';
 
+import { useController } from "../ControllerContext";
+
+// Connect to flaskio server for handling flashdrive insertions
+const socket = io('http://127.0.0.1:5001', {
+  reconnection: false, // Disable automatic reconnections
+  timeout: 5000,
+});
+
 const Flashdrive: React.FC = () => {
-  // handle getting messages ======================================
   const navigate = useNavigate();
-  const [logMessages, setLogMessages] = useState<string[]>([]);
-  const outputRef = useRef<HTMLDivElement>(null); // Ref for the log output container
-  const [isMonitoring, setIsMonitoring] = useState(false);
+  const { registerButtonHandler } = useController();
 
   const handleCancel = () => {
+    if (hasStarted.current) {
+      socket.emit('STOP');
+      hasStarted.current = false;
+    }
     navigate('/');
   };
 
-  // Function to start monitoring
-  const startMonitoring = async () => {
-    try {
-      if (!isMonitoring) {
-        await fetch("http://127.0.0.1:5000/start_usb_monitoring");
-        setIsMonitoring(true);
-      }
-      else {
-        await fetch("http://127.0.0.1:5000/stop_usb_monitoring");
-        setIsMonitoring(false);
-      }
-
-    } catch (error) {
-      console.error("Error toggling USB monitoring:", error);
-      toast.error("Error: Games cannot be uploaded at this time. Please contact the RPI ARCADE team.", {
-        onClose: () => navigate('/'),
-      });
-    }
-  };
-
-  // Function to poll log messages every second
   useEffect(() => {
-    if (isMonitoring) {
-      const intervalId = setInterval(async () => {
-        try {
-          const response = await fetch("http://127.0.0.1:5000/get_log_messages");
-          const messages: string[] = await response.json();
-          handleLogMessages(messages);
-        } catch (error) {
-          console.error("Error fetching log messages:", error);
-        }
-      }, 5000);
+    registerButtonHandler("x", handleCancel);
+  }, [registerButtonHandler]);
 
-      return () => clearInterval(intervalId);
+  // handle getting messages ======================================
+  const [successGames, setSuccessGames] = useState([]);
+  const [duplicateGames, setDuplicateGames] = useState([]);
+  const [failedGames, setFailedGames] = useState([]);
+
+  const [logMessages, setLogMessages] = useState<string[]>([]);
+  const hasStarted = useRef(false);
+
+  // Supposed to run once when entering page
+  // Is actually ran 2x, so hasStarted ref to prevent repeat
+
+  // Prompts monitoring for flashdrives
+  useEffect(() => {
+    if (!hasStarted.current) {
+      socket.emit('START');
+      hasStarted.current = true;
     }
-  }, [isMonitoring]);
+  }, []);
 
-  const handleLogMessages = (messages: string[]) => {
-    setLogMessages((prevLogMessages) => {
-      const updatedLogMessages = [...prevLogMessages, ...messages];
-      console.log(completedSteps)
-      // Check for key phrases to transition steps
-      /* 
-      USB device
-      Mount Success  - - going to process data now
-      Please remove USB  - - safe to remove USB
-      USB successfully removed.
-      */
-      if (activeStepRef.current === 1 && updatedLogMessages.some(msg => msg.includes("USB device"))) {
-        markStepComplete(1);
-        setActiveStep(2);
-      }
+  useEffect(() => {
 
-      if (activeStepRef.current === 2 && updatedLogMessages.some(msg => msg.includes("Please remove"))) {
-        markStepComplete(2);
-        setActiveStep(3);
-      }
-      if (activeStepRef.current == 3 && updatedLogMessages.some(msg => msg.includes("USB successfully removed."))) {
-        markStepComplete(3)
-        setActiveStep(4);
-        setIsMonitoring(false)
-      }
-      return updatedLogMessages;
-    });
-  };
+  }, []);
 
-  const markStepComplete = (step: number) => {
-    setCompletedSteps((prevCompletedSteps) => {
-      const updatedCompletedSteps = [...prevCompletedSteps];
-      updatedCompletedSteps[step - 1] = true;
-      return updatedCompletedSteps;
-    });
-  };
+
+  useEffect(() => {
+    // Process log messages
+    const handleStatus = (data: any) => {
+      setLogMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages, data.message];
+
+        // Check for key phrases to transition steps
+        if (updatedMessages.some(msg => msg.includes("USB device"))) {
+          markStepComplete(1);
+          setActiveStep(2);
+        }
+
+        if (updatedMessages.some(msg => msg.includes("Please remove"))) {
+          markStepComplete(2);
+          setActiveStep(3);
+        }
+
+        if (updatedMessages.some(msg => msg.includes("USB successfully removed."))) {
+          markStepComplete(3);
+          setActiveStep(4);
+        }
+
+        return updatedMessages;
+      });
+    };
+
+    // Process summary
+    const handleSummary = (data: any) => {
+      console.log(data.type);
+      console.log(data.games);
+
+      if (data.type === "success") {
+        setSuccessGames(data.games);
+      } else if (data.type === "duplicate") {
+        setDuplicateGames(data.games);
+      } else if (data.type === "failed") {
+        setFailedGames(data.games);
+      }
+    };
+
+    // Process errors
+    const handleConnectError = (error: Error) => {
+      console.error("Connection failed:", error);
+      toast.error(
+        "Error: Games cannot be uploaded at this time. Please contact the RPI ARCADE team.",
+        {
+          onClose: () => navigate("/"),
+        }
+      );
+    };
+
+    const handleConnectFailed = () => {
+      console.error("Connection to server failed");
+      toast.error(
+        "Error: Games cannot be uploaded at this time. Please contact the RPI ARCADE team.",
+        {
+          onClose: () => navigate("/"),
+        }
+      );
+    };
+
+    // Attach socket listeners
+    socket.on("status", handleStatus);
+    socket.on("summary", handleSummary);
+    socket.on("connect_error", handleConnectError);
+    socket.on("connect_failed", handleConnectFailed);
+
+    // Cleanup listeners on unmount
+    return () => {
+      socket.off("status", handleStatus);
+      socket.off("summary", handleSummary);
+      socket.off("connect_error", handleConnectError);
+      socket.off("connect_failed", handleConnectFailed);
+    };
+  }, []);
 
   // handle displaying steps ======================================
   const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
@@ -102,6 +142,14 @@ const Flashdrive: React.FC = () => {
     activeStepRef.current = activeStep;
   }, [activeStep]);
 
+
+  const markStepComplete = (step: number) => {
+    setCompletedSteps((prevCompletedSteps) => {
+      const updatedCompletedSteps = [...prevCompletedSteps];
+      updatedCompletedSteps[step - 1] = true;
+      return updatedCompletedSteps;
+    });
+  };
 
   const stepTitle = [
     "Step 1: Insert your flashdrive",
@@ -143,9 +191,6 @@ const Flashdrive: React.FC = () => {
         </div>
         <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
           <p style={{ alignSelf: "center" }}>{stepTitle[activeStep - 1]}</p>
-          <button style={{ alignSelf: "center" }} className="buttonCircle" onClick={startMonitoring} >
-            {isMonitoring ? "Monitoring..." : "Start Monitoring"}
-          </button>
         </div>
 
         {/* ============================ */}
@@ -159,7 +204,7 @@ const Flashdrive: React.FC = () => {
         {/* MOVE WHERE LOG MESSAGE: is */}
         {/* MOVE THE SECOND LINE OF THE LOG MESSAGES INDENTED */}
         {/* COLOR THE DIFFERENT SPECIAL BOXES GREEN OR SMTH */}
-        <div ref={outputRef} className="logOutput">
+        <div className="logOutput">
           {
             activeStep === 1 && <Step1Instruction />
           }
@@ -167,7 +212,7 @@ const Flashdrive: React.FC = () => {
             activeStep === 2 && (
               <>
                 <h3 style={{ margin: 0 }}>Log Messages: </h3>
-                <div style={{ fontSize: "20px", fontFamily: '"DM Sans", sans-serif', lineHeight:"140%" }}>
+                <div className='logMsgs' style={{ fontSize: "20px" }}>
                   {logMessages.map((message, index) => (
                     <p style={{ margin: "0" }} key={index}>{`> ${message}`}</p>
                   ))}
@@ -181,18 +226,34 @@ const Flashdrive: React.FC = () => {
               <div style={{ display: "flex" }}>
                 <div style={{ width: "50%" }}>
                   <h3 style={{ margin: 0 }}>Log Message: </h3>
-                  <div style={{ maxHeight: '100%', overflowY: 'auto', fontSize: "18px", fontFamily: '"DM Sans", sans-serif' }}>
+                  <div className='logMsgs'>
                     {logMessages.map((message, index) => (
                       <p style={{ margin: "0", lineHeight: "100%" }} key={index}>{`> ${message}`}</p>
                     ))}
                   </div>
                 </div>
-                <div style={{ width: "50%", marginLeft: "3%", paddingLeft: "3%", borderLeft: "2px solid white" }}>
+                <div className='summary'>
                   <h3 style={{ margin: 0 }}>Summary: </h3>
-                  <h4> Games successfully added(0): </h4>
-                  <h4> Games already exist(0): </h4>
-                  <h4> Error processing game(0): </h4>
-                  <h4> File directory cannot be read(0): </h4>
+                  <h4>Games successfully added ({successGames.length}):</h4>
+                  <ul>
+                    {successGames.map((game, index) => (
+                      <li key={index}>{game}</li>
+                    ))}
+                  </ul>
+
+                  <h4>Games already exist ({duplicateGames.length}):</h4>
+                  <ul>
+                    {duplicateGames.map((game, index) => (
+                      <li key={index}>{game}</li>
+                    ))}
+                  </ul>
+
+                  <h4>Error processing game ({failedGames.length}):</h4>
+                  <ul>
+                    {failedGames.map((game, index) => (
+                      <li key={index}>{game}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             )

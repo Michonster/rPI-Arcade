@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-import Emulators from './Emulators';
+import Emulators from './Emulators/Emulators';
 import DetailsMain from './Details/DetailsMain.js';
 import Flashdrive from './Flashdrive/Flashdrive.tsx';
 import backdrop from "/images/backdrop.png";
-// import TopBanner from './Banners/TopBanner.tsx';
-// import BotBanner from './Banners/BotBanner.tsx'
 
 import boxData from "../emuData.json";
 
@@ -24,8 +22,6 @@ function App() {
   return (
     <>
       <img src={backdrop} alt="backdrop" className="backDrop" />
-      {/* <TopBanner /> */}
-      {/* <BotBanner/> */}
 
       <Router>
         <Routes>

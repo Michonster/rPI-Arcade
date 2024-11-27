@@ -1,11 +1,14 @@
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 import "./Emulators.css";
-import TopBanner from './Banners/TopBanner.tsx';
-import BotBanner from './Banners/BotBanner.tsx';
+import TopBanner from '../Banners/TopBanner.tsx';
+import BotBanner from '../Banners/BotBanner.tsx';
 
-import emuData from "../emuData.json";
+import emuData from "../../emuData.json";
+
+import { useController } from "../ControllerContext";
 
 interface EmulatorsProps {
   onEmuClick: (position: number) => void;
@@ -19,6 +22,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
   setPosition,
 }) => {
   const navigate = useNavigate();
+  const { registerHandler, registerButtonHandler } = useController();
 
   const addGamesBox = {
     image: "",
@@ -26,12 +30,29 @@ const Emulators: React.FC<EmulatorsProps> = ({
   };
 
   const playGamesBox = {
-    image: "",
-    text: "LAUNCH GAME MENU"
+    image: "/images/emustation.png",
+    text: "LAUNCH"
   };
 
-  const allEmuData = [playGamesBox, ...emuData, addGamesBox]; //concat addGamesBox
+  const allEmuData = [...emuData, addGamesBox, playGamesBox]; //concat addGamesBox
   const totalBoxes = allEmuData.length;
+
+  useEffect(() => {
+    // Register joystick handlers
+    registerHandler("left", handleLeftClick);
+    registerHandler("right", handleRightClick);
+    if (position === totalBoxes - 1) {
+      // console.log("flashdrive reg")
+      registerButtonHandler("x", handleFlashdriveSelection);
+    } else if (position === 0) {
+      // console.log("play reg")
+      registerButtonHandler("x", handlePlaySelection);
+    }
+    else {
+      // console.log("register for emu")
+      registerButtonHandler("x", handleEmulatorSelection);
+    }
+  }, [position, registerHandler, registerButtonHandler]);
 
   const handleRightClick = () => {
     setPosition((prev) => (prev < totalBoxes - 1 ? prev + 1 : 0));
@@ -42,12 +63,17 @@ const Emulators: React.FC<EmulatorsProps> = ({
   };
 
   const handleEmulatorSelection = () => {
-    onEmuClick(position);
+    // console.log(position - 1)
+    onEmuClick(position - 1);
     navigate("/details");
   };
 
   const handleFlashdriveSelection = () => {
     navigate("/flashdrive");
+  };
+
+  const handlePlaySelection = () => {
+    // launch emu station and stop program
   };
 
   return (
@@ -58,7 +84,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
       <div className="middle">
         <div className="box-container">
           {allEmuData.map((box, index) => {
-            const offset = (position - index + totalBoxes) % totalBoxes;
+            const offset = (position - index - 1 + totalBoxes) % totalBoxes;
 
             // Start angle from +90 degrees (Math.PI/2) so the active item is at bottom center
             const angle = (offset / totalBoxes) * 2 * Math.PI + Math.PI / 2;
@@ -93,7 +119,8 @@ const Emulators: React.FC<EmulatorsProps> = ({
             return (
               <motion.div
                 key={index}
-                className={`box ${offset === 0 ? "active" : ""}`}
+                className={`box ${offset === 0 ? "active" : ""} ${index === totalBoxes - 2 || index === totalBoxes - 1 ? "borderCustom" : ""
+                  }`}
                 animate={{
                   zIndex: zIndex,
                   x: xPosition,
@@ -106,14 +133,19 @@ const Emulators: React.FC<EmulatorsProps> = ({
                   damping: 60,
                 }}
               >
-                {/* only Add Game box gets different styling */}
-                {(index === totalBoxes - 1 || index === 0) ? (
+                {index === totalBoxes - 2 ? (
                   <div className="addGamesBox">
-                    <p style={{margin: "0"}}> ★ {box.text} ★ </p>
-                    <p style={{ textAlign: "left" }}>
+                    <p style={{ margin: "0" }}> ★ {box.text} ★ </p>
+                    <p style={{ textAlign: "left", fontSize: "24px", margin: "5% 0 0 0" }}>
                       REQUIRED: &nbsp;&nbsp;&nbsp;flashdrive +
                       &nbsp;&nbsp;&nbsp;proper format Select to see format.
                     </p>
+                  </div>
+                ) : index === totalBoxes - 1 ? (
+                  <div className="launchGamesBox">
+                    <p style={{ margin: "0" }}> ★ {box.text} ★ </p>
+                    <p style={{ margin: 0 }}> GAME MENU </p>
+                    <img src={box.image} alt={`Box ${index + 1}`} />
                   </div>
                 ) : (
                   <>
@@ -150,6 +182,20 @@ const Emulators: React.FC<EmulatorsProps> = ({
               </div>
               <p className="title">Flashdrive Details & Upload Games</p>
             </>
+          ) : position === 0 ? (
+            <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+              <div className="buttonDesc">
+                <p> Press </p>
+                <button
+                  className="buttonCircle"
+                  onClick={handlePlaySelection}
+                >
+                  button
+                </button>
+                <p> to </p>
+              </div>
+              <p className="title">PLAY</p>
+            </div>
           ) : (
             <>
               <div className="buttonDesc">

@@ -19,6 +19,7 @@
     "react-router-dom": "^6.28.0",
     "react-three-fiber": "^6.0.13",
     "react-toastify": "^10.0.6",
+    "socket.io-client": "^4.8.1",
     "three": "^0.169.0",
     "vite-tsconfig-paths": "^5.0.1",
     "web-vitals": "^2.1.4"

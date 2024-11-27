@@ -11,6 +11,8 @@ import RightBanner from "../Banners/RightBanner";
 
 import emuData from '../../emuData.json';
 
+import { useController } from "../ControllerContext";
+
 // Define the shape of each emulator object
 interface Emulator {
   text: string;
@@ -26,12 +28,17 @@ interface DetailsMainProps {
 
 const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
   const navigate = useNavigate();
+  const { registerButtonHandler } = useController();
 
   const goBack = () => {
     navigate('/');
   };
 
-  
+  useEffect(() => {
+    registerButtonHandler("x", goBack);
+  }, [registerButtonHandler]);
+
+
   const [emulators] = useState<Emulator[]>(emuData);
   const [selectedEmulator, setSelectedEmulator] = useState<Emulator | null>(null);
 
@@ -78,8 +85,8 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
 
   return (
     <div className="Main_Div">
-      <LeftBanner/> 
-      <RightBanner/>
+      <LeftBanner />
+      <RightBanner />
       {/* <img className="Side1" src={pixelPanel} alt="S1" /> */}
       {/* <img className="Side2" src={pixelPanel} alt="S2" /> */}
       <button className="back_button" onClick={goBack}>
@@ -96,7 +103,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
       />
 
       {/* Canvas for 3D content */}
-      
+
       {/* <Canvas className="canvas-container">
         <ambientLight intensity={2} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
@@ -106,7 +113,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
         />
       </Canvas> */}
       <div className="canvas-container">
-      <Rotate  src={selectedEmulator?.image ?? "/path/to/fallback-image.webp"}  />
+        <Rotate src={selectedEmulator?.image ?? "/path/to/fallback-image.webp"} />
       </div>
       {/* Display emulator information if found */}
       {selectedEmulator ? (

@@ -35,6 +35,8 @@
   font-weight: 100;
 }
 
+/* log output ===================================== */
+
 .logOutput {
   position: absolute;
   width: 73%;
@@ -49,7 +51,22 @@
   padding: 1%;
 }
 
-/* ===================================== */
+.logMsgs {
+  font-size: 18px;
+  font-family: "DM Sans", sans-serif;
+  line-height: 140%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.summary {
+  width: 50%;
+  margin-left: 3%;
+  padding-left: 3%;
+  border-left: 2px solid white;
+}
+
+/* Button steps ===================================== */
 
 .buttonsSteps {
   width: 20%;
@@ -69,7 +86,7 @@
   font-family: "Teko", sans-serif;
   width: 60px;
   height: 60px;
-  background-color: #E72623;
+  background-color: var(--primary-red);
   transition: background-color 0.3s ease;
   font-size: 40px;
   border-radius: 20%;
