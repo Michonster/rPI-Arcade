@@ -1,9 +1,18 @@
+# import eventlet
+# eventlet.monkey_patch()
 import pygame # type: ignore
+import signal
+import sys
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 import threading
 import time
+
+def signal_handler(signal, frame):
+    print('Shutting down control montitor server...')
+    socketio.stop()
+    sys.exit(0)
 
 HOST = "127.0.0.1" 
 PORT = 5002
@@ -13,7 +22,7 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="http://localhost:5173")
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @socketio.on('START')
 def start_controller_monitoring():
@@ -178,4 +187,5 @@ def handle_axis_motion(axis, value):
             is_holding_down = False
 
 if __name__ == "__main__":
-    socketio.run(app, host=HOST, port=PORT, debug=True)
+    signal.signal(signal.SIGINT, signal_handler)
+    socketio.run(app, host=HOST, port=PORT)

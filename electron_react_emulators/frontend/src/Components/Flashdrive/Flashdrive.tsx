@@ -53,15 +53,11 @@ const Flashdrive: React.FC = () => {
   }, []);
 
   useEffect(() => {
-
-  }, []);
-
-
-  useEffect(() => {
     // Process log messages
     const handleStatus = (data: any) => {
       setLogMessages((prevMessages) => {
         const updatedMessages = [...prevMessages, data.message];
+        console.log(data.message)
 
         // Check for key phrases to transition steps
         if (updatedMessages.some(msg => msg.includes("USB device"))) {

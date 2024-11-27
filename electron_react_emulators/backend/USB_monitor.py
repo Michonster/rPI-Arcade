@@ -2,16 +2,24 @@
 the Raspberry Pi. Upon insertion, each game system file will be scanned
 and the rooms within will be copied onto the RPI. In the case of duplicates,
 the roms won't be installed. """
+# import eventlet
+# eventlet.monkey_patch()
 import shutil
 import os
 import pyudev # type: ignore
 import time
 import subprocess
 import zipfile
+import signal
+import sys
 from flask import Flask
 from flask_socketio import SocketIO
 from flask_cors import CORS
 
+def signal_handler(signal, frame):
+    print('Shutting down USB monitor server...')
+    socketio.stop()
+    sys.exit(0)
 
 # variables ==========================================================================
 
@@ -30,7 +38,7 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="http://localhost:5173")
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 observer = None
 
@@ -246,7 +254,9 @@ def device_event(device):
         observer.stop()
         print("USB removed, stopping script")
         
+
 if __name__ == "__main__":
-    socketio.run(app, host=HOST, port=PORT, debug=True)
+    signal.signal(signal.SIGINT, signal_handler)
+    socketio.run(app, host=HOST, port=PORT)
 
 
