@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./Emulators.css";
 import TopBanner from '../Banners/TopBanner.tsx';
 import BotBanner from '../Banners/BotBanner.tsx';
+import logo from "/images/Logo.png";
 
 import emuData from "../../emuData.json";
 
@@ -72,6 +73,10 @@ const Emulators: React.FC<EmulatorsProps> = ({
     navigate("/flashdrive");
   };
 
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   const handlePlaySelection = () => {
     // launch emu station and stop program
   };
@@ -80,6 +85,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
     <div className="emulators">
       <TopBanner />
       <BotBanner />
+      <img src={logo} alt="logo" className="logo" style={{ opacity: 0, zIndex:"99"}} onClick={handleLogoClick}/>
       {/* Middle Section =====================================================*/}
       <div className="middle">
         <div className="box-container">

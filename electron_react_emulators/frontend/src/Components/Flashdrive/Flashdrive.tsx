@@ -26,7 +26,7 @@ const Flashdrive: React.FC = () => {
       socket.emit('STOP');
       hasStarted.current = false;
     }
-    navigate('/');
+    navigate('/emulators');
   };
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import './App.css';
 import Emulators from './Emulators/Emulators';
 import DetailsMain from './Details/DetailsMain.js';
 import Flashdrive from './Flashdrive/Flashdrive.tsx';
+import Startup from './Startup/Startup.tsx';
 import backdrop from "/images/backdrop.png";
 
 import boxData from "../emuData.json";
@@ -25,9 +26,12 @@ function App() {
 
       <Router>
         <Routes>
+          {/* Startup screen */}
+          <Route path="/" element={<Startup />} />
+
           {/* Main Emulator selection screen */}
           <Route
-            path="/"
+            path="/emulators"
             element={<Emulators onEmuClick={handleEmuClick} position={position} setPosition={setPosition} />}
           />
 

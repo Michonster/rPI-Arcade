@@ -9,7 +9,6 @@ import './Banners.css';
 const LeftBanner = () => {
   return (
     <motion.div
-      className="bannerWrapper"
       initial={{ translateX: "-70%" }}
       animate={{ translateX: "-50%" }}
       transition={{
@@ -18,6 +17,7 @@ const LeftBanner = () => {
       }}
       style={{
         rotate: "-90deg",
+        width:"100%", 
         height: "auto",
         translateY: "50vh",
         position: "absolute"

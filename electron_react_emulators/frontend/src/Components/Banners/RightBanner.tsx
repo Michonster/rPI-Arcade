@@ -9,7 +9,6 @@ import './Banners.css';
 const RightBanner = () => {
   return (
     <motion.div
-      className="bannerWrapper"
       initial={{ translateX: "70%" }}
       animate={{ translateX: "50%" }}
       transition={{
@@ -18,9 +17,10 @@ const RightBanner = () => {
       }}
       style={{
         rotate: "90deg",
+        width:"100%", 
         height: "auto",
         translateY: "50vh",
-        position: "absolute"
+        position: "absolute",
       }}
     >
       <img src={pixelPanel} alt="pixel panel" className="pixelPanelLeft" />

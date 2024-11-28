@@ -1,0 +1,105 @@
+.startup {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.titleScreen {
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.startup .title {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.startup video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.backDrop {
+  position: absolute;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -6;
+  /* background: url(../assets/EB.gif) repeat 0 0; */
+  background-size: 250px 250px;
+  background-attachment: fixed; 
+  animation: animate-bg 5.76s infinite linear;
+}
+
+@keyframes animate-bg {
+  100% {
+      background-position: 200px -200px;
+  }
+}
+
+/* ============================================== */
+.startup .middle {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+}
+.startup .middle h1 {
+  margin: 0; /* Remove default margins to prevent misalignment */
+  padding: 5px 0; /* Add some padding for spacing */
+  scale: 1.5;
+  text-transform: uppercase;
+}
+.startup .middle p {
+  margin: 0; /* Remove default margins to prevent misalignment */
+  padding: 5px 0; /* Add some padding for spacing */
+  scale: 1.5;
+}
+
+.push-start {
+  font-size: 24px;
+  color: white;
+  top: 50%;
+  position: absolute;
+  animation: flash 1s infinite; /* Flash every second */
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.startup .text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 0 5px 0;
+}
+
+.attractMode {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.attractMode p {
+  margin: 0; /* Remove default margins to prevent misalignment */
+  padding: 250px 0; /* Add some padding for spacing */
+  scale: 1.5;
+}

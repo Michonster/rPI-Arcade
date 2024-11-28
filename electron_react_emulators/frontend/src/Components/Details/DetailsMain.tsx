@@ -31,7 +31,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
   const { registerButtonHandler } = useController();
 
   const goBack = () => {
-    navigate('/');
+    navigate('/emulators');
   };
 
   useEffect(() => {
