@@ -190,16 +190,6 @@ const Flashdrive: React.FC = () => {
         </div>
 
         {/* ============================ */}
-        {/* <<<<<<< THE BOTTOM IS CUTTING OFF */}
-        {/* MAKE BUTTONS WORKKKKKKKKK */}
-        {/* PUT OPTION TO ENTER EMULATOR */}
-        {/* ADD KALVIN'S STUFF MAIN SCREEN */}
-        {/* POPULATE SUMMARY */}
-        {/* CHANGE FONT OF LOG MESSAGES AND MAKE LINES CLOSER BUT SEPARATE LINES MORE FAR AWAY */}
-        {/* step3/4 LOG MESSAGES CUTTING OFF THE END */}
-        {/* MOVE WHERE LOG MESSAGE: is */}
-        {/* MOVE THE SECOND LINE OF THE LOG MESSAGES INDENTED */}
-        {/* COLOR THE DIFFERENT SPECIAL BOXES GREEN OR SMTH */}
         <div className="logOutput">
           {
             activeStep === 1 && <Step1Instruction />
