@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "./startup.css";
+import "./Startup.css";
 import TopBanner from '../Banners/TopBanner.tsx';
 import BotBanner from '../Banners/BotBanner.tsx';
 import vid from '../../assets/rpi_arcade4.mp4';
