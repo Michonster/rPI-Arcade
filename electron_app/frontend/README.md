@@ -7,7 +7,7 @@
    ```
 
 #### Frontend setup (Powershell)
-Current doesn't run properly on Ubuntu (not sure why, need to work on fixing).
+Because we are using Electron and WSL does not support GUI's (graphic interfaces), these are the steps to run it in Powershell. If you want to run it in WSL, if you have WSL2, download an X server to access the Windows display. 
 
 2. **<ins>Important</ins>**: you'll need to download node and npm for powershell if you don't have it. Check using ```node --version``` and ```npm version```
 
@@ -16,9 +16,9 @@ from administrator powershell, navigate to rPi-Arcade/electron_app/frontend/
 then run ``` npm install ```
 
 **Common errors**: 
-- If powershell says that the script is not digitally signed and cannot be run, you can use this command to bypass it:
+- PowerShell may display an error stating that the script is not digitally signed and cannot be run. (Note that distributed apps usually need to be signed for security reasons, but we're still in development.) To bypass this error message, you can use the following command:
 ```Set-ExecutionPolicy -ExecutionPolicy RemoteSigned```
-(note to self, i need to sign it so ppl don't have to do this)
+This lets you run local scripts without being signed.
 
 4. At this point, you should be able to run ```npm run dev``` and load the UI.
 
