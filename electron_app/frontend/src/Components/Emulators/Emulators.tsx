@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -11,11 +11,23 @@ import emuData from "../../emuData.json";
 
 import { useController } from "../ControllerContext";
 
+// Type Definitions ==========================
 interface EmulatorsProps {
   onEmuClick: (position: number) => void;
   position: number;
   setPosition: React.Dispatch<React.SetStateAction<number>>;
 }
+
+interface ElectronAPI {
+  startEmulationStation: () => void;
+}
+
+declare global {
+  interface Window {
+    electronAPI: ElectronAPI;
+  }
+}
+// ===========================================
 
 const Emulators: React.FC<EmulatorsProps> = ({
   onEmuClick,
@@ -38,8 +50,8 @@ const Emulators: React.FC<EmulatorsProps> = ({
   const allEmuData = [...emuData, addGamesBox, playGamesBox]; //concat addGamesBox
   const totalBoxes = allEmuData.length;
 
+  // Register joystick handlers for this page
   useEffect(() => {
-    // Register joystick handlers
     registerHandler("left", handleLeftClick);
     registerHandler("right", handleRightClick);
     if (position === totalBoxes - 1) {
@@ -77,8 +89,9 @@ const Emulators: React.FC<EmulatorsProps> = ({
     navigate("/");
   };
 
+  // Stop app and open EmulationStation; sends command to Electron backend via IPC
   const handlePlaySelection = () => {
-    // launch emu station and stop program
+    window.electronAPI.startEmulationStation(); 
   };
 
   return (
@@ -139,6 +152,8 @@ const Emulators: React.FC<EmulatorsProps> = ({
                   damping: 60,
                 }}
               >
+                {/* Render all boxes. Note that certain boxes like addGamesBox and launchGamesBox
+                    are special so they get their own styles. */}
                 {index === totalBoxes - 2 ? (
                   <div className="addGamesBox">
                     <p style={{ margin: "0" }}> ★ {box.text} ★ </p>

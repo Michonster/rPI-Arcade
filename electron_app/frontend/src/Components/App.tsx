@@ -10,8 +10,8 @@ import backdrop from "/images/backdrop.png";
 import boxData from "../emuData.json";
 
 function App() {
-  const [selectedEmu, setSelectedEmu] = useState<number | null>(null); // for getting to details screen
-  const [position, setPosition] = useState<number>(0); // in order to preserve position after returning to selection screen
+  const [selectedEmu, setSelectedEmu] = useState<number | null>(null); // Keep track of what emu to open for the Details page
+  const [position, setPosition] = useState<number>(0); // Help preserve position after returning to selection screen
 
   const handleEmuClick = (position: number) => {
     if (boxData.length > position) { // if box does not exist in the emulator data
