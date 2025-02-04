@@ -22,3 +22,8 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   // You can expose other APTs you need here.
   // ...
 })
+
+// API for our frontend renderer to communicate with the Electron backend via IPC
+contextBridge.exposeInMainWorld("electronAPI", {
+  startEmulationStation: () => ipcRenderer.send("start-emulationstation"),
+});
