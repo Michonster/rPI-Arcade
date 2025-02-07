@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { io, Socket } from "socket.io-client";
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import io from 'socket.io-client';
 
 import "./Flashdrive.css";
 import LeftBanner from '../Banners/LeftBanner'
@@ -12,54 +12,46 @@ import Step1Instruction from './Step1Instruction';
 import { useController } from "../ControllerContext";
 
 // Connect to flaskio server for handling flashdrive insertions
-const socket = io('http://127.0.0.1:5001', {
-  reconnection: false, // Disable automatic reconnections
-  timeout: 5000,
-});
+// const socket = io('http://127.0.0.1:5001', {
+//   reconnection: false, // Disable automatic reconnections
+//   timeout: 5000,
+// });
 
 const Flashdrive: React.FC = () => {
-  const navigate = useNavigate();
-  const { registerButtonHandler } = useController();
+  // Establish socket with usb_monitor server ======================================
+  const socketRef = useRef<Socket | null>(null); // Ref so that socket doesn't trigger re-renders
+   
+   const [successGames, setSuccessGames] = useState([]);
+   const [duplicateGames, setDuplicateGames] = useState([]);
+   const [failedGames, setFailedGames] = useState([]);
+ 
+   const [logMessages, setLogMessages] = useState<string[]>([]);
+   const [hasStarted, setHasStarted] = useState(false);
 
-  const handleCancel = () => {
-    if (hasStarted.current) {
-      socket.emit('STOP');
-      hasStarted.current = false;
+  useEffect(() => {
+    // Establish socket connection only when the page is mounted
+    socketRef.current = io("http://127.0.0.1:5001", {
+      reconnection: false, // Disable automatic reconnections
+      timeout: 5000,
+    });
+
+    console.log("Connected to flashdrive socket");
+
+    // Prompts monitoring for flashdrives
+    if (!hasStarted) {
+      socketRef.current.emit('START');
+      setHasStarted(true);
     }
-    navigate('/emulators');
-  };
 
-  useEffect(() => {
-    registerButtonHandler("x", handleCancel);
-  }, [registerButtonHandler]);
-
-  // handle getting messages ======================================
-  const [successGames, setSuccessGames] = useState([]);
-  const [duplicateGames, setDuplicateGames] = useState([]);
-  const [failedGames, setFailedGames] = useState([]);
-
-  const [logMessages, setLogMessages] = useState<string[]>([]);
-  const hasStarted = useRef(false);
-
-  // Supposed to run once when entering page
-  // Is actually ran 2x, so hasStarted ref to prevent repeat
-
-  // Prompts monitoring for flashdrives
-  useEffect(() => {
-    if (!hasStarted.current) {
-      socket.emit('START');
-      hasStarted.current = true;
-    }
-  }, []);
-
-  useEffect(() => {
+    // Continuously listens for messages from backend. Does multiple tasks including
+    // updating steps, sorts games into summary, and processes errors.
     // Process log messages
     const handleStatus = (data: any) => {
       setLogMessages((prevMessages) => {
         const updatedMessages = [...prevMessages, data.message];
         console.log(data.message)
 
-        // Check for key phrases to transition steps
+        // Updates step based on key phrases.
         if (updatedMessages.some(msg => msg.includes("USB device"))) {
           markStepComplete(1);
           setActiveStep(2);
@@ -79,7 +71,7 @@ const Flashdrive: React.FC = () => {
       });
     };
 
-    // Process summary
+    // Process summary. Store in lists to be displayed at the last step.
     const handleSummary = (data: any) => {
       console.log(data.type);
       console.log(data.games);
@@ -93,13 +85,16 @@ const Flashdrive: React.FC = () => {
       }
     };
 
-    // Process errors
+    // Process errors. Display popup and return to carousel screen
+    // The two similar functions handle different situations 
+    //     (ex. handleConnectError if request fails with error msg
+    //      handleConnectFailed if connection fails to be established) 
     const handleConnectError = (error: Error) => {
       console.error("Connection failed:", error);
       toast.error(
         "Error: Games cannot be uploaded at this time. Please contact the RPI ARCADE team.",
         {
-          onClose: () => navigate("/"),
+          onClose: () => navigate("/emulators"),
         }
       );
     };
@@ -109,35 +104,55 @@ const Flashdrive: React.FC = () => {
       toast.error(
         "Error: Games cannot be uploaded at this time. Please contact the RPI ARCADE team.",
         {
-          onClose: () => navigate("/"),
+          onClose: () => navigate("/emulators"),
         }
       );
     };
+    console.log("attach listeners")
 
     // Attach socket listeners
-    socket.on("status", handleStatus);
-    socket.on("summary", handleSummary);
-    socket.on("connect_error", handleConnectError);
-    socket.on("connect_failed", handleConnectFailed);
+    socketRef.current.on("status", handleStatus);
+    socketRef.current.on("summary", handleSummary);
+    socketRef.current.on("connect_error", handleConnectError);
+    socketRef.current.on("connect_failed", handleConnectFailed);
 
-    // Cleanup listeners on unmount
+    // Cleanup listeners on unmount & disconnect the socket
     return () => {
-      socket.off("status", handleStatus);
-      socket.off("summary", handleSummary);
-      socket.off("connect_error", handleConnectError);
-      socket.off("connect_failed", handleConnectFailed);
-    };
-  }, []);
+      if (socketRef.current) {
+        socketRef.current.off("status", handleStatus);
+        socketRef.current.off("summary", handleSummary);
+        socketRef.current.off("connect_error", handleConnectError);
+        socketRef.current.off("connect_failed", handleConnectFailed);
 
-  // handle displaying steps ======================================
-  const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
-  const [activeStep, setActiveStep] = useState(1);
-  const activeStepRef = useRef(activeStep);
+        socketRef.current.disconnect();
+        console.log("Disconnected from flashdrive socket");
+      }
+    };
+
+  }, []); // Runs only when the component mounts/unmounts
+
+
+  // Button actions ======================================
+  const navigate = useNavigate();
+  const { registerButtonHandler } = useController();
+
+  // If button to cancel/go back is pressed
+  const handleCancel = () => {
+    if (socketRef.current) {
+      socketRef.current.emit('STOP');
+      setHasStarted(false);
+    }
+    navigate('/emulators');
+  };
 
   useEffect(() => {
-    activeStepRef.current = activeStep;
-  }, [activeStep]);
+    registerButtonHandler("x", handleCancel);
+  }, [registerButtonHandler]);
 
+ 
+  // Handle displaying steps ======================================
+  const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
+  const [activeStep, setActiveStep] = useState(1);
 
   const markStepComplete = (step: number) => {
     setCompletedSteps((prevCompletedSteps) => {

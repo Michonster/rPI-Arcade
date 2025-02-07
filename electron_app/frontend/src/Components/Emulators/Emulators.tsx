@@ -91,7 +91,9 @@ const Emulators: React.FC<EmulatorsProps> = ({
 
   // Stop app and open EmulationStation; sends command to Electron backend via IPC
   const handlePlaySelection = () => {
+    console.log("sending msg")
     window.electronAPI.startEmulationStation(); 
+    console.log("returning from sending msg")
   };
 
   return (
