@@ -21,9 +21,9 @@ const Flashdrive: React.FC = () => {
   // Establish socket with usb_monitor server ======================================
   const socketRef = useRef<Socket | null>(null); // Ref so that socket doesn't trigger re-renders
    
-   const [successGames, setSuccessGames] = useState([]);
-   const [duplicateGames, setDuplicateGames] = useState([]);
-   const [failedGames, setFailedGames] = useState([]);
+   const [successGames, setSuccessGames] = useState<string[]>([]);
+   const [duplicateGames, setDuplicateGames] = useState<string[]>([]);
+   const [failedGames, setFailedGames] = useState<string[]>([]);
  
    const [logMessages, setLogMessages] = useState<string[]>([]);
    const [hasStarted, setHasStarted] = useState(false);
@@ -46,7 +46,7 @@ const Flashdrive: React.FC = () => {
     // Continuously listens for messages from backend. Does multiple tasks including
     // updating steps, sorts games into summary, and processes errors.
     // Process log messages
-    const handleStatus = (data: any) => {
+    const handleStatus = (data: {message: string}) => {
       setLogMessages((prevMessages) => {
         const updatedMessages = [...prevMessages, data.message];
         console.log(data.message)
@@ -72,7 +72,7 @@ const Flashdrive: React.FC = () => {
     };
 
     // Process summary. Store in lists to be displayed at the last step.
-    const handleSummary = (data: any) => {
+    const handleSummary = (data: {message: string, type: string, games: string[]}) => {
       console.log(data.type);
       console.log(data.games);
 
@@ -186,6 +186,7 @@ const Flashdrive: React.FC = () => {
           <button
             key={step}
             className={`buttonStep ${activeStep === step ? 'activeStep' : ''} ${completedSteps[step - 1] ? 'completedStep' : ''}`}
+            onClick={() => setActiveStep(step)} // FOR TESTING PURPOSES
           >
             {step}
           </button>
