@@ -74,7 +74,7 @@ const Startup = () => {
 
   useEffect(() => {
     console.log("x detected")
-    registerButtonHandler("x", handleClick);
+    registerButtonHandler("X", handleClick);
   }, [registerButtonHandler]);
 
   // Track user interactions to reset the timer

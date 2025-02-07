@@ -39,6 +39,7 @@ export const ControllerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       // and direction if joystick interacted
       if (button) {
         console.log(button, action)
+        console.log("Registered Button Handler: ", buttonHandlers.current)
         eventMessage = `${button} Button ${action}`;
         buttonHandlers.current[button]();
       } else if (direction) {

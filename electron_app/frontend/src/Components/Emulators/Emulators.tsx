@@ -55,15 +55,15 @@ const Emulators: React.FC<EmulatorsProps> = ({
     registerHandler("left", handleLeftClick);
     registerHandler("right", handleRightClick);
     if (position === totalBoxes - 1) {
-      // console.log("flashdrive reg")
-      registerButtonHandler("x", handleFlashdriveSelection);
+      console.log("flashdrive reg")
+      registerButtonHandler("X", handleFlashdriveSelection);
     } else if (position === 0) {
-      // console.log("play reg")
-      registerButtonHandler("x", handlePlaySelection);
+      console.log("play reg")
+      registerButtonHandler("X", handlePlaySelection);
     }
     else {
-      // console.log("register for emu")
-      registerButtonHandler("x", handleEmulatorSelection);
+      console.log("register for emu")
+      registerButtonHandler("X", handleEmulatorSelection);
     }
   }, [position, registerHandler, registerButtonHandler]);
 
