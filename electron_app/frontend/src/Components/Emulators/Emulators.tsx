@@ -42,6 +42,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
     // Register joystick handlers
     registerHandler("left", handleLeftClick);
     registerHandler("right", handleRightClick);
+    registerButtonHandler("B", handleLogoClick);
     if (position === totalBoxes - 1) {
       console.log("flashdrive reg")
       registerButtonHandler("X", handleFlashdriveSelection);
