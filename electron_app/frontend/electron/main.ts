@@ -91,7 +91,7 @@ app.whenReady().then(() => {
       win = null;
     }
 
-    const scriptPath = path.join(__dirname, 'boot_to_emulator.sh');
+    const scriptPath = path.join(__dirname, 'boot_to_emulation.sh');
 
     // Run bash script to open boot menu and run emulationstation
     exec(scriptPath, (error, stdout, stderr) => {
