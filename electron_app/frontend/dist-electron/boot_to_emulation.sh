@@ -7,4 +7,4 @@ chvt 1
 sleep 1
 
 # Type the command to start emulationstation
-echo "emulationstation" | sudo -u YOUR_USER_NAME bash -c "cat > /dev/tty1"
+echo "emulationstation" | sudo -u rpiarcade bash -c "cat > /dev/tty1"
