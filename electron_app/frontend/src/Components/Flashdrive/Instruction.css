@@ -1,5 +1,6 @@
 .instructions {
   display: flex;
+  overflow: hidden;
 }
 
 .instructionsLeft {
@@ -21,6 +22,7 @@
   margin: 0 0 0 10%;
   width: 30%;
   height: auto;
+  overflow: hidden;
 }
 
 .fileText {
@@ -42,4 +44,10 @@
 .filename {
   margin: 0 0 0 10%;
   color: #8b90e4;
+}
+
+@media (max-width: 1200px) {
+  .smallText {
+    font-size: 16px;
+  }
 }

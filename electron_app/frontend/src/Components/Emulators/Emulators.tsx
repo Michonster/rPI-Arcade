@@ -56,14 +56,14 @@ const Emulators: React.FC<EmulatorsProps> = ({
     registerHandler("right", handleRightClick);
     if (position === totalBoxes - 1) {
       // console.log("flashdrive reg")
-      registerButtonHandler("x", handleFlashdriveSelection);
+      registerButtonHandler("X", handleFlashdriveSelection);
     } else if (position === 0) {
       // console.log("play reg")
-      registerButtonHandler("x", handlePlaySelection);
+      registerButtonHandler("X", handlePlaySelection);
     }
     else {
       // console.log("register for emu")
-      registerButtonHandler("x", handleEmulatorSelection);
+      registerButtonHandler("X", handleEmulatorSelection);
     }
   }, [position, registerHandler, registerButtonHandler]);
 
@@ -92,7 +92,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
   // Stop app and open EmulationStation; sends command to Electron backend via IPC
   const handlePlaySelection = () => {
     console.log("sending msg")
-    window.electronAPI.startEmulationStation(); 
+    window.electronAPI.startEmulationStation();
     console.log("returning from sending msg")
   };
 
@@ -100,10 +100,10 @@ const Emulators: React.FC<EmulatorsProps> = ({
     <div className="emulators">
       <TopBanner />
       <BotBanner />
-      <img src={logo} alt="logo" className="logo" style={{ opacity: 0, zIndex:"99"}} onClick={handleLogoClick}/>
+      <img src={logo} alt="logo" className="logo" style={{ opacity: 0, zIndex: "99" }} onClick={handleLogoClick} />
       {/* Middle Section =====================================================*/}
       <div className="middle">
-        <div className="box-container">
+        <div className="carousel">
           {allEmuData.map((box, index) => {
             const offset = (position - index - 1 + totalBoxes) % totalBoxes;
 
@@ -121,6 +121,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
             let zIndex = 1;
             const maxZIndex = totalBoxes; // Set maxZIndex to total number of boxes
 
+            // The closer the box is the the center, the larger it is
             if (offset === 0) {
               scale = 1.2;
               zIndex = maxZIndex;
@@ -140,8 +141,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
             return (
               <motion.div
                 key={index}
-                className={`box ${offset === 0 ? "active" : ""} ${index === totalBoxes - 2 || index === totalBoxes - 1 ? "borderCustom" : ""
-                  }`}
+                className={`box ${offset === 0 ? "active" : ""} ${index === totalBoxes - 2 || index === totalBoxes - 1 ? "borderCustom" : ""}`}
                 animate={{
                   zIndex: zIndex,
                   x: xPosition,

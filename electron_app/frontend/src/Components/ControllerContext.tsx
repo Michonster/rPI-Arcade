@@ -1,4 +1,4 @@
-import React, { act, createContext, useContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
 const socket = io("http://127.0.0.1:5002", { timeout: 5000 });
@@ -28,19 +28,23 @@ export const ControllerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       socket.emit('START');
       hasStarted.current = true;
     }
-  }, []);
 
-  useEffect(() => {
+    /* Listen to socket events. Handle incoming controller messages. 
+    First key in data is either "direction" (joystick) or "button":
+    {"direction": "left"} 
+    {"direction": "release"}
+    {"button": "X", "action": "pressed"} */
     socket.on("joystick_event", (data) => {
       const { button, action, direction } = data;
       let eventMessage = "";
+      console.log("got message")
 
       // First grabs button/action if button pressed
       // and direction if joystick interacted
       if (button) {
         console.log(button, action)
         eventMessage = `${button} Button ${action}`;
-        buttonHandlers.current[button]();
+        buttonHandlers.current[button];
       } else if (direction) {
         eventMessage = `Joystick ${direction}`;
         console.log(direction)

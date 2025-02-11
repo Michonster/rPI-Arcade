@@ -43,7 +43,7 @@ app.whenReady().then(() => {
   createWindow();
   ipcMain.on("start-emulationstation", () => {
     console.log("Launching EmulationStation...");
-    exec("emulatorstation", (error, stdout, stderr) => {
+    exec("emulationstation", (error, stdout, stderr) => {
       if (error) {
         console.error(`Error launching EmulationStation: ${error.message}`);
         return;

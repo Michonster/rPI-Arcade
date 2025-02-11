@@ -11,12 +11,6 @@ import Step1Instruction from './Step1Instruction';
 
 import { useController } from "../ControllerContext";
 
-// Connect to flaskio server for handling flashdrive insertions
-// const socket = io('http://127.0.0.1:5001', {
-//   reconnection: false, // Disable automatic reconnections
-//   timeout: 5000,
-// });
-
 const Flashdrive: React.FC = () => {
   // Establish socket with usb_monitor server ======================================
   const socketRef = useRef<Socket | null>(null); // Ref so that socket doesn't trigger re-renders
@@ -43,9 +37,9 @@ const Flashdrive: React.FC = () => {
       setHasStarted(true);
     }
 
-    // Continuously listens for messages from backend. Does multiple tasks including
-    // updating steps, sorts games into summary, and processes errors.
-    // Process log messages
+    /* Continuously listens for messages from backend. Does multiple tasks including
+      updating steps, sorts games into summary, and processes errors.
+      Process log messages */
     const handleStatus = (data: {message: string}) => {
       setLogMessages((prevMessages) => {
         const updatedMessages = [...prevMessages, data.message];
@@ -85,10 +79,10 @@ const Flashdrive: React.FC = () => {
       }
     };
 
-    // Process errors. Display popup and return to carousel screen
-    // The two similar functions handle different situations 
-    //     (ex. handleConnectError if request fails with error msg
-    //      handleConnectFailed if connection fails to be established) 
+    /* Process errors. Display popup and return to carousel screen
+      The two similar functions handle different situations 
+          (ex. handleConnectError if request fails with error msg
+            handleConnectFailed if connection fails to be established) */
     const handleConnectError = (error: Error) => {
       console.error("Connection failed:", error);
       toast.error(
@@ -182,13 +176,13 @@ const Flashdrive: React.FC = () => {
         transition={{ duration: 1 }}
       >
 
-        {[1, 2, 3].map((step) => (
+        {[1, 2, 3].map((stepNum) => (
           <button
-            key={step}
-            className={`buttonStep ${activeStep === step ? 'activeStep' : ''} ${completedSteps[step - 1] ? 'completedStep' : ''}`}
-            onClick={() => setActiveStep(step)} // FOR TESTING PURPOSES
+            key={stepNum}
+            className={`buttonStep ${activeStep === stepNum ? 'activeStep' : ''} ${completedSteps[stepNum - 1] ? 'completedStep' : ''}`}
+            onClick={() => setActiveStep(stepNum)} // FOR TESTING PURPOSES
           >
-            {step}
+            {stepNum}
           </button>
         ))}
       </motion.div>
@@ -201,8 +195,8 @@ const Flashdrive: React.FC = () => {
           <br />
           return to main screen
         </div>
-        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-          <p style={{ alignSelf: "center" }}>{stepTitle[activeStep - 1]}</p>
+        <div style={{ display: "flex", justifyContent: "center", width: "100%", position: "absolute", top: "5%" }}>
+          <p style={{ alignSelf: "center", fontSize: "50px" }}>{stepTitle[activeStep - 1]}</p>
         </div>
 
         {/* ============================ */}
@@ -213,11 +207,24 @@ const Flashdrive: React.FC = () => {
           {
             activeStep === 2 && (
               <>
-                <h3 style={{ margin: 0 }}>Log Messages: </h3>
+                <h3>Log Messages: </h3>
                 <div className='logMsgs' style={{ fontSize: "20px" }}>
                   {logMessages.map((message, index) => (
-                    <p style={{ margin: "0" }} key={index}>{`> ${message}`}</p>
+                    <p key={index}>{`> ${message}`}</p>
                   ))}
+                  {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula sit amet est vulputate efficitur ut sit amet augue. Donec pulvinar dictum nulla nec vestibulum. Mauris finibus mollis sem quis feugiat. Donec nec placerat dui, vel volutpat est. Etiam vehicula faucibus nunc, at sagittis mauris facilisis in. Proin non aliquet lorem. Aliquam quis congue nisl, vitae malesuada nulla. Vestibulum sed nibh id neque pretium mollis vitae pretium orci. Etiam non purus eu diam euismod sagittis sit amet in justo. Vivamus aliquet lobortis lacinia. Vestibulum fermentum eu ante in consequat. Pellentesque enim dolor, varius nec malesuada eu, tincidunt sed lectus. Proin pulvinar urna sit amet elit egestas, vitae convallis risus volutpat. Aliquam turpis lectus, lacinia congue malesuada quis, feugiat vel arcu.
+
+Sed arcu nisl, finibus mollis sollicitudin ut, viverra consequat sem. Quisque commodo leo in lorem convallis, a ultrices est fringilla. Fusce nec malesuada neque. In laoreet posuere ligula in auctor. Donec condimentum risus vitae mi porta mollis. Fusce ullamcorper, leo id venenatis venenatis, mi massa venenatis lacus, vel semper nulla neque quis magna. Sed et lacinia enim, quis efficitur metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ac rhoncus arcu, ac tempus sapien. Suspendisse a nisl diam. Aenean sed accumsan urna, mollis venenatis tortor. Phasellus laoreet ante non vulputate ultricies. Vestibulum ultrices velit in nisi convallis luctus. Vestibulum facilisis, leo at molestie egestas, arcu felis mollis lacus, quis auctor magna turpis ac quam.
+
+Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mollis tincidunt. Ut hendrerit ante a libero tristique varius. Vestibulum dui diam, interdum vitae dui non, volutpat elementum mauris. Fusce sit amet sollicitudin orci. Mauris sed ante bibendum, sagittis sapien vel, maximus urna. Integer tincidunt libero eu accumsan scelerisque. Aenean at turpis non velit venenatis vehicula quis ut dui. Ut vehicula cursus ligula quis aliquam. Etiam congue, neque vitae sagittis aliquam, risus risus auctor quam, ut feugiat quam felis quis lectus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula sit amet est vulputate efficitur ut sit amet augue. Donec pulvinar dictum nulla nec vestibulum. Mauris finibus mollis sem quis feugiat. Donec nec placerat dui, vel volutpat est. Etiam vehicula faucibus nunc, at sagittis mauris facilisis in. Proin non aliquet lorem. Aliquam quis congue nisl, vitae malesuada nulla. Vestibulum sed nibh id neque pretium mollis vitae pretium orci. Etiam non purus eu diam euismod sagittis sit amet in justo. Vivamus aliquet lobortis lacinia. Vestibulum fermentum eu ante in consequat. Pellentesque enim dolor, varius nec malesuada eu, tincidunt sed lectus. Proin pulvinar urna sit amet elit egestas, vitae convallis risus volutpat. Aliquam turpis lectus, lacinia congue malesuada quis, feugiat vel arcu.
+
+Sed arcu nisl, finibus mollis sollicitudin ut, viverra consequat sem. Quisque commodo leo in lorem convallis, a ultrices est fringilla. Fusce nec malesuada neque. In laoreet posuere ligula in auctor. Donec condimentum risus vitae mi porta mollis. Fusce ullamcorper, leo id venenatis venenatis, mi massa venenatis lacus, vel semper nulla neque quis magna. Sed et lacinia enim, quis efficitur metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ac rhoncus arcu, ac tempus sapien. Suspendisse a nisl diam. Aenean sed accumsan urna, mollis venenatis tortor. Phasellus laoreet ante non vulputate ultricies. Vestibulum ultrices velit in nisi convallis luctus. Vestibulum facilisis, leo at molestie egestas, arcu felis mollis lacus, quis auctor magna turpis ac quam.
+
+Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mollis tincidunt. Ut hendrerit ante a libero tristique varius. Vestibulum dui diam, interdum vitae dui non, volutpat elementum mauris. Fusce sit amet sollicitudin orci. Mauris sed ante bibendum, sagittis sapien vel, maximus urna. Integer tincidunt libero eu accumsan scelerisque. Aenean at turpis non velit venenatis vehicula quis ut dui. Ut vehicula cursus ligula quis aliquam. Etiam congue, neque vitae sagittis aliquam, risus risus auctor quam, ut feugiat quam felis quis lectus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula sit amet est vulputate efficitur ut sit amet augue. Donec pulvinar dictum nulla nec vestibulum. Mauris finibus mollis sem quis feugiat. Donec nec placerat dui, vel volutpat est. Etiam vehicula faucibus nunc, at sagittis mauris facilisis in. Proin non aliquet lorem. Aliquam quis congue nisl, vitae malesuada nulla. Vestibulum sed nibh id neque pretium mollis vitae pretium orci. Etiam non purus eu diam euismod sagittis sit amet in justo. Vivamus aliquet lobortis lacinia. Vestibulum fermentum eu ante in consequat. Pellentesque enim dolor, varius nec malesuada eu, tincidunt sed lectus. Proin pulvinar urna sit amet elit egestas, vitae convallis risus volutpat. Aliquam turpis lectus, lacinia congue malesuada quis, feugiat vel arcu.
+
+Sed arcu nisl, finibus mollis sollicitudin ut, viverra consequat sem. Quisque commodo leo in lorem convallis, a ultrices est fringilla. Fusce nec malesuada neque. In laoreet posuere ligula in auctor. Donec condimentum risus vitae mi porta mollis. Fusce ullamcorper, leo id venenatis venenatis, mi massa venenatis lacus, vel semper nulla neque quis magna. Sed et lacinia enim, quis efficitur metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ac rhoncus arcu, ac tempus sapien. Suspendisse a nisl diam. Aenean sed accumsan urna, mollis venenatis tortor. Phasellus laoreet ante non vulputate ultricies. Vestibulum ultrices velit in nisi convallis luctus. Vestibulum facilisis, leo at molestie egestas, arcu felis mollis lacus, quis auctor magna turpis ac quam.
+
+Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mollis tincidunt. Ut hendrerit ante a libero tristique varius. Vestibulum dui diam, interdum vitae dui non, volutpat elementum mauris. Fusce sit amet sollicitudin orci. Mauris sed ante bibendum, sagittis sapien vel, maximus urna. Integer tincidunt libero eu accumsan scelerisque. Aenean at turpis non velit venenatis vehicula quis ut dui. Ut vehicula cursus ligula quis aliquam. Etiam congue, neque vitae sagittis aliquam, risus risus auctor quam, ut feugiat quam felis quis lectus. */}
                 </div>
               </>
             )
@@ -226,21 +233,26 @@ const Flashdrive: React.FC = () => {
             // MOVE TO DIFF FILE
             (activeStep === 3 || activeStep === 4) && (
               <div style={{ display: "flex" }}>
-                <div style={{ width: "50%" }}>
-                  <h3 style={{ margin: 0 }}>Log Message: </h3>
+                <div style={{ width: "50%", height: "68vh" }}>
+                  <h3>Log Messages: </h3>
                   <div className='logMsgs'>
                     {logMessages.map((message, index) => (
-                      <p style={{ margin: "0", lineHeight: "100%" }} key={index}>{`> ${message}`}</p>
+                      <p style={{ lineHeight: "100%" }} key={index}>{`> ${message}`}</p>
                     ))}
                   </div>
                 </div>
                 <div className='summary'>
-                  <h3 style={{ margin: 0 }}>Summary: </h3>
+                  <h3>Summary: </h3>
                   <h4>Games successfully added ({successGames.length}):</h4>
                   <ul>
                     {successGames.map((game, index) => (
                       <li key={index}>{game}</li>
                     ))}
+                    {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula sit amet est vulputate efficitur ut sit amet augue. Donec pulvinar dictum nulla nec vestibulum. Mauris finibus mollis sem quis feugiat. Donec nec placerat dui, vel volutpat est. Etiam vehicula faucibus nunc, at sagittis mauris facilisis in. Proin non aliquet lorem. Aliquam quis congue nisl, vitae malesuada nulla. Vestibulum sed nibh id neque pretium mollis vitae pretium orci. Etiam non purus eu diam euismod sagittis sit amet in justo. Vivamus aliquet lobortis lacinia. Vestibulum fermentum eu ante in consequat. Pellentesque enim dolor, varius nec malesuada eu, tincidunt sed lectus. Proin pulvinar urna sit amet elit egestas, vitae convallis risus volutpat. Aliquam turpis lectus, lacinia congue malesuada quis, feugiat vel arcu.
+
+Sed arcu nisl, finibus mollis sollicitudin ut, viverra consequat sem. Quisque commodo leo in lorem convallis, a ultrices est fringilla. Fusce nec malesuada neque. In laoreet posuere ligula in auctor. Donec condimentum risus vitae mi porta mollis. Fusce ullamcorper, leo id venenatis venenatis, mi massa venenatis lacus, vel semper nulla neque quis magna. Sed et lacinia enim, quis efficitur metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ac rhoncus arcu, ac tempus sapien. Suspendisse a nisl diam. Aenean sed accumsan urna, mollis venenatis tortor. Phasellus laoreet ante non vulputate ultricies. Vestibulum ultrices velit in nisi convallis luctus. Vestibulum facilisis, leo at molestie egestas, arcu felis mollis lacus, quis auctor magna turpis ac quam.
+
+Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mollis tincidunt. Ut hendrerit ante a libero tristique varius. Vestibulum dui diam, interdum vitae dui non, volutpat elementum mauris. Fusce sit amet sollicitudin orci. Mauris sed ante bibendum, sagittis sapien vel, maximus urna. Integer tincidunt libero eu accumsan scelerisque. Aenean at turpis non velit venenatis vehicula quis ut dui. Ut vehicula cursus ligula quis aliquam. Etiam congue, neque vitae sagittis aliquam, risus risus auctor quam, ut feugiat quam felis quis lectus. */}
                   </ul>
 
                   <h4>Games already exist ({duplicateGames.length}):</h4>

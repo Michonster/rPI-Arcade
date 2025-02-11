@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+}
+
 .flashdrive {
   /* background-color: #CFCFCF; */
   display: flex;
@@ -45,10 +49,11 @@
   left: 17%;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   line-height: 160%;
   border: 2px solid white; 
   padding: 1%;
+  overflow: hidden;
 }
 
 .logMsgs {

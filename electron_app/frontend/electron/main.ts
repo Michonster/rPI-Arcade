@@ -92,7 +92,7 @@ app.whenReady().then(() => {
     }
 
     // Execute EmulationStation command
-    exec("emulatorstation", (error, stdout, stderr) => {
+    exec("emulationstation", (error, stdout, stderr) => {
       if (error) {
         console.error(`Error launching EmulationStation: ${error.message}`);
         return;
