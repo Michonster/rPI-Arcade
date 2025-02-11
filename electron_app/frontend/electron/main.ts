@@ -91,8 +91,10 @@ app.whenReady().then(() => {
       win = null;
     }
 
-    // Execute EmulationStation command
-    exec("emulatorstation", (error, stdout, stderr) => {
+    const scriptPath = path.join(__dirname, 'boot_to_emulator.sh');
+
+    // Run bash script to open boot menu and run emulationstation
+    exec(scriptPath, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error launching EmulationStation: ${error.message}`);
         return;
