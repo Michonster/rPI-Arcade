@@ -7,7 +7,7 @@ import TopBanner from '../Banners/TopBanner.tsx';
 import BotBanner from '../Banners/BotBanner.tsx';
 import logo from "/images/Logo.png";
 
-import emuData from "../../emuData.json";
+import emuData from "../../assets/emuData.json";
 
 import { useController } from "../ControllerContext";
 
@@ -100,6 +100,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
     <div className="emulators">
       <TopBanner />
       <BotBanner />
+      {/* This logo is invisible & just for testing purposes; on click, returns to startup screen. */}
       <img src={logo} alt="logo" className="logo" style={{ opacity: 0, zIndex: "99" }} onClick={handleLogoClick} />
       {/* Middle Section =====================================================*/}
       <div className="middle">
@@ -121,7 +122,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
             let zIndex = 1;
             const maxZIndex = totalBoxes; // Set maxZIndex to total number of boxes
 
-            // The closer the box is the the center, the larger it is
+            // The closer the box is to the center, the larger it is
             if (offset === 0) {
               scale = 1.2;
               zIndex = maxZIndex;

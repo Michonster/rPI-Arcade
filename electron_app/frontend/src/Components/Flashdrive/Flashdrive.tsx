@@ -14,13 +14,13 @@ import { useController } from "../ControllerContext";
 const Flashdrive: React.FC = () => {
   // Establish socket with usb_monitor server ======================================
   const socketRef = useRef<Socket | null>(null); // Ref so that socket doesn't trigger re-renders
-   
-   const [successGames, setSuccessGames] = useState<string[]>([]);
-   const [duplicateGames, setDuplicateGames] = useState<string[]>([]);
-   const [failedGames, setFailedGames] = useState<string[]>([]);
- 
-   const [logMessages, setLogMessages] = useState<string[]>([]);
-   const [hasStarted, setHasStarted] = useState(false);
+
+  const [successGames, setSuccessGames] = useState<string[]>([]);
+  const [duplicateGames, setDuplicateGames] = useState<string[]>([]);
+  const [failedGames, setFailedGames] = useState<string[]>([]);
+
+  const [logMessages, setLogMessages] = useState<string[]>([]);
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     // Establish socket connection only when the page is mounted
@@ -40,7 +40,7 @@ const Flashdrive: React.FC = () => {
     /* Continuously listens for messages from backend. Does multiple tasks including
       updating steps, sorts games into summary, and processes errors.
       Process log messages */
-    const handleStatus = (data: {message: string}) => {
+    const handleStatus = (data: { message: string }) => {
       setLogMessages((prevMessages) => {
         const updatedMessages = [...prevMessages, data.message];
         console.log(data.message)
@@ -66,7 +66,7 @@ const Flashdrive: React.FC = () => {
     };
 
     // Process summary. Store in lists to be displayed at the last step.
-    const handleSummary = (data: {message: string, type: string, games: string[]}) => {
+    const handleSummary = (data: { message: string, type: string, games: string[] }) => {
       console.log(data.type);
       console.log(data.games);
 
@@ -143,7 +143,7 @@ const Flashdrive: React.FC = () => {
     registerButtonHandler("x", handleCancel);
   }, [registerButtonHandler]);
 
- 
+
   // Handle displaying steps ======================================
   const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
   const [activeStep, setActiveStep] = useState(1);
@@ -212,19 +212,6 @@ const Flashdrive: React.FC = () => {
                   {logMessages.map((message, index) => (
                     <p key={index}>{`> ${message}`}</p>
                   ))}
-                  {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula sit amet est vulputate efficitur ut sit amet augue. Donec pulvinar dictum nulla nec vestibulum. Mauris finibus mollis sem quis feugiat. Donec nec placerat dui, vel volutpat est. Etiam vehicula faucibus nunc, at sagittis mauris facilisis in. Proin non aliquet lorem. Aliquam quis congue nisl, vitae malesuada nulla. Vestibulum sed nibh id neque pretium mollis vitae pretium orci. Etiam non purus eu diam euismod sagittis sit amet in justo. Vivamus aliquet lobortis lacinia. Vestibulum fermentum eu ante in consequat. Pellentesque enim dolor, varius nec malesuada eu, tincidunt sed lectus. Proin pulvinar urna sit amet elit egestas, vitae convallis risus volutpat. Aliquam turpis lectus, lacinia congue malesuada quis, feugiat vel arcu.
-
-Sed arcu nisl, finibus mollis sollicitudin ut, viverra consequat sem. Quisque commodo leo in lorem convallis, a ultrices est fringilla. Fusce nec malesuada neque. In laoreet posuere ligula in auctor. Donec condimentum risus vitae mi porta mollis. Fusce ullamcorper, leo id venenatis venenatis, mi massa venenatis lacus, vel semper nulla neque quis magna. Sed et lacinia enim, quis efficitur metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ac rhoncus arcu, ac tempus sapien. Suspendisse a nisl diam. Aenean sed accumsan urna, mollis venenatis tortor. Phasellus laoreet ante non vulputate ultricies. Vestibulum ultrices velit in nisi convallis luctus. Vestibulum facilisis, leo at molestie egestas, arcu felis mollis lacus, quis auctor magna turpis ac quam.
-
-Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mollis tincidunt. Ut hendrerit ante a libero tristique varius. Vestibulum dui diam, interdum vitae dui non, volutpat elementum mauris. Fusce sit amet sollicitudin orci. Mauris sed ante bibendum, sagittis sapien vel, maximus urna. Integer tincidunt libero eu accumsan scelerisque. Aenean at turpis non velit venenatis vehicula quis ut dui. Ut vehicula cursus ligula quis aliquam. Etiam congue, neque vitae sagittis aliquam, risus risus auctor quam, ut feugiat quam felis quis lectus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula sit amet est vulputate efficitur ut sit amet augue. Donec pulvinar dictum nulla nec vestibulum. Mauris finibus mollis sem quis feugiat. Donec nec placerat dui, vel volutpat est. Etiam vehicula faucibus nunc, at sagittis mauris facilisis in. Proin non aliquet lorem. Aliquam quis congue nisl, vitae malesuada nulla. Vestibulum sed nibh id neque pretium mollis vitae pretium orci. Etiam non purus eu diam euismod sagittis sit amet in justo. Vivamus aliquet lobortis lacinia. Vestibulum fermentum eu ante in consequat. Pellentesque enim dolor, varius nec malesuada eu, tincidunt sed lectus. Proin pulvinar urna sit amet elit egestas, vitae convallis risus volutpat. Aliquam turpis lectus, lacinia congue malesuada quis, feugiat vel arcu.
-
-Sed arcu nisl, finibus mollis sollicitudin ut, viverra consequat sem. Quisque commodo leo in lorem convallis, a ultrices est fringilla. Fusce nec malesuada neque. In laoreet posuere ligula in auctor. Donec condimentum risus vitae mi porta mollis. Fusce ullamcorper, leo id venenatis venenatis, mi massa venenatis lacus, vel semper nulla neque quis magna. Sed et lacinia enim, quis efficitur metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ac rhoncus arcu, ac tempus sapien. Suspendisse a nisl diam. Aenean sed accumsan urna, mollis venenatis tortor. Phasellus laoreet ante non vulputate ultricies. Vestibulum ultrices velit in nisi convallis luctus. Vestibulum facilisis, leo at molestie egestas, arcu felis mollis lacus, quis auctor magna turpis ac quam.
-
-Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mollis tincidunt. Ut hendrerit ante a libero tristique varius. Vestibulum dui diam, interdum vitae dui non, volutpat elementum mauris. Fusce sit amet sollicitudin orci. Mauris sed ante bibendum, sagittis sapien vel, maximus urna. Integer tincidunt libero eu accumsan scelerisque. Aenean at turpis non velit venenatis vehicula quis ut dui. Ut vehicula cursus ligula quis aliquam. Etiam congue, neque vitae sagittis aliquam, risus risus auctor quam, ut feugiat quam felis quis lectus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula sit amet est vulputate efficitur ut sit amet augue. Donec pulvinar dictum nulla nec vestibulum. Mauris finibus mollis sem quis feugiat. Donec nec placerat dui, vel volutpat est. Etiam vehicula faucibus nunc, at sagittis mauris facilisis in. Proin non aliquet lorem. Aliquam quis congue nisl, vitae malesuada nulla. Vestibulum sed nibh id neque pretium mollis vitae pretium orci. Etiam non purus eu diam euismod sagittis sit amet in justo. Vivamus aliquet lobortis lacinia. Vestibulum fermentum eu ante in consequat. Pellentesque enim dolor, varius nec malesuada eu, tincidunt sed lectus. Proin pulvinar urna sit amet elit egestas, vitae convallis risus volutpat. Aliquam turpis lectus, lacinia congue malesuada quis, feugiat vel arcu.
-
-Sed arcu nisl, finibus mollis sollicitudin ut, viverra consequat sem. Quisque commodo leo in lorem convallis, a ultrices est fringilla. Fusce nec malesuada neque. In laoreet posuere ligula in auctor. Donec condimentum risus vitae mi porta mollis. Fusce ullamcorper, leo id venenatis venenatis, mi massa venenatis lacus, vel semper nulla neque quis magna. Sed et lacinia enim, quis efficitur metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ac rhoncus arcu, ac tempus sapien. Suspendisse a nisl diam. Aenean sed accumsan urna, mollis venenatis tortor. Phasellus laoreet ante non vulputate ultricies. Vestibulum ultrices velit in nisi convallis luctus. Vestibulum facilisis, leo at molestie egestas, arcu felis mollis lacus, quis auctor magna turpis ac quam.
-
-Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mollis tincidunt. Ut hendrerit ante a libero tristique varius. Vestibulum dui diam, interdum vitae dui non, volutpat elementum mauris. Fusce sit amet sollicitudin orci. Mauris sed ante bibendum, sagittis sapien vel, maximus urna. Integer tincidunt libero eu accumsan scelerisque. Aenean at turpis non velit venenatis vehicula quis ut dui. Ut vehicula cursus ligula quis aliquam. Etiam congue, neque vitae sagittis aliquam, risus risus auctor quam, ut feugiat quam felis quis lectus. */}
                 </div>
               </>
             )
@@ -243,31 +230,27 @@ Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mo
                 </div>
                 <div className='summary'>
                   <h3>Summary: </h3>
-                  <h4>Games successfully added ({successGames.length}):</h4>
-                  <ul>
-                    {successGames.map((game, index) => (
-                      <li key={index}>{game}</li>
-                    ))}
-                    {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula sit amet est vulputate efficitur ut sit amet augue. Donec pulvinar dictum nulla nec vestibulum. Mauris finibus mollis sem quis feugiat. Donec nec placerat dui, vel volutpat est. Etiam vehicula faucibus nunc, at sagittis mauris facilisis in. Proin non aliquet lorem. Aliquam quis congue nisl, vitae malesuada nulla. Vestibulum sed nibh id neque pretium mollis vitae pretium orci. Etiam non purus eu diam euismod sagittis sit amet in justo. Vivamus aliquet lobortis lacinia. Vestibulum fermentum eu ante in consequat. Pellentesque enim dolor, varius nec malesuada eu, tincidunt sed lectus. Proin pulvinar urna sit amet elit egestas, vitae convallis risus volutpat. Aliquam turpis lectus, lacinia congue malesuada quis, feugiat vel arcu.
+                  <div className="summaryCategories">
+                    <h4>Games successfully added ({successGames.length}):</h4>
+                    <ul>
+                      {successGames.map((game, index) => (
+                        <li key={index}>{game}</li>
+                      ))}
+                    </ul>
+                    <h4>Games already exist ({duplicateGames.length}):</h4>
+                    <ul>
+                      {duplicateGames.map((game, index) => (
+                        <li key={index}>{game}</li>
+                      ))}
+                    </ul>
 
-Sed arcu nisl, finibus mollis sollicitudin ut, viverra consequat sem. Quisque commodo leo in lorem convallis, a ultrices est fringilla. Fusce nec malesuada neque. In laoreet posuere ligula in auctor. Donec condimentum risus vitae mi porta mollis. Fusce ullamcorper, leo id venenatis venenatis, mi massa venenatis lacus, vel semper nulla neque quis magna. Sed et lacinia enim, quis efficitur metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ac rhoncus arcu, ac tempus sapien. Suspendisse a nisl diam. Aenean sed accumsan urna, mollis venenatis tortor. Phasellus laoreet ante non vulputate ultricies. Vestibulum ultrices velit in nisi convallis luctus. Vestibulum facilisis, leo at molestie egestas, arcu felis mollis lacus, quis auctor magna turpis ac quam.
-
-Proin vel quam sed libero egestas fringilla ut in augue. Nam eu augue ut nisl mollis tincidunt. Ut hendrerit ante a libero tristique varius. Vestibulum dui diam, interdum vitae dui non, volutpat elementum mauris. Fusce sit amet sollicitudin orci. Mauris sed ante bibendum, sagittis sapien vel, maximus urna. Integer tincidunt libero eu accumsan scelerisque. Aenean at turpis non velit venenatis vehicula quis ut dui. Ut vehicula cursus ligula quis aliquam. Etiam congue, neque vitae sagittis aliquam, risus risus auctor quam, ut feugiat quam felis quis lectus. */}
-                  </ul>
-
-                  <h4>Games already exist ({duplicateGames.length}):</h4>
-                  <ul>
-                    {duplicateGames.map((game, index) => (
-                      <li key={index}>{game}</li>
-                    ))}
-                  </ul>
-
-                  <h4>Error processing game ({failedGames.length}):</h4>
-                  <ul>
-                    {failedGames.map((game, index) => (
-                      <li key={index}>{game}</li>
-                    ))}
-                  </ul>
+                    <h4>Error processing game ({failedGames.length}):</h4>
+                    <ul>
+                      {failedGames.map((game, index) => (
+                        <li key={index}>{game}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             )

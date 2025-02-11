@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './Instruction.css'
+import directoryScreenshot from '../../assets/DirectoryScreenshot.png'
 
 const Step1Instruction: React.FC = () => {
   return (
@@ -24,6 +25,9 @@ const Step1Instruction: React.FC = () => {
             <b style={{ fontFamily: "Teko", fontSize: "24px" }}>File Format:</b> Keep games in their original compressed formats (<i>.zip</i>, <i>.7z</i>).
           </li>
         </ul>
+
+        <p style={{fontSize:"16px", marginTop:"5%", fontFamily:"'DM Sans', sans-serif"}}> Here's an example of what your file directory might look like in your flashdrive: </p>
+        <img src={directoryScreenshot} alt="directoryScreenshot" className="directoryScreenshot" />
       </div>
       <div className='instructionsRight'>
         <p style={{ margin: "0 0 3% 30%" }}> Format Example: </p>

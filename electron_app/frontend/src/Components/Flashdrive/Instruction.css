@@ -11,6 +11,12 @@
   flex-direction: column;
 }
 
+.directoryScreenshot {
+  margin-left: 2%;
+  overflow: hidden;
+  width: 110%;
+}
+
 .smallText {
   line-height: 130%;
   font-family: "DM Sans", sans-serif;

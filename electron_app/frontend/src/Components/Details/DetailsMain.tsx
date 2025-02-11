@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import LeftBanner from "../Banners/LeftBanner";
 import RightBanner from "../Banners/RightBanner";
 
-import emuData from '../../emuData.json';
+import emuData from '../../assets/emuData.json';
 
 import { useController } from "../ControllerContext";
 
