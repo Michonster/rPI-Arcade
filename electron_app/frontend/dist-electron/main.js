@@ -14,7 +14,7 @@ function createWindow() {
   const win2 = new BrowserWindow({
     width,
     height,
-    // fullscreen: true, 
+    fullscreen: true,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs")

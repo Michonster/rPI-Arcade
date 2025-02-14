@@ -161,8 +161,8 @@ const Emulators: React.FC<EmulatorsProps> = ({
                   <div className="addGamesBox">
                     <p style={{ margin: "0" }}> ★ {box.text} ★ </p>
                     <p style={{ textAlign: "left", fontSize: "24px", margin: "5% 0 0 0" }}>
-                      REQUIRED: &nbsp;&nbsp;&nbsp;flashdrive +
-                      &nbsp;&nbsp;&nbsp;proper format Select to see format.
+                      Requires flashdrive. <br/><br/>
+                      Select to see format.
                     </p>
                   </div>
                 ) : index === totalBoxes - 1 ? (
