@@ -3,8 +3,5 @@
 # Switch to tty1 (CTRL + ALT + F1)
 chvt 1
 
-# Wait for a moment to ensure the switch happens
-sleep 1
-
 # Type the command to start emulationstation
-echo "emulationstation" | sudo -u rpiarcade bash -c "cat > /dev/tty1"
+sudo -u rpiarcade emulationstation
