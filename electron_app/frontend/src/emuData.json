@@ -65,7 +65,7 @@
       ]
   },
   {
-      "image": "/emu/PCSX.png",
+      "image": "/emu/pcsx.png",
       "text": "PCSX",
       "className": "box-PCSX",
       "description": "PCSX-ReARMed is a PlayStation 1 emulator optimized for ARM devices. It offers good compatibility and performance, making it popular for emulating PS1 games on mobile devices and single-board computers.",
@@ -75,19 +75,6 @@
       "Castlevania: Symphony of the Night",
       "Crash Bandicoot: Warped",
       "Spyro the Dragon"
-      ]
-  },
-  {
-      "image": "/emu/PCSX.png",
-      "text": "PCSX2",
-      "className": "box-PCSX",
-      "description": "PCSX2 is a PlayStation 2 emulator that allows users to play PS2 games on PC. It offers features like improved graphics, save states, and cheat codes. PCSX2 has high compatibility with the PS2 game library and continues to be actively developed.",
-      "games": [
-      "Shadow of the Colossus",
-      "Final Fantasy X",
-      "Metal Gear Solid 3: Snake Eater",
-      "Kingdom Hearts II",
-      "Gran Turismo 4"
       ]
   },
   {

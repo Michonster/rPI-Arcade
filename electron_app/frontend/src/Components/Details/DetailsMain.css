@@ -63,19 +63,21 @@
 .canvas-container {
   position: absolute;
   z-index: 1;
-  left: 10%;
-  top:30%;
+  left: 15%;
+  top:20%;
   margin-left:2%;
+  border: 2px solid white;
+  border-radius: 20px;
 
 }
 
 .emulator_summary {
   position: absolute;
   right: 13%;
-  top: 10%;
+  top: 5%;
   width: 27%;
   color: white;
-  text-align:center;
+  text-align:left;
   /* font-size: 2vw; */
   font-size: clamp(20px, 2vw, 40px);
   z-index: 1;
@@ -88,7 +90,7 @@
 .game_recommendations {
   padding: 2%;
   margin: 10px;
-  border: 2px solid white;
+  /*border: 2px solid white;*/
   /* border-radius: 20px; */
   position: absolute;
   color: white;
@@ -193,6 +195,8 @@
 
 
 }
+
+
 .Side1 {
   position: absolute;
   top: 45%;
