@@ -91,7 +91,10 @@ app.whenReady().then(() => {
       win = null;
     }
 
-    const scriptPath = path.join(__dirname, 'boot_to_emulation.sh');
+    const os = require('os');
+
+    const homeDir = os.homedir();
+    const scriptPath = path.resolve(homeDir, 'rPI-Arcade/electron_app/backend/boot_to_emulation.sh');
 
     // Run bash script to open boot menu and run emulationstation
     exec(scriptPath, (error, stdout, stderr) => {
