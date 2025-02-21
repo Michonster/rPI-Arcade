@@ -1,5 +1,7 @@
 # import eventlet
 # eventlet.monkey_patch()
+
+# TO run the server: gunicorn -k eventlet -w 1 -b 0.0.0.0:5002 controller_monitor:app
 import pygame # type: ignore
 import signal
 import sys

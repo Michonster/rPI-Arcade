@@ -36,8 +36,8 @@ If not, install both of them with:
 ```sudo apt install python3```
 ```sudo apt install python3-pip```
 
-6. You can check what dependencies you currently have with ```pip list```. To download all necessary dependencies: 
-```pip install pyudev pygame flask flask-cors flask-socketio```
+6. To download all necessary dependencies, navigate to backend/ and run: 
+```pip install -r requirements.txt```
 
 7. To run the scripts, navigate to rPi-Arcade/electron_app/ 
 and to run both scripts at the same time:
