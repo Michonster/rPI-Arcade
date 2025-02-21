@@ -66,10 +66,22 @@
 .addGamesBox {
   display: flex;
   margin: 0 5% 0 5%;
-  letter-spacing: 0.2px;
-  line-height: 90%;
+  letter-spacing: 0.1px;
+  line-height: 70%;
   flex-direction: column;
+  font-size: 20px;
+}
+
+.addGames {
   font-size: 26px;
+  line-height: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.uploadIcon {
+  width: 40%;
 }
 
 .launchGamesBox {

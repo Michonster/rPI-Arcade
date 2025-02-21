@@ -195,8 +195,9 @@ const Flashdrive: React.FC = () => {
           <br />
           return to main screen
         </div>
-        <div style={{ display: "flex", justifyContent: "center", width: "100%", position: "absolute", top: "5%" }}>
-          <p style={{ alignSelf: "center", fontSize: "50px" }}>{stepTitle[activeStep - 1]}</p>
+        <div className="flashdriveTitle">
+          <p style={{ fontSize: "50px" }}> Add Games to EmulationStation </p>
+          <p style={{ fontSize: "40px", color: "#e7ef88" }}>{stepTitle[activeStep - 1]}</p>
         </div>
 
         {/* ============================ */}

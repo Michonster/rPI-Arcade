@@ -6,6 +6,7 @@ import "./Emulators.css";
 import TopBanner from '../Banners/TopBanner.tsx';
 import BotBanner from '../Banners/BotBanner.tsx';
 import logo from "/images/Logo.png";
+import uploadIcon from "../../assets/uploadIcon.png"
 
 import emuData from "../../assets/emuData.json";
 
@@ -159,9 +160,13 @@ const Emulators: React.FC<EmulatorsProps> = ({
                     are special so they get their own styles. */}
                 {index === totalBoxes - 2 ? (
                   <div className="addGamesBox">
-                    <p style={{ margin: "0" }}> ★ {box.text} ★ </p>
+                    <div className="addGames">
+                      <img src={uploadIcon} alt="uploadIcon" className="uploadIcon" />
+                      <p> Upload Files </p>
+                    </div>
+
                     <p style={{ textAlign: "left", fontSize: "24px", margin: "5% 0 0 0" }}>
-                      Requires flashdrive. <br/><br/>
+                      Requires flashdrive. <br /><br />
                       Select to see format.
                     </p>
                   </div>
