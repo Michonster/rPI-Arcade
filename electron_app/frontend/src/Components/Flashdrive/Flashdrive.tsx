@@ -121,6 +121,11 @@ const Flashdrive: React.FC = () => {
         socketRef.current.disconnect();
         console.log("Disconnected from flashdrive socket");
       }
+
+      // Reset state when unmounting
+      setSuccessGames([]); 
+      setDuplicateGames([]);
+      setFailedGames([]);
     };
 
   }, []); // Runs only when the component mounts/unmounts
@@ -159,8 +164,8 @@ const Flashdrive: React.FC = () => {
   const stepTitle = [
     "Step 1: Insert your flashdrive",
     "Step 2: Wait for data processing",
-    "Step 3: Remove your flashdrive",
-    "Processing complete."
+    "Step 3: Processing complete. Please remove your flashdrive",
+    "You may close this page."
   ];
 
   return (
@@ -233,7 +238,7 @@ const Flashdrive: React.FC = () => {
                   <h3>Summary: </h3>
                   <div className="summaryCategories">
                     <h4>Games successfully added ({successGames.length}):</h4>
-                    <ul>
+                    <ul className='summaryItem'>
                       {successGames.map((game, index) => (
                         <li key={index}>{game}</li>
                       ))}

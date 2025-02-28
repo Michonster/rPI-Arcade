@@ -4,6 +4,8 @@ and the rooms within will be copied onto the RPI. In the case of duplicates,
 the roms won't be installed. """
 # import eventlet
 # eventlet.monkey_patch()
+
+# TO run the server: gunicorn -w 1 -b 0.0.0.0:5001 USB_monitor:app
 import shutil
 import os
 import pyudev # type: ignore
@@ -165,9 +167,10 @@ def copy_folder_from_usb(usb_base_path, destination_base_path):
 
                     #Copy file or directory onto raspberry pi
                     try:
-                        if os.path.isdir(source_item):
+                        # In RetroPie folder, only copy folders that correspond to an emulator
+                        if os.path.isdir(source_item) and os.path.basename(source_item) in game_systems:
                             shutil.copytree(source_item, dest_item, dirs_exist_ok=True)
-                        else:
+                        elif os.path.isfile(source_item):
                             shutil.copy2(source_item, final_destination_path)
                             
                             #If game is PS1, PSP, DS, or Dreamcast, extract necessary zips/7z
@@ -196,7 +199,6 @@ def copy_folder_from_usb(usb_base_path, destination_base_path):
         #Print that USB path doesnt exist if no path is found
         else:
             print(f"{system} not found on USB")
-            socketio.emit('status', {'message': f"{system} not found on USB"})
 
 
 #Monitor USB insertion/removal
