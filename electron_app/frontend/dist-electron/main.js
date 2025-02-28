@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, screen } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { exec } from "child_process";
+import os from "os";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.APP_ROOT = path.join(__dirname, "..");
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
@@ -43,7 +44,6 @@ app.whenReady().then(() => {
   createWindow();
   ipcMain.on("start-emulationstation", () => {
     console.log("Launching EmulationStation...");
-    const os = require("os");
     const homeDir = os.homedir();
     const scriptPath = path.resolve(homeDir, "rPI-Arcade/electron_app/backend/boot_to_emulation.sh");
     exec(scriptPath, (error, stdout, stderr) => {
