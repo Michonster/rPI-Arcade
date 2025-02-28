@@ -4,6 +4,8 @@ import path from 'node:path'
 import { screen, ipcMain } from 'electron'; // Import the screen module to access display properties
 import { exec } from "child_process";
 
+import os from "os";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // The built directory structure
@@ -90,8 +92,6 @@ app.whenReady().then(() => {
       win.close();
       win = null;
     }
-
-    const os = require('os');
 
     const homeDir = os.homedir();
     const scriptPath = path.resolve(homeDir, 'rPI-Arcade/electron_app/backend/boot_to_emulation.sh');
