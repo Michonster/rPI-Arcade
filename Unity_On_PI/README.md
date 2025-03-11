@@ -22,6 +22,7 @@
 </ol>
 
 ## Google Play on Raspi:
+Note: Unless using another android system, you cannot get play certified. Instead install Aptoide for mobile apps
 <ol>
 <li> Turn on the Raspi</li>
 <li> Enable developer settings by opening settings, going to about, and tapping the build number until enabled</li>
@@ -35,9 +36,11 @@
 </ol>
 
 ## Play Certification:
+Note: Unable to set/get a GSF ID using the android system downloaded
 <ol>
 <li> On a seperate device, go to <a href="https://github.com/K3V1991/Fix-This-Device-isnt-Play-Protect-certified"> this website</a> and follow the steps to certify the pi </li>'
 </ol>
+
 
 ## Downloading Aptoide on Pi:
 <ol>
@@ -47,3 +50,16 @@
 <li> Open the files app on the raspberrypi and navigate to the USB </li>
 <li> Select the apk file and allow it to install </li>
 <ol>
+
+## Resizeing Partition:
+<ol>
+<li> Go to <a href = "https://konstakang.com/devices/rpi5/"> this website</a> and select the version of android you downloaded</li>
+<li> Scroll down to the FAQ and download the KonstaKANG-rpi-resize.zip </li>
+<li> Move the downloaded file to an external USB then plug the USB into the Raspberry Pi</li>
+<li> Go to the settings of the Pi, Under System -> Raspberry Pi Settings togle on reboot to recovery</li>
+<li> Reboot the Raspberry Pi </li>
+<li> On the recovery screen select "Install" </li>
+<li> Tap on Select Storage and select the USB </li>
+<li> Select the zip and slide to install </li>
+<li> Reboot the Raspberry Pi into system </li>
+</ol>
