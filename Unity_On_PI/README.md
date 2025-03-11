@@ -40,7 +40,7 @@
 <li> Insert the USB into the raspberrypi</li>
 <li> Open the files app on the raspberrypi and navigate to the USB </li>
 <li> Select the apk file and allow it to install </li>
-<ol>
+</ol>
 
 ## Google Play on Raspi:
 Note: Unless using another android system, you cannot get play certified. Instead install Aptoide for mobile apps
