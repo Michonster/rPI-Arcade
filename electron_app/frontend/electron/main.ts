@@ -1,7 +1,8 @@
 import { app, BrowserWindow } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
-import { screen } from 'electron'; // Import the screen module to access display properties
+import { screen, ipcMain } from 'electron'; // Import the screen module to access display properties
+import { exec } from "child_process";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -23,17 +24,19 @@ export const RENDERER_DIST = path.join(process.env.APP_ROOT, 'dist')
 
 process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 'public') : RENDERER_DIST
 
+let win: BrowserWindow | null = null; // Define globally
 
 function createWindow() {
   // Get the primary display dimensions
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
 
-  // Create a fullscreen window
+  // Create a fullscreen window; width and height are dynamic, based on machine's dimensions
+  // Note: For final product, use fullscreen
   const win = new BrowserWindow({
     width,
     height,
-    // fullscreen: true, 
+    fullscreen: true, 
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.mjs'),
@@ -55,6 +58,8 @@ function createWindow() {
   }
 }
 
+// ======================================================================
+
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
@@ -72,4 +77,28 @@ app.on('activate', () => {
   }
 })
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  createWindow();
+
+  // Frontend will call this function via IPC 
+  // This will close our Electron app and start up EmulationSTation
+  ipcMain.on("start-emulationstation", () => {
+    console.log("Launching EmulationStation...");
+
+    // Close Electron window
+    if (win) {
+      win.close();
+      win = null;
+    }
+
+    // Execute EmulationStation command
+    exec("emulationstation", (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error launching EmulationStation: ${error.message}`);
+        return;
+      }
+      console.log(`EmulationStation Output: ${stdout}`);
+      if (stderr) console.error(`EmulationStation Errors: ${stderr}`);
+    });
+  });
+});

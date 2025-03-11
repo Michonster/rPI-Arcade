@@ -1,5 +1,7 @@
 # import eventlet
 # eventlet.monkey_patch()
+
+# TO run the server: gunicorn -w 1 -b 0.0.0.0:5002 controller_monitor:app
 import pygame # type: ignore
 import signal
 import sys
@@ -40,35 +42,25 @@ def start_controller_monitoring():
     # time.sleep(0.5)  
     # socketio.emit("joystick_event", {"direction": "release"})
     # time.sleep(1)
-    # socketio.emit("joystick_event", {"button": "x", "action": "pressed"})
+    # socketio.emit("joystick_event", {"button": "X", "action": "pressed"})
     # time.sleep(1)
-    # socketio.emit("joystick_event", {"button": "x", "action": "pressed"})
-    # time.sleep(1)
-    # socketio.emit("joystick_event", {"direction": "right"})
-    # time.sleep(0.5)  
-    # socketio.emit("joystick_event", {"direction": "release"})
+    # socketio.emit("joystick_event", {"button": "X", "action": "pressed"})
     # time.sleep(1)
     # socketio.emit("joystick_event", {"direction": "right"})
     # time.sleep(0.5)  
     # socketio.emit("joystick_event", {"direction": "release"})
     # time.sleep(1)
-    # socketio.emit("joystick_event", {"button": "x", "action": "pressed"})
+    # socketio.emit("joystick_event", {"direction": "right"})
+    # time.sleep(0.5)  
+    # socketio.emit("joystick_event", {"direction": "release"})
     # time.sleep(1)
-    # socketio.emit("joystick_event", {"button": "x", "action": "pressed"})
+    # socketio.emit("joystick_event", {"button": "X", "action": "pressed"})
+    # time.sleep(1)
+    # socketio.emit("joystick_event", {"button": "X", "action": "pressed"})
     # time.sleep(1)
     # socketio.emit("joystick_event", {"direction": "right"})
     # time.sleep(3)  
     # socketio.emit("joystick_event", {"direction": "release"})
-
-    # time.sleep(1)
-    # socketio.emit("joystick_event", {"direction": "left"})
-    # time.sleep(1)  
-    # socketio.emit("joystick_event", {"direction": "release"})
-    # time.sleep(1)  
-    # socketio.emit("joystick_event", {"direction": "right"})
-    # time.sleep(1)  
-    # socketio.emit("joystick_event", {"direction": "release"})
-    
 
 
 # Start joystick monitoring in a separate thread
