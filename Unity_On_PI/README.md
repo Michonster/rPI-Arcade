@@ -37,10 +37,26 @@
 <ol>
 <li> On a seperate device, go to <a href= "https://en.aptoide.com/" > this website</a> and click on the download button </li>
 <li> After it finishes downloading, move the file onto a seperate USB stick </li>
-<li> Insert the USB into the raspberrypi</li>
-<li> Open the files app on the raspberrypi and navigate to the USB </li>
+<li> Insert the USB into the raspberry pi</li>
+<li> Open the files app on the raspberry pi and navigate to the USB </li>
 <li> Select the apk file and allow it to install </li>
 </ol>
+
+## Download Termux, Update Linux, and Install GIT
+<ol>
+<li> Go to <a href= "https://f-droid.org/en/packages/com.termux/"> this website </a> and download the latest APK that is not in beta or alpha </li>
+<li> After it finishes downloading, move the file onto a seperate USB stick </li>
+<li> Insert the USB into the raspberry pi </li>
+<li> Go to the files app and select the USB </li>
+<li> Select the APK file and click download </li>
+<li> Open Termux and run the following commands: </li>
+    <ul>
+    <li> apt-get update </li>
+    <li> apt-get upgrade </li>
+    <li> apt-get install git </li>
+    </ul>
+</ol>
+When requested, type in Y to continue downloads 
 
 ## Google Play on Raspi:
 Note: Unless using another android system, you cannot get play certified. Instead install Aptoide for mobile apps
