@@ -1,3 +1,7 @@
+/*
+  Formatting app pop-up, also redirects"launch game" button click to open emulationstation
+*/
+
 import { app, BrowserWindow } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
@@ -35,7 +39,7 @@ function createWindow() {
 
   // Create a fullscreen window; width and height are dynamic, based on machine's dimensions
   // Note: For final product, use fullscreen
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width,
     height,
     // fullscreen: true, 
@@ -83,7 +87,7 @@ app.whenReady().then(() => {
   createWindow();
 
   // Frontend will call this function via IPC 
-  // This will close our Electron app and start up EmulationSTation
+  // This will close our Electron app and start up EmulationStation
   ipcMain.on("start-emulationstation", () => {
     console.log("Launching EmulationStation...");
 
@@ -93,6 +97,7 @@ app.whenReady().then(() => {
       win = null;
     }
 
+    // Specify path to the bash script
     const homeDir = os.homedir();
     const scriptPath = path.resolve(homeDir, 'rPI-Arcade/electron_app/backend/boot_to_emulation.sh');
 

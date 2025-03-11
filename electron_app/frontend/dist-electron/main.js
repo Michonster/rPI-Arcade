@@ -9,10 +9,11 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
+let win = null;
 function createWindow() {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
-  const win2 = new BrowserWindow({
+  win = new BrowserWindow({
     width,
     height,
     // fullscreen: true, 
@@ -21,13 +22,13 @@ function createWindow() {
       preload: path.join(__dirname, "preload.mjs")
     }
   });
-  win2.webContents.on("did-finish-load", () => {
-    win2 == null ? void 0 : win2.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  win.webContents.on("did-finish-load", () => {
+    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
   if (VITE_DEV_SERVER_URL) {
-    win2.loadURL(VITE_DEV_SERVER_URL);
+    win.loadURL(VITE_DEV_SERVER_URL);
   } else {
-    win2.loadFile(path.join(RENDERER_DIST, "index.html"));
+    win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
 }
 app.on("window-all-closed", () => {
@@ -44,6 +45,10 @@ app.whenReady().then(() => {
   createWindow();
   ipcMain.on("start-emulationstation", () => {
     console.log("Launching EmulationStation...");
+    if (win) {
+      win.close();
+      win = null;
+    }
     const homeDir = os.homedir();
     const scriptPath = path.resolve(homeDir, "rPI-Arcade/electron_app/backend/boot_to_emulation.sh");
     exec(scriptPath, (error, stdout, stderr) => {
