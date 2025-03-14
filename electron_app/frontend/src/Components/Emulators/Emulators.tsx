@@ -210,7 +210,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
                   className="buttonCircle"
                   onClick={handleEmulatorSelection}
                 >
-                  button
+                  X
                 </button>
                 <p> for </p>
               </div>
