@@ -45,10 +45,6 @@ app.whenReady().then(() => {
   createWindow();
   ipcMain.on("start-emulationstation", () => {
     console.log("Launching EmulationStation...");
-    if (win) {
-      win.close();
-      win = null;
-    }
     const homeDir = os.homedir();
     const scriptPath = path.resolve(homeDir, "rPI-Arcade/electron_app/backend/boot_to_emulation.sh");
     exec(scriptPath, (error, stdout, stderr) => {
@@ -59,6 +55,10 @@ app.whenReady().then(() => {
       console.log(`EmulationStation Output: ${stdout}`);
       if (stderr) console.error(`EmulationStation Errors: ${stderr}`);
     });
+    if (win) {
+      win.close();
+      win = null;
+    }
   });
 });
 export {
