@@ -54,11 +54,14 @@ app.whenReady().then(() => {
       }
       console.log(`EmulationStation Output: ${stdout}`);
       if (stderr) console.error(`EmulationStation Errors: ${stderr}`);
+    });
+    setTimeout(() => {
       if (win) {
+        console.log("Closing the Electron window...");
         win.close();
         win = null;
       }
-    });
+    }, 5e3);
   });
 });
 export {

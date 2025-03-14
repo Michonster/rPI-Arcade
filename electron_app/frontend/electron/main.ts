@@ -102,14 +102,18 @@ app.whenReady().then(() => {
         return;
       }
       console.log(`EmulationStation Output: ${stdout}`);
-      if (stderr) console.error(`EmulationStation Errors: ${stderr}`);
+      if (stderr) console.error(`EmulationStation Errors: ${stderr}`);      
+    });
 
-      // Close Electron window
+    // Wait for 5 seconds before closing the Electron window
+    setTimeout(() => {
+      // Now, close the Electron window after the delay
       if (win) {
+        console.log('Closing the Electron window...');
         win.close();
         win = null;
       }
-      
-    });
+    }, 5000);  // 5000 milliseconds = 5 seconds
+
   });
 });
