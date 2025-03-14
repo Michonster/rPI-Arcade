@@ -5,7 +5,7 @@ the roms won't be installed. """
 # import eventlet
 # eventlet.monkey_patch()
 
-# TO run the server: gunicorn -w 1 -b 0.0.0.0:5001 USB_monitor:app
+# TO run the server: gunicorn -w 1 -k eventlet -b 0.0.0.0:5001 USB_monitor:app
 import shutil
 import os
 import pyudev # type: ignore
@@ -20,7 +20,6 @@ from flask_cors import CORS
 
 def signal_handler(signal, frame):
     print('Shutting down USB monitor server...')
-    socketio.stop()
     sys.exit(0)
 
 # variables ==========================================================================
@@ -59,6 +58,11 @@ game_systems = ['nes', 'n64', 'snes', 'dreamcast', 'psp', 'psx', 'nds', 'megadri
 # server/client interaction ==========================================================================
 @socketio.on('START')
 def start_usb_monitoring():
+    # clear any games from previous uploads in the same app instance 
+    succ_list.clear()
+    duplicate.clear()
+    fail_list.clear()
+
     global stop_script, observer
     stop_script = False
     observer = pyudev.MonitorObserver(monitor, callback=device_event)

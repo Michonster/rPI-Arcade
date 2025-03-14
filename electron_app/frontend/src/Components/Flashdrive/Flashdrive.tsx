@@ -117,7 +117,6 @@ const Flashdrive: React.FC = () => {
 
     // Cleanup listeners on unmount & disconnect the socket
     return () => {
-      console.log("returning from page")
       if (socketRef.current) {
         socketRef.current.off("status", handleStatus);
         socketRef.current.off("summary", handleSummary);
@@ -127,14 +126,7 @@ const Flashdrive: React.FC = () => {
         socketRef.current.disconnect();
         console.log("Disconnected from flashdrive socket");
       }
-
-      // Reset state when unmounting
-      console.log("resetting game arrays")
-      setSuccessGames([]); 
-      setDuplicateGames([]);
-      setFailedGames([]);
     };
-
   }, []); // Runs only when the component mounts/unmounts
 
 
