@@ -23,6 +23,11 @@ const Flashdrive: React.FC = () => {
   const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
+    // make sure game summary arrays are reset
+    setSuccessGames([]); 
+    setDuplicateGames([]);
+    setFailedGames([]);
+
     // Establish socket connection only when the page is mounted
     socketRef.current = io("http://127.0.0.1:5001", {
       reconnection: false, // Disable automatic reconnections
