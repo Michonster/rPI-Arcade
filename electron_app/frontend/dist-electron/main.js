@@ -54,11 +54,11 @@ app.whenReady().then(() => {
       }
       console.log(`EmulationStation Output: ${stdout}`);
       if (stderr) console.error(`EmulationStation Errors: ${stderr}`);
+      if (win) {
+        win.close();
+        win = null;
+      }
     });
-    if (win) {
-      win.close();
-      win = null;
-    }
   });
 });
 export {

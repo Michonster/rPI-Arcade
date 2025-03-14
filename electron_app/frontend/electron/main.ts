@@ -103,13 +103,13 @@ app.whenReady().then(() => {
       }
       console.log(`EmulationStation Output: ${stdout}`);
       if (stderr) console.error(`EmulationStation Errors: ${stderr}`);
+
+      // Close Electron window
+      if (win) {
+        win.close();
+        win = null;
+      }
+      
     });
-
-    // Close Electron window
-    if (win) {
-      win.close();
-      win = null;
-    }
-
   });
 });
