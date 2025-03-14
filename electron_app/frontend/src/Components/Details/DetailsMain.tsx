@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Rotate from "./Rotating_Image";
 import "./DetailsMain.css";
 // import pixelPanel from "/images/pixelPanel.png";
 import Mario64 from "/images/Mario64.gif";
-import Sonic_Run_Right from "/images/DreamCast_Moving_Right.gif";
-import Sonic_Run_Left from "/images/DreamCast_Moving_Left.gif";
+// import Sonic_Run_Right from "/images/DreamCast_Moving_Right.gif";
+// import Sonic_Run_Left from "/images/DreamCast_Moving_Left.gif";
 import { useNavigate } from "react-router-dom";
 import LeftBanner from "../Banners/LeftBanner";
 import RightBanner from "../Banners/RightBanner";
@@ -19,6 +19,8 @@ interface Emulator {
   description: string;
   image: string;
   games: string[];
+  gif1: string;
+  gif2: string;
 }
 
 // Define props for the DetailsMain component
@@ -42,10 +44,14 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
   const [emulators] = useState<Emulator[]>(emuData);
   const [selectedEmulator, setSelectedEmulator] = useState<Emulator | null>(null);
 
-  const [sonicPosition, setSonicPosition] = useState(0); // Sonic's horizontal position
-  const [direction] = useState<"right" | "left">("right"); // Movement direction
-  const [sonicImage, setSonicImage] = useState(Sonic_Run_Right); // Current Sonic image
+  const [GifPosition, setGifPosition] = useState(0); // Image horizontal position
+  const [currentDirection, setCurrentDirection] = useState<"right" | "left">("right"); // Movement direction
+  const [gifImage, setGifImage] = useState(selectedEmulator?.gif1 ?? "/path/to/fallback-image.webp"); // Image
 
+  const directionRef = useRef(currentDirection);
+  directionRef.current = currentDirection;
+
+  // Update selectedEmulator when emulatorName changes
   useEffect(() => {
     if (emulatorName) {
       const emulator = emulators.find(
@@ -55,33 +61,40 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
     }
   }, [emulatorName, emulators]);
 
+  // Update gifImage when selectedEmulator or currentDirection changes
   useEffect(() => {
-    let currentDirection = direction; // Local variable to track direction
+    setGifImage(
+      currentDirection === "right"
+        ? selectedEmulator?.gif1 ?? "/path/to/fallback-image.webp"
+        : selectedEmulator?.gif2 ?? "/path/to/fallback-image.webp"
+    );
+  }, [selectedEmulator, currentDirection]);
 
-    const animateSonic = () => {
-      setSonicPosition((prev) => {
-        if (currentDirection === "right") {
+  // Animation logic
+  useEffect(() => {
+    let animationId: number;
+    const animateGif = () => {
+      setGifPosition((prev) => {
+        if (directionRef.current === "right") {
           if (prev >= (window.innerWidth / 2) - 5) {
-            currentDirection = "left"; // Update direction locally
-            setSonicImage(Sonic_Run_Left);
+            setCurrentDirection("left"); // Update direction in state
             return prev - 2; // Start moving left
           }
           return prev + 2; // Move right
         } else {
           if (prev <= 2) {
-            currentDirection = "right"; // Update direction locally
-            setSonicImage(Sonic_Run_Right);
+            setCurrentDirection("right"); // Update direction in state
             return prev + 2; // Start moving right
           }
           return prev - 2; // Move left
         }
       });
-
-      requestAnimationFrame(animateSonic);
+      animationId = requestAnimationFrame(animateGif);
     };
-    const animationId = requestAnimationFrame(animateSonic);
+
+    animationId = requestAnimationFrame(animateGif);
     return () => cancelAnimationFrame(animationId); // Cleanup on unmount
-  }, []); // Empty dependency array to run only once
+  }, [currentDirection]); // Re-run effect when currentDirection changes
 
   return (
     <div className="Main_Div">
@@ -94,12 +107,12 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
       </button>
       <img className="Mario" src={Mario64} alt="Mario 64" />
 
-      {/* Sonic GIF */}
+      {/* GIF */}  
       <img
-        className="Link"
-        src={sonicImage}
-        alt="Sonic"
-        style={{ left: `${sonicPosition}px` }}
+        className="Gif"
+        src={gifImage}
+        alt="Gift"
+        style={{ left: `${GifPosition}px` }}
       />
 
       {/* Canvas for 3D content */}
@@ -111,6 +124,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
         <Cube
           src={selectedEmulator?.image ?? "/path/to/fallback-image.webp"} // in case no img found
         />
+         <Rotate src={selectedEmulator?.image ?? "/path/to/fallback-image.webp"} />
       </Canvas> */}
       <div className="canvas-container">
         <Rotate src={selectedEmulator?.image ?? "/path/to/fallback-image.webp"} />

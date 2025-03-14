@@ -184,7 +184,7 @@
 } */
 
 
-.Link{
+.Gif{
   width:clamp(100px, 20vw, 250px);
   z-index: 2;
   position:absolute;
