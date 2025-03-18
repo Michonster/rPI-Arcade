@@ -7,4 +7,4 @@ chvt 1
 export DISPLAY=:0
 
 # Run EmulationStation with the correct environment
-sudo -u rpiarcade bash -c 'source /home/rpiarcade/.profile; emulationstation'
+sudo -u rpiarcade bash -c 'source /home/rpiarcade/.profile; emulationstation' > /home/rpiarcade/emulationstation_log.txt 2>&1
