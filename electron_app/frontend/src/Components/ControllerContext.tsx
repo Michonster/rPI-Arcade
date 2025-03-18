@@ -3,14 +3,24 @@ import { io } from "socket.io-client";
 
 const socket = io("http://127.0.0.1:5002", { timeout: 5000 });
 
-// Context for allowing frontend to create handlers that map controller input to interactions on the GUI
-const ControllerContext = createContext({
-  events: [] as string[],
-  // direction: joystick action ("left", "right", "up", "down", "released").
-  // handler: Calibrated for individual components, for example in Emulator.tsx,
-  //    registerHandler("left", handleLeftClick);    ---> Associates action "left" with its own function, handeLeftClick
-  registerHandler: (direction: string, handler: () => void) => { },
-  registerButtonHandler: (button: string, handler: () => void) => { },
+
+/* Context for allowing frontend to create handlers that map controller input to interactions on the GUI
+
+  direction: joystick action ("left", "right", "up", "down", "released").
+  handler: Calibrated for individual components, for example in Emulator.ts:
+      > registerHandler("left", handleLeftClick);    
+            ---> Associates action "left" with function: handeLeftClick */
+interface ControllerContextType {
+  events: string[];  // Store directions or events as strings
+  registerHandler: (direction: string, handler: () => void) => void;
+  registerButtonHandler: (button: string, handler: () => void) => void;
+}
+
+const ControllerContext = createContext<ControllerContextType>({
+  // Default value/functions, does nothing
+  events: [],  
+  registerHandler: () => {},  
+  registerButtonHandler: () => {}  
 });
 
 export const ControllerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

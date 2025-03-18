@@ -1,3 +1,4 @@
+"""Script to detect controller input. Uses Flask to send controller input data to the frontend. """
 # import eventlet
 # eventlet.monkey_patch()
 

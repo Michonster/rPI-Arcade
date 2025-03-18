@@ -60,7 +60,7 @@ game_systems = ['nes', 'n64', 'snes', 'dreamcast', 'psp', 'psx', 'nds', 'megadri
 def start_usb_monitoring():
     # clear any games from previous uploads in the same app instance 
     succ_list.clear()
-    duplicate.clear()
+    dup_list.clear()
     fail_list.clear()
 
     global stop_script, observer
