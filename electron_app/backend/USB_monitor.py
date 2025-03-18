@@ -29,8 +29,6 @@ context = pyudev.Context()
 monitor = pyudev.Monitor.from_netlink(context)
 monitor.filter_by(subsystem = 'block')
 
-stop_script = False
-
 HOST = "127.0.0.1"  
 PORT = 5001
 
@@ -63,9 +61,8 @@ def start_usb_monitoring():
     dup_list.clear()
     fail_list.clear()
 
-    global stop_script, observer
-    stop_script = False
-    observer = pyudev.MonitorObserver(monitor, callback=device_event)
+    global observer
+    observer = pyudev.MonitorObserver(monitor, callback=device_event, daemon=True)
     observer.start()
     print("Monitoring USB storage insertions...")
     # TESTING =====================================================
@@ -76,11 +73,12 @@ def start_usb_monitoring():
 
 @socketio.on('STOP')
 def stop_usb_monitoring():
-    global stop_script, observer
-    stop_script = True
+    global observer
     if observer is not None:
-        observer.stop()
-        observer = None
+        print("Stopping USB monitoring...")
+        observer.stop()  # Stop the observer first
+        observer.join()  # Wait for the thread to finish
+        observer = None  # Then set to None
         print("Stopped USB monitoring.")
         pass
     else:
@@ -207,7 +205,6 @@ def copy_folder_from_usb(usb_base_path, destination_base_path):
 
 #Monitor USB insertion/removal
 def device_event(device):
-    global stop_script
     #Perform when USB is inserted
     if device.action == 'add' and 'part' in device.device_type:
             print(f"USB device {device.device_node} inserted.")
@@ -256,7 +253,6 @@ def device_event(device):
     elif device.action == 'remove' and 'part' in device.device_type:
         print(f"USB partition {device.device_node} removed")
         socketio.emit('status', {'message': "USB successfully removed."})
-        stop_script = True
         observer.stop()
         print("USB removed, stopping script")
         
