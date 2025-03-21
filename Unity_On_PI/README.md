@@ -58,6 +58,28 @@
 </ol>
 When requested, type in Y to continue downloads 
 
+## Making a Directory in Termux
+<ol>
+<li> Run the command: apt update && apt upgrade </li>
+<li> Run the command: termux-setup-storage </li>
+<li> Run the command: cd /sdcard </li>
+<li> Run the command: mkdir ~enter_name_here~ </li>
+<li> Run the command: cd ~enter_name_here~ </li>
+</ol>
+
+## Installing Node
+<ol>
+<li> Run the command: pkg install nodejs </li>
+<li> Run the command: pkg upgrade </li>
+</ol>
+
+## Conclusion
+After installing node and attempting to follow <a href = "https://github.com/Michonster/rPI-Arcade/tree/main/electron_app/frontend"> these steps, </a> we run into a issue.
+<a href = "temp"> In this image </a> we see that electron is not supported on android.
+Due to the neccesity of electron, we can not install the project on android unless we emulate a seperate OS on android that runs electron or migrate away from electron.
+Instead of continuing to attempt to get the program to run we instead are going to get BOX64 to run on a standard RASPI os
+
+### Google License Steps (unused) 
 ## Google Play on Raspi:
 Note: Unless using another android system, you cannot get play certified. Instead install Aptoide for mobile apps
 <ol>
