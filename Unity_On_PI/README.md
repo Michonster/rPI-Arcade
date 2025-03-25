@@ -76,6 +76,7 @@ When requested, type in Y to continue downloads
 ## Conclusion
 After installing node and attempting to follow <a href = "https://github.com/Michonster/rPI-Arcade/tree/main/electron_app/frontend"> these steps, </a> we run into a issue.
 <a href = "https://github.com/Michonster/rPI-Arcade/blob/Unity_On_PI/Unity_On_PI/AndroidError.PNG"> In this image </a> we see that electron is not supported on android.
+Aditionally, in <a href = "https://github.com/electron/electron/issues/45485"> this git issue </a> we see that the developers are not planning to add support to android.
 Due to the neccesity of electron, we can not install the project on android unless we emulate a seperate OS on android that runs electron or migrate away from electron.
 Instead of continuing to attempt to get the program to run we instead are going to get BOX64 to run on a standard RASPI os
 
