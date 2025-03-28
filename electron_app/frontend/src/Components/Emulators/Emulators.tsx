@@ -137,20 +137,23 @@ const Emulators: React.FC<EmulatorsProps> = ({
 
             return (
               <motion.div
-                key={index}
-                className={`box ${offset === 0 ? "active" : ""} ${index === totalBoxes - 2 || index === totalBoxes - 1 ? "borderCustom" : ""
-                  }`}
-                animate={{
-                  zIndex: zIndex,
-                  x: xPosition,
-                  y: yPosition,
-                  scale: scale,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 600,
-                  damping: 60,
-                }}
+              key={index}
+              className={`box ${offset === 0 ? "active" : ""} ${index === totalBoxes - 2 || index === totalBoxes - 1 ? "borderCustom" : ""}`}
+              animate={{
+                zIndex: zIndex,
+                x: xPosition,
+                y: yPosition,
+                scale: scale,
+                rotateY: offset === 0 ? 360 : 0, // Keeps rotating smoothly
+              }}
+              transition={{
+                x: { type: "spring", stiffness: 600, damping: 60 },
+                y: { type: "spring", stiffness: 600, damping: 60 },
+                scale: { type: "spring", stiffness: 600, damping: 60 },
+                rotateY: offset === 0 
+                  ? { duration: 3, ease: "linear", repeat: Infinity } // Continuous smooth spin
+                  : { duration: 0.2 }, // Instantly stops when unselected
+              }}
               >
                 {/* Render all boxes. Note that certain boxes like addGamesBox and launchGamesBox
                     are special so they get their own styles. */}
