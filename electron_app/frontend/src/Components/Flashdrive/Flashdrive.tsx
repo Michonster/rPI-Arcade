@@ -11,6 +11,11 @@ import Step1Instruction from './Step1Instruction';
 
 import { useController } from "../ControllerContext";
 
+/* Establishes two way communication with backend USB_monitor script to allow anyone to insert
+    a USB with the right format and upload game files to the EmulationStation. The script starts 
+    listening for USB insertions once the user presses continue to step 2. Once USB processes and
+    at step 3, User can remove flashdrive. 
+*/
 const Flashdrive: React.FC = () => {
   // Establish socket with usb_monitor server ======================================
   const socketRef = useRef<Socket | null>(null); // Ref so that socket doesn't trigger re-renders
@@ -161,8 +166,8 @@ const Flashdrive: React.FC = () => {
   };
 
   const stepTitle = [
-    "Step 1: Insert your flashdrive",
-    "Step 2: Wait for data processing",
+    "Step 1: Read Instructions and Prepare Your Flashdrive",
+    "Step 2: Insert Flashdrive",
     "Step 3: Processing complete. Please remove your flashdrive",
     "You may close this page."
   ];
