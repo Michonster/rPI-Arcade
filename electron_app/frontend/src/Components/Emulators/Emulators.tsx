@@ -144,15 +144,12 @@ const Emulators: React.FC<EmulatorsProps> = ({
                 x: xPosition,
                 y: yPosition,
                 scale: scale,
-                rotateY: offset === 0 ? 360 : 0, // Keeps rotating smoothly
+                // No rotateY here, it's handled by CSS animation
               }}
               transition={{
                 x: { type: "spring", stiffness: 600, damping: 60 },
                 y: { type: "spring", stiffness: 600, damping: 60 },
                 scale: { type: "spring", stiffness: 600, damping: 60 },
-                rotateY: offset === 0 
-                  ? { duration: 3, ease: "linear", repeat: Infinity } // Continuous smooth spin
-                  : { duration: 0.2 }, // Instantly stops when unselected
               }}
               >
                 {/* Render all boxes. Note that certain boxes like addGamesBox and launchGamesBox

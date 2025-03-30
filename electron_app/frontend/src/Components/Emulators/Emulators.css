@@ -155,3 +155,16 @@ button {
   align-items: center;
   justify-content: center;
 }
+
+@keyframes infiniteRotateY {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.active {
+  animation: infiniteRotateY 3s linear infinite;
+}
