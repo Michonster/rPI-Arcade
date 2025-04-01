@@ -61,6 +61,7 @@ app.whenReady().then(() => {
         win.close();
         win = null;
       }
+      process.exit();
     }, 5e3);
   });
 });

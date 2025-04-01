@@ -113,6 +113,10 @@ app.whenReady().then(() => {
         win.close();
         win = null;
       }
+
+      // Exit the terminal after closing the window
+      process.exit();
+      
     }, 5000);  // 5000 milliseconds = 5 seconds
 
   });
