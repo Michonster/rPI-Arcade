@@ -152,6 +152,8 @@ const Flashdrive: React.FC = () => {
     registerButtonHandler("x", handleCancel);
   }, [registerButtonHandler]);
 
+  
+
 
   // Handle displaying steps ======================================
   const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);

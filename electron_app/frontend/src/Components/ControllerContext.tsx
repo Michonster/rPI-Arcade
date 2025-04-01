@@ -17,7 +17,6 @@ interface ControllerContextType {
 }
 
 const ControllerContext = createContext<ControllerContextType>({
-  // Default value/functions, does nothing
   events: [],  
   registerHandler: () => {},  
   registerButtonHandler: () => {}  

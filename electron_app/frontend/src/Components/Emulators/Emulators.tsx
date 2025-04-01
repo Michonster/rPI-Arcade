@@ -205,7 +205,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
                   className="buttonCircle"
                   onClick={handleFlashdriveSelection}
                 >
-                  button
+                  x
                 </button>
                 <p> to access </p>
               </div>
