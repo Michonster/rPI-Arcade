@@ -21,14 +21,15 @@ PORT = 5002
 
 # Setup socketio
 app = Flask(__name__)
-socketio = SocketIO(app)
+#socketio = SocketIO(app)
 
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode="eventlet", logger=True, engineio_logger=True)
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="eventlet")#, logger=True, engineio_logger=True)
 
 @socketio.on('START')
 def start_controller_monitoring():
-    eventlet.spawn(start_joystick_handling)  # Use eventlet's non-blocking thread
+    thread = threading.Thread(target=start_joystick_handling, daemon=True)
+    thread.start()
     print("Monitoring controller movements...")
     
     # TESTING =====================================================
