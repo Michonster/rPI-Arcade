@@ -21,6 +21,7 @@ interface Emulator {
   games: string[];
   gif1: string;
   gif2: string;
+  idle: string;
 }
 
 // Define props for the DetailsMain component
@@ -105,7 +106,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
       <button className="back_button" onClick={goBack}>
         Back
       </button>
-      <img className="Mario" src={Mario64} alt="Mario 64" />
+      <img className="Mario" src={selectedEmulator?.idle ?? "/path/to/fallback-image.webp"} alt="Mario 64" />
 
       {/* GIF */}  
       <img
