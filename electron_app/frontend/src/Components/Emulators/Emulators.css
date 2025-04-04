@@ -95,14 +95,6 @@
   flex-direction: column;
 }
 
-button {
-  font-size: 24px;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin: 0 20px;
-}
-
 .button-container {
   position: absolute;
   top: 75%;
@@ -114,22 +106,25 @@ button {
   z-index: 99;
 }
 
-.left-button {
+.arrow-button {
+  font-size: 24px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 0 20px;
   background-color: transparent;
-  background-image: url("../images/left arrow.png");
   background-size: 100% 100%;
   width: 120px;
   height: 50px;
   background-repeat: no-repeat;
 }
 
-.right-button {
-  background-color: transparent;
+.left-arrow {
+  background-image: url("../images/left arrow.png");
+}
+
+.right-arrow {
   background-image: url("../images/right arrow.png");
-  background-size: 100% 100%;
-  width: 120px;
-  height: 50px;
-  background-repeat: no-repeat;
 }
 
 .left-button:active,

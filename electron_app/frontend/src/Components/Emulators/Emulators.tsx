@@ -51,10 +51,10 @@ const Emulators: React.FC<EmulatorsProps> = ({
   const allEmuData = [...emuData, addGamesBox, playGamesBox]; //concat addGamesBox
   const totalBoxes = allEmuData.length;
 
-  // Register joystick handlers for this page
+  // Register controller handlers for this page
   useEffect(() => {
-    registerHandler("left", handleLeftClick);
-    registerHandler("right", handleRightClick);
+    registerHandler("left", handleLeftMove);
+    registerHandler("right", handleRightMove);
     if (position === totalBoxes - 1) {
       // console.log("flashdrive reg")
       registerButtonHandler("X", handleFlashdriveSelection);
@@ -68,11 +68,11 @@ const Emulators: React.FC<EmulatorsProps> = ({
     }
   }, [position, registerHandler, registerButtonHandler]);
 
-  const handleRightClick = () => {
+  const handleRightMove = () => {
     setPosition((prev) => (prev < totalBoxes - 1 ? prev + 1 : 0));
   };
 
-  const handleLeftClick = () => {
+  const handleLeftMove = () => {
     setPosition((prev) => (prev > 0 ? prev - 1 : totalBoxes - 1));
   };
 
@@ -188,8 +188,8 @@ const Emulators: React.FC<EmulatorsProps> = ({
         </div>
 
         <div className="button-container">
-          <button className="left-button" onClick={handleLeftClick} />
-          <button className="right-button" onClick={handleRightClick} />
+          <button className="arrow-button left-arrow" onClick={handleLeftMove} />
+          <button className="arrow-button right-arrow" onClick={handleRightMove} />
         </div>
       </div>
 
@@ -202,7 +202,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
               <div className="buttonDesc">
                 <p> Press </p>
                 <button
-                  className="buttonCircle"
+                  className="standardButton active"
                   onClick={handleFlashdriveSelection}
                 >
                   x
@@ -216,7 +216,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
               <div className="buttonDesc">
                 <p> Press </p>
                 <button
-                  className="buttonCircle"
+                  className="standardButton"
                   onClick={handlePlaySelection}
                 >
                   button
@@ -230,7 +230,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
               <div className="buttonDesc">
                 <p> Press </p>
                 <button
-                  className="buttonCircle"
+                  className="standardButton"
                   onClick={handleEmulatorSelection}
                 >
                   button

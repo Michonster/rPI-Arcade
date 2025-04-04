@@ -31,18 +31,23 @@
 .cancel {
   color: white;
   display: flex;
-  align-items: center;
+  flex-direction: row;
   position: absolute;
   text-align: left;
-  top: 2%;
-  left: 12%;
-  font-size: 20px;
+  left: 14%;
+  top: 6%;
+  width: 20%;
+  font-size: 30px;
   line-height: 20px;
   z-index: 99;
+  align-items: center;
 }
 
-.cancel .button {
-  font-weight: 100;
+.textAndButton {
+  display: flex;
+  width: 25%;
+  align-items: center;
+  flex-direction: column;
 }
 
 /* log output ===================================== */

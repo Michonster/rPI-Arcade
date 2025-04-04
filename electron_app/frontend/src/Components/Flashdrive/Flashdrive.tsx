@@ -29,7 +29,7 @@ const Flashdrive: React.FC = () => {
 
   useEffect(() => {
     // make sure game summary arrays are reset
-    setSuccessGames([]); 
+    setSuccessGames([]);
     setDuplicateGames([]);
     setFailedGames([]);
 
@@ -137,9 +137,30 @@ const Flashdrive: React.FC = () => {
 
   // Button actions ======================================
   const navigate = useNavigate();
-  const { registerButtonHandler } = useController();
+  const { registerHandler, registerButtonHandler } = useController();
+  const [activeButton, setActiveButton] = useState<number>(0);
 
-  // If button to cancel/go back is pressed
+
+  useEffect(() => {
+    registerButtonHandler("x", handleClick);
+    registerHandler("left", handleButtonMove);
+    registerHandler("right", handleButtonMove);
+
+  }, [registerButtonHandler, registerHandler]);
+
+  const handleClick = () => {
+    if (activeStep == 1 && activeButton == 0) {
+      return handleCancel
+    } else {
+      return handleContinue
+    }
+  }
+
+  const handleContinue = () => {
+    markStepComplete(1)
+    setActiveStep(2)
+  }
+
   const handleCancel = () => {
     if (socketRef.current) {
       socketRef.current.emit('STOP');
@@ -148,12 +169,13 @@ const Flashdrive: React.FC = () => {
     navigate('/emulators');
   };
 
-  useEffect(() => {
-    registerButtonHandler("x", handleCancel);
-  }, [registerButtonHandler]);
-
-  
-
+  const handleButtonMove = () => {
+    if (activeStep == 1 && activeButton == 0) {
+      setActiveButton(1)
+    } else {
+      setActiveButton(0)
+    }
+  }
 
   // Handle displaying steps ======================================
   const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
@@ -191,8 +213,7 @@ const Flashdrive: React.FC = () => {
           <button
             key={stepNum}
             className={`buttonStep ${activeStep === stepNum ? 'activeStep' : ''} ${completedSteps[stepNum - 1] ? 'completedStep' : ''}`}
-            onClick={() => setActiveStep(stepNum)} // FOR TESTING PURPOSES
-          >
+            onClick={() => setActiveStep(stepNum)} /* FOR TESTING PURPOSES */> 
             {stepNum}
           </button>
         ))}
@@ -201,10 +222,28 @@ const Flashdrive: React.FC = () => {
 
       <div className="body">
         <div className="cancel">
-          <button className="buttonCircle" onClick={handleCancel}> button </button>
-          cancel &
-          <br />
-          return to main screen
+          Press X to select :
+          <div className="textAndButton">
+            <button
+              className={`standardButton ${activeButton === 0 ? "active" : ""}`}
+              onClick={handleCancel}>
+              cancel
+            </button>
+          </div>
+
+          {/* remove continue button once progressed to next step */}
+          <div className="textAndButton">
+            {activeStep == 1 ?
+              <button
+                className={`standardButton ${activeButton === 1 ? "active" : ""}`}
+                onClick={handleContinue}>
+                continue
+              </button> :
+              ''
+            }
+
+          </div>
+
         </div>
         <div className="flashdriveTitle">
           <p style={{ fontSize: "50px" }}> Add Games to EmulationStation </p>
