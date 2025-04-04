@@ -25,7 +25,8 @@
   perspective: 1000px;
 
   top: 45%;
-  left: 45.5%;
+  /* left: %;
+  transform: translate(-50%, 0);  */ 
 }
 
 .box {
@@ -165,6 +166,19 @@ button {
   }
 }
 
-.active {
+.spinWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.spinning {
   animation: infiniteRotateY 3s linear infinite;
+  /* transform-style: preserve-3d; */
 }

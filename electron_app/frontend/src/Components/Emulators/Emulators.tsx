@@ -136,9 +136,9 @@ const Emulators: React.FC<EmulatorsProps> = ({
             }
 
             return (
+            <div key={index} className={`spinWrapper ${offset === 0 ? "spinning" : ""}`}>
               <motion.div
-              key={index}
-              className={`box ${offset === 0 ? "active" : ""} ${index === totalBoxes - 2 || index === totalBoxes - 1 ? "borderCustom" : ""}`}
+              className={`box ${index === totalBoxes - 2 || index === totalBoxes - 1 ? "borderCustom" : ""}`}
               animate={{
                 zIndex: zIndex,
                 x: xPosition,
@@ -152,14 +152,13 @@ const Emulators: React.FC<EmulatorsProps> = ({
                 scale: { type: "spring", stiffness: 600, damping: 60 },
               }}
               >
-                {/* Render all boxes. Note that certain boxes like addGamesBox and launchGamesBox
-                    are special so they get their own styles. */}
+              {/* Render all boxes. Note that certain boxes like addGamesBox and launchGamesBox
+                  are special so they get their own styles. */}
                 {index === totalBoxes - 2 ? (
                   <div className="addGamesBox">
                     <p style={{ margin: "0" }}> ★ {box.text} ★ </p>
                     <p style={{ textAlign: "left", fontSize: "24px", margin: "5% 0 0 0" }}>
-                      REQUIRED: &nbsp;&nbsp;&nbsp;flashdrive +
-                      &nbsp;&nbsp;&nbsp;proper format Select to see format.
+                      REQUIRED: &nbsp;&nbsp;&nbsp;flashdrive + &nbsp;&nbsp;&nbsp;proper format Select to see format.
                     </p>
                   </div>
                 ) : index === totalBoxes - 1 ? (
@@ -175,6 +174,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
                   </>
                 )}
               </motion.div>
+            </div>
             );
           })}
         </div>
