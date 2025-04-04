@@ -16,7 +16,7 @@ function createWindow() {
   win = new BrowserWindow({
     width,
     height,
-    // fullscreen: true, 
+    fullscreen: true,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs")
@@ -33,6 +33,7 @@ function createWindow() {
 }
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
+    console.log("Quitting app...");
     app.quit();
   }
 });
@@ -61,7 +62,16 @@ app.whenReady().then(() => {
         win.close();
         win = null;
       }
-      process.exit();
+      console.log("Exiting terminal...");
+      const exitPath = path.resolve(homeDir, "rPI-Arcade/electron_app/backend/exit.sh");
+      exec(exitPath, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error exiting terminal: ${error.message}`);
+          return;
+        }
+        console.log(`Output: ${stdout}`);
+        if (stderr) console.error(`Errors: ${stderr}`);
+      });
     }, 5e3);
   });
 });
