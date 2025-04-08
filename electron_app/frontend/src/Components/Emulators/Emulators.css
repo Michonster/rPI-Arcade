@@ -182,3 +182,22 @@ button {
   animation: infiniteRotateY 3s linear infinite;
   /* transform-style: preserve-3d; */
 }
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(255, 255, 255, 0.3),
+      0 0 20px rgba(255, 255, 255, 0.15),
+      0 0 30px rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 35px rgba(255, 255, 255, 0.3),
+      0 0 45px rgba(255, 255, 255, 0.15);
+  }
+}
+
+.spinning .box {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
