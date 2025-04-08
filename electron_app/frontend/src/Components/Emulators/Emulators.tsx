@@ -10,6 +10,7 @@ import logo from "/images/Logo.png";
 import emuData from "../../emuData.json";
 
 import { useController } from "../ControllerContext";
+import { style } from "framer-motion/client";
 
 // Type Definitions ==========================
 interface EmulatorsProps {
@@ -136,11 +137,10 @@ const Emulators: React.FC<EmulatorsProps> = ({
             }
 
             return (
-            <div key={index} className={`spinWrapper ${offset === 0 ? "spinning" : ""}`}>
+            <div key={index} className={`spinWrapper ${offset === 0 ? "spinning" : ""}`} style={{ zIndex }}>
               <motion.div
               className={`box ${index === totalBoxes - 2 || index === totalBoxes - 1 ? "borderCustom" : ""}`}
               animate={{
-                zIndex: zIndex,
                 x: xPosition,
                 y: yPosition,
                 scale: scale,
