@@ -35,7 +35,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ emulatorName }) => {
   };
 
   useEffect(() => {
-    registerButtonHandler("x", goBack);
+    registerButtonHandler("B", goBack);
   }, [registerButtonHandler]);
 
 
