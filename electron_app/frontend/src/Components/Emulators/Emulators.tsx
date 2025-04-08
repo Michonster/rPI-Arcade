@@ -204,8 +204,9 @@ const Emulators: React.FC<EmulatorsProps> = ({
                 <button
                   className="standardButton active"
                   onClick={handleFlashdriveSelection}
+                  style={{ margin:"10px"}}
                 >
-                  x
+                  X
                 </button>
                 <p> to access </p>
               </div>
@@ -216,10 +217,11 @@ const Emulators: React.FC<EmulatorsProps> = ({
               <div className="buttonDesc">
                 <p> Press </p>
                 <button
-                  className="standardButton"
+                  className="standardButton active"
                   onClick={handlePlaySelection}
+                  style={{ margin:"10px"}}
                 >
-                  button
+                  X
                 </button>
                 <p> to </p>
               </div>
@@ -232,8 +234,9 @@ const Emulators: React.FC<EmulatorsProps> = ({
                 <button
                   className="standardButton"
                   onClick={handleEmulatorSelection}
+                  style={{ margin:"10px"}}
                 >
-                  button
+                  X
                 </button>
                 <p> for </p>
               </div>

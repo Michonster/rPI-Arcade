@@ -138,22 +138,14 @@ const Flashdrive: React.FC = () => {
   // Button actions ======================================
   const navigate = useNavigate();
   const { registerHandler, registerButtonHandler } = useController();
-  const [activeButton, setActiveButton] = useState<number>(0);
 
 
   useEffect(() => {
     registerButtonHandler("x", handleClick);
-    registerHandler("left", handleButtonMove);
-    registerHandler("right", handleButtonMove);
 
   }, [registerButtonHandler, registerHandler]);
 
   const handleClick = () => {
-    if (activeStep == 1 && activeButton == 0) {
-      return handleCancel
-    } else {
-      return handleContinue
-    }
   }
 
   const handleContinue = () => {
@@ -168,14 +160,6 @@ const Flashdrive: React.FC = () => {
     }
     navigate('/emulators');
   };
-
-  const handleButtonMove = () => {
-    if (activeStep == 1 && activeButton == 0) {
-      setActiveButton(1)
-    } else {
-      setActiveButton(0)
-    }
-  }
 
   // Handle displaying steps ======================================
   const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
@@ -213,7 +197,7 @@ const Flashdrive: React.FC = () => {
           <button
             key={stepNum}
             className={`buttonStep ${activeStep === stepNum ? 'activeStep' : ''} ${completedSteps[stepNum - 1] ? 'completedStep' : ''}`}
-            onClick={() => setActiveStep(stepNum)} /* FOR TESTING PURPOSES */> 
+            onClick={() => setActiveStep(stepNum)} /* FOR TESTING PURPOSES */>
             {stepNum}
           </button>
         ))}
@@ -222,33 +206,42 @@ const Flashdrive: React.FC = () => {
 
       <div className="body">
         <div className="cancel">
-          Press X to select :
+
           <div className="textAndButton">
+            <div className='buttonTitle'>
+              Return
+            </div>
             <button
-              className={`standardButton ${activeButton === 0 ? "active" : ""}`}
+              className={`standardButton`}
               onClick={handleCancel}>
-              cancel
+              B
             </button>
           </div>
 
-          {/* remove continue button once progressed to next step */}
-          <div className="textAndButton">
-            {activeStep == 1 ?
-              <button
-                className={`standardButton ${activeButton === 1 ? "active" : ""}`}
-                onClick={handleContinue}>
-                continue
-              </button> :
-              ''
-            }
-
+          <div className="flashdriveTitle">
+            <p style={{ fontSize: "50px" }}> Add Games to EmulationStation </p>
+            <p style={{ fontSize: "40px", color: "#e7ef88" }}>{stepTitle[activeStep - 1]}</p>
           </div>
 
+          {/* remove continue button once progressed to next step */}
+          {activeStep == 1 ?
+            <div className="textAndButton">
+              <div className='buttonTitle'>
+                Continue
+              </div>
+              <button
+                className={`standardButton`}
+                onClick={handleContinue}>
+                X
+              </button>
+            </div> :
+            ''
+          }
+
+
+
         </div>
-        <div className="flashdriveTitle">
-          <p style={{ fontSize: "50px" }}> Add Games to EmulationStation </p>
-          <p style={{ fontSize: "40px", color: "#e7ef88" }}>{stepTitle[activeStep - 1]}</p>
-        </div>
+
 
         {/* ============================ */}
         <div className="logOutput">

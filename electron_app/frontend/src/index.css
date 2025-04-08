@@ -44,7 +44,6 @@ h1 {
   width: 80px;
   height: 80px;
   font-size: 25px;
-  margin: 10px 20px;
   border-radius: 20%;
   background-color: #597cd2;
   transition: background-color 0.3s ease;
@@ -58,23 +57,33 @@ h1 {
 }
   
 /* Animated blinking border */
-.standardButton.active::before {
+.standardButton::before {
   content: "";
   position: absolute;
   inset: 0; 
   border-radius: 20%;
-  border: 5px solid white;
+  border: 5px white;
+  border-style:  solid;
   box-sizing: border-box; 
+  /* animation: rotateBorder 10s linear infinite; */
   animation: blinkBorder 1s linear infinite;
   pointer-events: none; 
 }
   
+/* @keyframes rotateBorder {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+
 @keyframes blinkBorder {
   50% { opacity: 0%; }
   100% { opacity: 100%; }
 }
-
-buttonCircle:hover {
+.standardButton:hover {
   background-color: #0056b3;
 }
 
