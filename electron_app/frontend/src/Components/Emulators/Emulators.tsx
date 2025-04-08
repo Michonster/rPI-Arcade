@@ -6,6 +6,7 @@ import "./Emulators.css";
 import TopBanner from '../Banners/TopBanner.tsx';
 import BotBanner from '../Banners/BotBanner.tsx';
 import logo from "/images/Logo.png";
+import { FiSettings } from "react-icons/fi";
 
 import emuData from "../../emuData.json";
 
@@ -86,6 +87,9 @@ const Emulators: React.FC<EmulatorsProps> = ({
     navigate("/flashdrive");
   };
 
+  const handleSettingsClick = () => {
+    navigate("/settings");
+  };
   const handleLogoClick = () => {
     navigate("/");
   };
@@ -99,6 +103,7 @@ const Emulators: React.FC<EmulatorsProps> = ({
     <div className="emulators">
       <TopBanner />
       <BotBanner />
+      <FiSettings className="settings-icon" onClick={handleSettingsClick} />
       <img src={logo} alt="logo" className="logo" style={{ opacity: 0, zIndex:"99"}} onClick={handleLogoClick}/>
       {/* Middle Section =====================================================*/}
       <div className="middle">
