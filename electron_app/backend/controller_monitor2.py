@@ -4,9 +4,6 @@ import socketio
 socketio = socketio.Client()
 socketio.connect("http://127.0.0.1:5002")  # Connect to Flask-SocketIO server
 
-def emit_joystick_event(event):
-    socketio.emit("joystick_event", event)
-
 # ====================================================
 
 DEAD_ZONE = 0.2  # Define a dead zone for joystick axes
@@ -89,38 +86,29 @@ joystick.init()
 print(f"Joystick detected: {joystick.get_name()}")
 print(f"Number of axes: {joystick.get_numaxes()}")
 print(f"Number of buttons: {joystick.get_numbuttons()}")
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.JOYBUTTONDOWN:
-            emit_joystick_event({"button": "X", "action": "pressed"})
-        elif event.type == pygame.JOYBUTTONUP:
-            emit_joystick_event({"button": "X", "action": "released"})
-        #joystick movement
-        elif event.type == pygame.JOYAXISMOTION:
-            handle_axis_motion(event.axis, event.value)
 
-#try:
-#    while True:
-#        for event in pygame.event.get():
+try:
+    while True:
+        for event in pygame.event.get():
             #button press
-#            if event.type == pygame.JOYBUTTONDOWN:
-#                button = map_button(event.button)
-#                print(f"{button} Button pressed")
-#                socketio.emit("joystick_event", {"button": button, "action": "pressed"})
+            if event.type == pygame.JOYBUTTONDOWN:
+                button = map_button(event.button)
+                print(f"{button} Button pressed")
+                socketio.emit("joystick_event", {"button": button, "action": "pressed"})
             #button release
-#            elif event.type == pygame.JOYBUTTONUP:
-#                button = map_button(event.button)
-#                print(f"{button} Button released")
-#                socketio.emit("joystick_event", {"button": button, "action": "release"})
+            elif event.type == pygame.JOYBUTTONUP:
+                button = map_button(event.button)
+                print(f"{button} Button released")
+                socketio.emit("joystick_event", {"button": button, "action": "release"})
             #joystick movement
-#            elif event.type == pygame.JOYAXISMOTION:
-#                handle_axis_motion(event.axis, event.value)
+            elif event.type == pygame.JOYAXISMOTION:
+                handle_axis_motion(event.axis, event.value)
 
-#            elif event.type == pygame.QUIT:
-#                print("Exiting...")
+            elif event.type == pygame.QUIT:
+                print("Exiting...")
 
-#except KeyboardInterrupt:
-#    print("Exiting...")
+except KeyboardInterrupt:
+    print("Exiting...")
 
-#finally:
-#    pygame.quit()
+finally:
+    pygame.quit()
