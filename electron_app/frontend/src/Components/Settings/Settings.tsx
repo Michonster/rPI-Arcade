@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Settings.css";
@@ -9,7 +8,7 @@ const Settings: React.FC = () => {
   return (
     <div className="settings-page">
       <h1>Settings</h1>
-      <button onClick={() => navigate("/")}>Back to Home</button>
+      <button onClick={() => navigate("/emulators")}>Back to Emulators</button>
 
       <div className="settings-options">
         <button>Audio Settings</button>

@@ -204,8 +204,9 @@ button {
 
 .settings-icon {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 40px;
+  right: 25px;
+  scale: 2.0;
   cursor: pointer;
   color: white;
   z-index: 100;
