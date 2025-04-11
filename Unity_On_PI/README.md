@@ -8,7 +8,7 @@
 <li> Push pushpins into the RasPi </li>
 </ol>
 
-## Flashing RasPi 5:
+## Flashing RasPi 5 with Android:
 <ol>
 <li> Download Ras Pi Imager from there website <a href ="https://www.raspberrypi.com/software/">here</a></li>
 <li> Select Raspi 5 for Pi Device </li>
@@ -20,7 +20,7 @@
 <li> Select Cancel if Windows asks to format the disk </li>
 </ol>
 
-## Resizeing Partition:
+## Resizeing Android Partition:
 <ol>
 <li> Go to <a href = "https://konstakang.com/devices/rpi5/"> this website</a> and select the version of android you downloaded</li>
 <li> Scroll down to the FAQ and download the KonstaKANG-rpi-resize.zip </li>
@@ -33,7 +33,7 @@
 <li> Reboot the Raspberry Pi into system </li>
 </ol>
 
-## Downloading Aptoide on Pi:
+## Downloading Aptoide on Android Pi:
 <ol>
 <li> On a seperate device, go to <a href= "https://en.aptoide.com/" > this website</a> and click on the download button </li>
 <li> After it finishes downloading, move the file onto a seperate USB stick </li>
@@ -42,7 +42,7 @@
 <li> Select the apk file and allow it to install </li>
 </ol>
 
-## Download Termux, Update Linux, and Install GIT
+## Download Termux, Update Linux, and Install GIT on Android
 <ol>
 <li> Go to <a href= "https://f-droid.org/en/packages/com.termux/"> this website </a> and download the latest APK that is not in beta or alpha </li>
 <li> After it finishes downloading, move the file onto a seperate USB stick </li>
@@ -58,7 +58,7 @@
 </ol>
 When requested, type in Y to continue downloads 
 
-## Making a Directory in Termux
+## Making a Directory in Termux on Andoid
 <ol>
 <li> Run the command: apt update && apt upgrade </li>
 <li> Run the command: termux-setup-storage </li>
@@ -67,21 +67,28 @@ When requested, type in Y to continue downloads
 <li> Run the command: cd ~enter_name_here~ </li>
 </ol>
 
-## Installing Node
+## Installing Node on android
 <ol>
 <li> Run the command: pkg install nodejs </li>
 <li> Run the command: pkg upgrade </li>
 </ol>
 
-## Conclusion
+## Conclusion For Android Version
 After installing node and attempting to follow <a href = "https://github.com/Michonster/rPI-Arcade/tree/main/electron_app/frontend"> these steps, </a> we run into a issue.
 <a href = "https://github.com/Michonster/rPI-Arcade/blob/Unity_On_PI/Unity_On_PI/AndroidError.PNG"> In this image </a> we see that electron is not supported on android.
 Aditionally, in <a href = "https://github.com/electron/electron/issues/45485"> this git issue </a> we see that the developers are not planning to add support to android.
 Due to the neccesity of electron, we can not install the project on android unless we emulate a seperate OS on android that runs electron or migrate away from electron.
 Instead of continuing to attempt to get the program to run we instead are going to get BOX64 to run on a standard RASPI os
 
-### Google License Steps (unused) 
-## Google Play on Raspi:
+## BOX64
+Utilized <a href = "https://github.com/ptitSeb/box64/blob/main/docs/COMPILE.md"> these </a> steps to install BOX64.
+
+## Emulation Station
+Utilized <a href = "https://retropie.org.uk/docs/Manual-Installation/"> these </a> steps to install emulation station.
+
+
+## Google License Steps (unused) 
+### Google Play on Raspi:
 Note: Unless using another android system, you cannot get play certified. Instead install Aptoide for mobile apps
 <ol>
 <li> Turn on the Raspi</li>
@@ -95,7 +102,7 @@ Note: Unless using another android system, you cannot get play certified. Instea
 <li> Reboot into system </li>
 </ol>
 
-## Play Certification:
+### Play Certification:
 Note: Unable to set/get a GSF ID using the android system downloaded
 <ol>
 <li> On a seperate device, go to <a href="https://github.com/K3V1991/Fix-This-Device-isnt-Play-Protect-certified"> this website</a> and follow the steps to certify the pi </li>'
