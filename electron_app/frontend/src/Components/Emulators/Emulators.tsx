@@ -7,6 +7,7 @@ import TopBanner from '../Banners/TopBanner.tsx';
 import BotBanner from '../Banners/BotBanner.tsx';
 import logo from "/images/Logo.png";
 import uploadIcon from "../../assets/uploadIcon.png"
+import mascotGIF from "../../assets/mascotRPIRcade.gif"
 
 import emuData from "../../assets/emuData.json";
 
@@ -101,10 +102,15 @@ const Emulators: React.FC<EmulatorsProps> = ({
     <div className="emulators">
       <TopBanner />
       <BotBanner />
+      <div className="mascotGIFWrapper">
+          <img src={mascotGIF} alt="mascot gif" className="mascotGIF"/>
+        </div>
       {/* This logo is invisible & just for testing purposes; on click, returns to startup screen. */}
       <img src={logo} alt="logo" className="logo" style={{ opacity: 0, zIndex: "99" }} onClick={handleLogoClick} />
       {/* Middle Section =====================================================*/}
       <div className="middle">
+        
+
         <div className="carousel">
           {allEmuData.map((box, index) => {
             const offset = (position - index - 1 + totalBoxes) % totalBoxes;
