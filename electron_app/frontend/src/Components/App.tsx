@@ -5,7 +5,7 @@ From /emulators, you can select different emulators to view their individual det
 App.tsx also keeps track of which details page to open and which position in the carousel to return to after exiting.
 */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Emulators from './Emulators/Emulators';
