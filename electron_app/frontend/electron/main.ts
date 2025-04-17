@@ -1,8 +1,15 @@
+/*
+  Formats app pop-up, redirects "launch game" button click to open EmulationStation,
+  and also closes the electron window and terminal after EmulationStation launches.
+*/
+
 import { app, BrowserWindow } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { screen, ipcMain } from 'electron'; // Import the screen module to access display properties
 import { exec } from "child_process";
+
+import os from "os";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -33,7 +40,7 @@ function createWindow() {
 
   // Create a fullscreen window; width and height are dynamic, based on machine's dimensions
   // Note: For final product, use fullscreen
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width,
     height,
     fullscreen: true, 
@@ -65,6 +72,7 @@ function createWindow() {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    console.log('Quitting app...');
     app.quit()
   }
 })
@@ -81,24 +89,50 @@ app.whenReady().then(() => {
   createWindow();
 
   // Frontend will call this function via IPC 
-  // This will close our Electron app and start up EmulationSTation
+  // This will close our Electron app and start up EmulationStation
   ipcMain.on("start-emulationstation", () => {
     console.log("Launching EmulationStation...");
 
-    // Close Electron window
-    if (win) {
-      win.close();
-      win = null;
-    }
+    // Specify path to the bash script
+    const homeDir = os.homedir();
+    const scriptPath = path.resolve(homeDir, 'rPI-Arcade/electron_app/backend/boot_to_emulation.sh');
 
-    // Execute EmulationStation command
-    exec("emulationstation", (error, stdout, stderr) => {
+    // Run bash script to open boot menu and run emulationstation
+    exec(scriptPath, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error launching EmulationStation: ${error.message}`);
         return;
       }
       console.log(`EmulationStation Output: ${stdout}`);
-      if (stderr) console.error(`EmulationStation Errors: ${stderr}`);
+      if (stderr) console.error(`EmulationStation Errors: ${stderr}`);      
     });
+
+    // Wait for 5 seconds before closing the Electron window
+    setTimeout(() => {
+      // Now, close the Electron window after the delay
+      if (win) {
+        console.log('Closing the Electron window...');
+        win.close();
+        win = null;
+      }
+
+      console.log('Exiting terminal...');
+
+      // Specify path to the exit bash script
+      const exitPath = path.resolve(homeDir, 'rPI-Arcade/electron_app/backend/exit.sh');
+
+      // Run bash script to exit terminal
+      exec(exitPath, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error exiting terminal: ${error.message}`);
+          return;
+        }
+        console.log(`Output: ${stdout}`);
+        if (stderr) console.error(`Errors: ${stderr}`);      
+      });
+      
+    }, 5000); // 5000 milliseconds = 5 seconds
+
   });
+
 });
