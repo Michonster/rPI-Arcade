@@ -1,5 +1,8 @@
+"""Script to detect controller input. Uses Flask to send controller input data to the frontend. """
 # import eventlet
 # eventlet.monkey_patch()
+
+# TO run the server: gunicorn -w 1 -k eventlet -b 0.0.0.0:5002 controller_monitor:app
 import pygame # type: ignore
 import signal
 import sys
@@ -11,7 +14,6 @@ import time
 
 def signal_handler(signal, frame):
     print('Shutting down control montitor server...')
-    socketio.stop()
     sys.exit(0)
 
 HOST = "127.0.0.1" 
@@ -40,35 +42,25 @@ def start_controller_monitoring():
     # time.sleep(0.5)  
     # socketio.emit("joystick_event", {"direction": "release"})
     # time.sleep(1)
-    # socketio.emit("joystick_event", {"button": "x", "action": "pressed"})
+    # socketio.emit("joystick_event", {"button": "X", "action": "pressed"})
     # time.sleep(1)
-    # socketio.emit("joystick_event", {"button": "x", "action": "pressed"})
-    # time.sleep(1)
-    # socketio.emit("joystick_event", {"direction": "right"})
-    # time.sleep(0.5)  
-    # socketio.emit("joystick_event", {"direction": "release"})
+    # socketio.emit("joystick_event", {"button": "X", "action": "pressed"})
     # time.sleep(1)
     # socketio.emit("joystick_event", {"direction": "right"})
     # time.sleep(0.5)  
     # socketio.emit("joystick_event", {"direction": "release"})
     # time.sleep(1)
-    # socketio.emit("joystick_event", {"button": "x", "action": "pressed"})
+    # socketio.emit("joystick_event", {"direction": "right"})
+    # time.sleep(0.5)  
+    # socketio.emit("joystick_event", {"direction": "release"})
     # time.sleep(1)
-    # socketio.emit("joystick_event", {"button": "x", "action": "pressed"})
+    # socketio.emit("joystick_event", {"button": "X", "action": "pressed"})
+    # time.sleep(1)
+    # socketio.emit("joystick_event", {"button": "X", "action": "pressed"})
     # time.sleep(1)
     # socketio.emit("joystick_event", {"direction": "right"})
     # time.sleep(3)  
     # socketio.emit("joystick_event", {"direction": "release"})
-
-    # time.sleep(1)
-    # socketio.emit("joystick_event", {"direction": "left"})
-    # time.sleep(1)  
-    # socketio.emit("joystick_event", {"direction": "release"})
-    # time.sleep(1)  
-    # socketio.emit("joystick_event", {"direction": "right"})
-    # time.sleep(1)  
-    # socketio.emit("joystick_event", {"direction": "release"})
-    
 
 
 # Start joystick monitoring in a separate thread
