@@ -54,8 +54,9 @@ const Emulators: React.FC<EmulatorsProps> = ({
 
   // Register controller handlers for this page
   useEffect(() => {
-    registerHandler("left", handleLeftMove);
-    registerHandler("right", handleRightMove);
+    registerHandler("left", handleLeftClick);
+    registerHandler("right", handleRightClick);
+    registerButtonHandler("B", handleLogoClick);
     if (position === totalBoxes - 1) {
       // console.log("flashdrive reg")
       registerButtonHandler("X", handleFlashdriveSelection);

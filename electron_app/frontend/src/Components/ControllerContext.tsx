@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("http://127.0.0.1:5002", { timeout: 5000 });
+const socket = io("http://127.0.0.1:5002", { 
+  transports: ["websocket"],
+  reconnection: true,
+  autoConnect: true,
+  reconnectionAttempts: 5,
+  timeout: 5000,
+});
 
 
 /* Context for allowing frontend to create handlers that map controller input to interactions on the GUI
@@ -54,7 +60,7 @@ export const ControllerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         console.log(button, action)
         console.log("Registered Button Handler: ", buttonHandlers.current)
         eventMessage = `${button} Button ${action}`;
-        buttonHandlers.current[button];
+        buttonHandlers.current[button]?.();
       } else if (direction) {
         eventMessage = `Joystick ${direction}`;
         console.log(direction)
@@ -75,7 +81,7 @@ export const ControllerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
           if (intervalRef.current !== null) {
             clearInterval(intervalRef.current);
           }
-          joystickHandlers.current[direction]();
+          joystickHandlers.current[direction]()?.();
 
           // Start repeating the action, initially slower
           intervalRef.current = setInterval(() => {
