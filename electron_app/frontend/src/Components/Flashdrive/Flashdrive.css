@@ -13,7 +13,6 @@
   display: flex;
   width: 100%;
   position: absolute;
-  top: 5%;
   flex-direction: column;
   align-items: center;
   line-height: 180%;
@@ -31,18 +30,32 @@
 .cancel {
   color: white;
   display: flex;
-  align-items: center;
+  flex-direction: row;
   position: absolute;
   text-align: left;
-  top: 2%;
-  left: 12%;
-  font-size: 20px;
+  left: 10%;
+  top: 6%;
+  width: 88%;
+  font-size: 30px;
   line-height: 20px;
   z-index: 99;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.cancel .button {
-  font-weight: 100;
+.textAndButton {
+  display: flex;
+  width: 25%;
+  align-items: center;
+  flex-direction: column;
+  margin: 0px 20px;
+}
+
+.buttonTitle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  width: 80px;
 }
 
 /* log output ===================================== */

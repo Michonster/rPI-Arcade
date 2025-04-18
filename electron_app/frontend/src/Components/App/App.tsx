@@ -1,4 +1,11 @@
-import React, { useState } from 'react';
+/* 
+App.tsx contains the routes to the different pages available through the startup screen (/), 
+including /emulators, /details, and /flashdrive.
+From /emulators, you can select different emulators to view their individual details page (/details).
+App.tsx also keeps track of which details page to open and which position in the carousel to return to after exiting.
+*/
+
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Emulators from '../Emulators/Emulators.tsx';

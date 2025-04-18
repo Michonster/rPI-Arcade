@@ -11,6 +11,11 @@ import Step1Instruction from './Step1Instruction';
 
 import { useController } from "../ControllerContext";
 
+/* Establishes two way communication with backend USB_monitor script to allow anyone to insert
+    a USB with the right format and upload game files to the EmulationStation. The script starts 
+    listening for USB insertions once the user presses continue to step 2. Once USB processes and
+    at step 3, User can remove flashdrive. 
+*/
 const Flashdrive: React.FC = () => {
   // Establish socket with usb_monitor server ======================================
   const socketRef = useRef<Socket | null>(null); // Ref so that socket doesn't trigger re-renders
@@ -23,6 +28,11 @@ const Flashdrive: React.FC = () => {
   const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
+    // make sure game summary arrays are reset
+    setSuccessGames([]);
+    setDuplicateGames([]);
+    setFailedGames([]);
+
     // Establish socket connection only when the page is mounted
     socketRef.current = io("http://127.0.0.1:5001", {
       reconnection: false, // Disable automatic reconnections
@@ -112,7 +122,6 @@ const Flashdrive: React.FC = () => {
 
     // Cleanup listeners on unmount & disconnect the socket
     return () => {
-      console.log("returning from page")
       if (socketRef.current) {
         socketRef.current.off("status", handleStatus);
         socketRef.current.off("summary", handleSummary);
@@ -122,22 +131,28 @@ const Flashdrive: React.FC = () => {
         socketRef.current.disconnect();
         console.log("Disconnected from flashdrive socket");
       }
-
-      // Reset state when unmounting
-      console.log("resetting game arrays")
-      setSuccessGames([]); 
-      setDuplicateGames([]);
-      setFailedGames([]);
     };
-
   }, []); // Runs only when the component mounts/unmounts
 
 
   // Button actions ======================================
   const navigate = useNavigate();
-  const { registerButtonHandler } = useController();
+  const { registerHandler, registerButtonHandler } = useController();
 
-  // If button to cancel/go back is pressed
+
+  useEffect(() => {
+    registerButtonHandler("x", handleClick);
+
+  }, [registerButtonHandler, registerHandler]);
+
+  const handleClick = () => {
+  }
+
+  const handleContinue = () => {
+    markStepComplete(1)
+    setActiveStep(2)
+  }
+
   const handleCancel = () => {
     if (socketRef.current) {
       socketRef.current.emit('STOP');
@@ -145,11 +160,6 @@ const Flashdrive: React.FC = () => {
     }
     navigate('/emulators');
   };
-
-  useEffect(() => {
-    registerButtonHandler("x", handleCancel);
-  }, [registerButtonHandler]);
-
 
   // Handle displaying steps ======================================
   const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
@@ -164,8 +174,8 @@ const Flashdrive: React.FC = () => {
   };
 
   const stepTitle = [
-    "Step 1: Insert your flashdrive",
-    "Step 2: Wait for data processing",
+    "Step 1: Read Instructions and Prepare Your Flashdrive",
+    "Step 2: Insert Flashdrive",
     "Step 3: Processing complete. Please remove your flashdrive",
     "You may close this page."
   ];
@@ -187,8 +197,7 @@ const Flashdrive: React.FC = () => {
           <button
             key={stepNum}
             className={`buttonStep ${activeStep === stepNum ? 'activeStep' : ''} ${completedSteps[stepNum - 1] ? 'completedStep' : ''}`}
-            onClick={() => setActiveStep(stepNum)} // FOR TESTING PURPOSES
-          >
+            onClick={() => setActiveStep(stepNum)} /* FOR TESTING PURPOSES */>
             {stepNum}
           </button>
         ))}
@@ -197,15 +206,42 @@ const Flashdrive: React.FC = () => {
 
       <div className="body">
         <div className="cancel">
-          <button className="buttonCircle" onClick={handleCancel}> button </button>
-          cancel &
-          <br />
-          return to main screen
+
+          <div className="textAndButton">
+            <div className='buttonTitle'>
+              Return
+            </div>
+            <button
+              className={`standardButton`}
+              onClick={handleCancel}>
+              B
+            </button>
+          </div>
+
+          <div className="flashdriveTitle">
+            <p style={{ fontSize: "50px" }}> Add Games to EmulationStation </p>
+            <p style={{ fontSize: "40px", color: "#e7ef88" }}>{stepTitle[activeStep - 1]}</p>
+          </div>
+
+          {/* remove continue button once progressed to next step */}
+          {activeStep == 1 ?
+            <div className="textAndButton">
+              <div className='buttonTitle'>
+                Continue
+              </div>
+              <button
+                className={`standardButton`}
+                onClick={handleContinue}>
+                X
+              </button>
+            </div> :
+            ''
+          }
+
+
+
         </div>
-        <div className="flashdriveTitle">
-          <p style={{ fontSize: "50px" }}> Add Games to EmulationStation </p>
-          <p style={{ fontSize: "40px", color: "#e7ef88" }}>{stepTitle[activeStep - 1]}</p>
-        </div>
+
 
         {/* ============================ */}
         <div className="logOutput">

@@ -1,3 +1,8 @@
+/*
+Step1Instruction.tsx formats the details for the Flashdrive page:
+basically a description of the file structure required to upload a game, including an example.
+*/
+
 import React from 'react';
 
 import './Instruction.css'

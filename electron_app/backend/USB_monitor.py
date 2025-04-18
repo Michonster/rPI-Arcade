@@ -5,7 +5,7 @@ the roms won't be installed. """
 # import eventlet
 # eventlet.monkey_patch()
 
-# TO run the server: gunicorn -w 1 -b 0.0.0.0:5001 USB_monitor:app
+# TO run the server: gunicorn -w 1 -k eventlet -b 0.0.0.0:5001 USB_monitor:app
 import shutil
 import os
 import pyudev # type: ignore
@@ -20,7 +20,6 @@ from flask_cors import CORS
 
 def signal_handler(signal, frame):
     print('Shutting down USB monitor server...')
-    socketio.stop()
     sys.exit(0)
 
 # variables ==========================================================================
@@ -29,8 +28,6 @@ def signal_handler(signal, frame):
 context = pyudev.Context()
 monitor = pyudev.Monitor.from_netlink(context)
 monitor.filter_by(subsystem = 'block')
-
-stop_script = False
 
 HOST = "127.0.0.1"  
 PORT = 5001
@@ -59,9 +56,13 @@ game_systems = ['nes', 'n64', 'snes', 'dreamcast', 'psp', 'psx', 'nds', 'megadri
 # server/client interaction ==========================================================================
 @socketio.on('START')
 def start_usb_monitoring():
-    global stop_script, observer
-    stop_script = False
-    observer = pyudev.MonitorObserver(monitor, callback=device_event)
+    # clear any games from previous uploads in the same app instance 
+    succ_list.clear()
+    dup_list.clear()
+    fail_list.clear()
+
+    global observer
+    observer = pyudev.MonitorObserver(monitor, callback=device_event, daemon=True)
     observer.start()
     print("Monitoring USB storage insertions...")
     # TESTING =====================================================
@@ -72,11 +73,12 @@ def start_usb_monitoring():
 
 @socketio.on('STOP')
 def stop_usb_monitoring():
-    global stop_script, observer
-    stop_script = True
+    global observer
     if observer is not None:
-        observer.stop()
-        observer = None
+        print("Stopping USB monitoring...")
+        observer.stop()  # Stop the observer first
+        observer.join()  # Wait for the thread to finish
+        observer = None  # Then set to None
         print("Stopped USB monitoring.")
         pass
     else:
@@ -203,7 +205,6 @@ def copy_folder_from_usb(usb_base_path, destination_base_path):
 
 #Monitor USB insertion/removal
 def device_event(device):
-    global stop_script
     #Perform when USB is inserted
     if device.action == 'add' and 'part' in device.device_type:
             print(f"USB device {device.device_node} inserted.")
@@ -252,7 +253,6 @@ def device_event(device):
     elif device.action == 'remove' and 'part' in device.device_type:
         print(f"USB partition {device.device_node} removed")
         socketio.emit('status', {'message': "USB successfully removed."})
-        stop_script = True
         observer.stop()
         print("USB removed, stopping script")
         

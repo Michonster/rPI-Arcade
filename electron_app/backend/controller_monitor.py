@@ -13,7 +13,6 @@ import time
 
 def signal_handler(signal, frame):
     print('Shutting down control montitor server...')
-    socketio.stop()
     sys.exit(0)
 
 HOST = "127.0.0.1" 
