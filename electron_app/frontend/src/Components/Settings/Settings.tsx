@@ -27,7 +27,6 @@ const Settings: React.FC = () => {
 
   const renderAudioSettings = () => (
     <div className="settings-subsection">
-      <h2>Audio Settings</h2>
       <p>Toggle audio output:</p>
       <button onClick={() => setAudioOn(prev => !prev)}>
         {audioOn ? "Turn Audio Off 🔇" : "Turn Audio On 🔊"}
@@ -38,7 +37,6 @@ const Settings: React.FC = () => {
 
   const renderVideoSettings = () => (
     <div className="settings-subsection">
-      <h2>Video Settings</h2>
       <p>Choose video quality:</p>
       <select value={videoQuality} onChange={(e) => setVideoQuality(e.target.value)}>
         <option value="low">Low</option>
@@ -51,7 +49,6 @@ const Settings: React.FC = () => {
 
   const renderControllerSettings = () => (
     <div className="settings-subsection">
-      <h2>Controller Mapping</h2>
       <p>Select control scheme:</p>
       <select value={controllerScheme} onChange={(e) => setControllerScheme(e.target.value)}>
         <option value="classic">Classic</option>
@@ -64,9 +61,19 @@ const Settings: React.FC = () => {
 
   return (
     <div className="settings-page">
-      <h1>Settings</h1>
-      <button onClick={() => navigate("/emulators")}>Back to Emulators</button>
-
+      <h1>
+        {activeSection === "audio"
+          ? "Audio Settings"
+          : activeSection === "video"
+          ? "Video Settings"
+          : activeSection === "controller"
+          ? "Controller Mapping"
+          : "Settings"}
+      </h1>
+      {activeSection === null && (
+        <button onClick={() => navigate("/emulators")}>Back to Emulators</button>
+      )}
+      
       {activeSection === null && renderMainMenu()}
       {activeSection === "audio" && renderAudioSettings()}
       {activeSection === "video" && renderVideoSettings()}
