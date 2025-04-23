@@ -7,6 +7,8 @@ const Settings: React.FC = () => {
 
   const [activeSection, setActiveSection] = useState<null | "audio" | "video" | "controller">(null);
   const [audioOn, setAudioOn] = useState(true);
+  const [volume, setVolume] = useState(0.5);
+  const audioRef = React.useRef<HTMLAudioElement>(null); 
   const [videoQuality, setVideoQuality] = useState("high");
   const [controllerScheme, setControllerScheme] = useState("classic");
 
@@ -32,6 +34,17 @@ const Settings: React.FC = () => {
         <button onClick={() => setAudioOn(prev => !prev)}>
           {audioOn ? "Turn Audio Off 🔇" : "Turn Audio On 🔊"}
         </button>
+      </div>
+      <div className="setting-pair">
+        <p className="setting-label">Volume:</p>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={(e) => setVolume(parseFloat(e.target.value))}
+        />
       </div>
       <button className="back-button" onClick={() => setActiveSection(null)}>← Back</button>
     </div>
@@ -64,6 +77,12 @@ const Settings: React.FC = () => {
       <button className="back-button" onClick={() => setActiveSection(null)}>← Back</button>
     </div>
   );
+
+  React.useEffect(() => { // Volume controller
+    if (audioRef.current) {
+      audioRef.current.volume = audioOn ? volume : 0;
+    }
+  }, [volume, audioOn]);
 
   return (
     <div className="settings-page">
