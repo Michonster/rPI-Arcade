@@ -10,22 +10,56 @@
   }
   
   .settings-options {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+  }
+  .setting {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .setting label {
+    min-width: 150px;
+    font-size: 18px;
+  }
+  
+  select, button {
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #222;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  select:focus, button:focus {
+    outline: 2px solid var(--primary-red);
+  }
+
+  .settings-subsection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
     gap: 16px;
   }
   
-  button {
-    padding: 10px 20px;
-    background: #333;
+  .back-button {
+    margin-top: 30px;
+    background-color: #444;
     color: white;
-    border: 1px solid #666;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 0.3s ease;
   }
   
-  button:hover {
-    background: #444;
+  .back-button:hover {
+    background-color: #666;
   }
