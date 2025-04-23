@@ -21,9 +21,18 @@
     gap: 20px;
   }
   
-  .setting label {
-    min-width: 150px;
-    font-size: 18px;
+  .setting-pair {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .setting-label {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
   }
   
   select, button {

@@ -27,34 +27,40 @@ const Settings: React.FC = () => {
 
   const renderAudioSettings = () => (
     <div className="settings-subsection">
-      <p>Toggle audio output:</p>
-      <button onClick={() => setAudioOn(prev => !prev)}>
-        {audioOn ? "Turn Audio Off 🔇" : "Turn Audio On 🔊"}
-      </button>
+      <div className="setting-pair">
+        <p className="setting-label">Toggle audio output:</p>
+        <button onClick={() => setAudioOn(prev => !prev)}>
+          {audioOn ? "Turn Audio Off 🔇" : "Turn Audio On 🔊"}
+        </button>
+      </div>
       <button className="back-button" onClick={() => setActiveSection(null)}>← Back</button>
     </div>
   );
 
   const renderVideoSettings = () => (
     <div className="settings-subsection">
-      <p>Choose video quality:</p>
-      <select value={videoQuality} onChange={(e) => setVideoQuality(e.target.value)}>
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-      </select>
+      <div className="setting-pair">
+        <p className="setting-label">Choose video quality:</p>
+        <select value={videoQuality} onChange={(e) => setVideoQuality(e.target.value)}>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
       <button className="back-button" onClick={() => setActiveSection(null)}>← Back</button>
     </div>
   );
 
   const renderControllerSettings = () => (
     <div className="settings-subsection">
-      <p>Select control scheme:</p>
-      <select value={controllerScheme} onChange={(e) => setControllerScheme(e.target.value)}>
-        <option value="classic">Classic</option>
-        <option value="modern">Modern</option>
-        <option value="custom">Custom</option>
-      </select>
+      <div className="setting-pair">
+        <p className="setting-label">Select control scheme:</p>
+        <select value={controllerScheme} onChange={(e) => setControllerScheme(e.target.value)}>
+          <option value="classic">Classic</option>
+          <option value="modern">Modern</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
       <button className="back-button" onClick={() => setActiveSection(null)}>← Back</button>
     </div>
   );
@@ -73,7 +79,7 @@ const Settings: React.FC = () => {
       {activeSection === null && (
         <button onClick={() => navigate("/emulators")}>Back to Emulators</button>
       )}
-      
+
       {activeSection === null && renderMainMenu()}
       {activeSection === "audio" && renderAudioSettings()}
       {activeSection === "video" && renderVideoSettings()}
